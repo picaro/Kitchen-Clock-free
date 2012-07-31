@@ -5,8 +5,8 @@ import java.util.Calendar;
 import android.widget.*;
 
 import android.content.Context;
-import com.op.cooker.model.*;
-import com.op.cooker.model.AlarmClock.TimerState;
+import com.op.kclock.model.*;
+import com.op.kclock.model.AlarmClock.TimerState;
 
 /*
  * Logic class for keeping track of the alarms. Alarm service ensures that new alarms are sent to the Android's
