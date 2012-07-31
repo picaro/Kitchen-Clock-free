@@ -1,13 +1,13 @@
-	package com.op.cooker.alarm;
+package com.op.kclock.alarm;
 
 import android.content.*;
 import android.os.*;
 import android.telephony.TelephonyManager;
 import android.util.*;
 
-import com.op.cooker.misc.Log;
-import com.op.cooker.model.*;
-import com.op.cooker.model.AlarmClock.TimerState;
+import com.op.kclock.misc.Log;
+import com.op.kclock.model.*;
+import com.op.kclock.model.AlarmClock.TimerState;
 
 import java.util.*;
 import android.widget.*;
