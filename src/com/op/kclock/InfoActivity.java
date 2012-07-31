@@ -1,4 +1,4 @@
-package com.op.cooker;
+package com.op.kclock;
 
 public class InfoActivity
 {
