@@ -17,12 +17,12 @@
  *  
  */
 
-package com.op.cooker.misc;
+package com.op.kclock.misc;
 
 
-import com.op.cooker.R;
-import com.op.cooker.cookconst.SettingsConst;
-import com.op.cooker.settings.Utils;
+import com.op.kclock.R;
+import com.op.kclock.cookconst.SettingsConst;
+import com.op.kclock.settings.Utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
