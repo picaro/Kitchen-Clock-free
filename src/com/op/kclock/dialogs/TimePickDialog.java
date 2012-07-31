@@ -1,17 +1,17 @@
-package com.op.cooker.dialogs;
+package com.op.kclock.dialogs;
 
 import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.view.View.*;
-import com.op.cooker.*;
+import com.op.kclock.*;
 import kankan.wheel.widget.*;
 import kankan.wheel.widget.adapters.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
 import android.text.format.*;
-import com.op.cooker.model.*;
+import com.op.kclock.model.*;
 
 public class TimePickDialog extends Dialog {
 
