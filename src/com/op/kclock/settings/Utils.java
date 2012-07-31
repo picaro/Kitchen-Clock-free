@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import com.op.kclock.R;
-import com.op.cooker.misc.Log;
+import com.op.kclock.misc.Log;
 
 
 import android.content.Context;
