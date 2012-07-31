@@ -23,7 +23,7 @@ import android.util.Config;
 
 public class Log
 {
-	private final static String LOGTAG = "kitchentimer";
+	private final static String LOGTAG = "kitchen-clock";
 
 	//static final boolean DEBUG = false;
 	//public static final boolean LOGV = DEBUG ? Config.LOGD : Config.LOGV;
