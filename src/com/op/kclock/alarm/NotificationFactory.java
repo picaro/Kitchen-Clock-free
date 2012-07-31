@@ -1,4 +1,4 @@
-package com.op.cooker.alarm;
+package com.op.kclock.alarm;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -6,8 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 //import ohtu.beddit.activity.MainActivity;
-import com.op.cooker.utils.TimeUtils;
-import com.op.cooker.*;
+import com.op.kclock.utils.TimeUtils;
+import com.op.kclock.*;
 
 
 /*
