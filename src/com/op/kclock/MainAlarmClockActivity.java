@@ -1,4 +1,4 @@
-package com.op.cooker;
+package com.op.kclock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,15 +29,15 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.op.cooker.alarm.AlarmService;
-import com.op.cooker.alarm.AlarmServiceImpl;
-import com.op.cooker.alarm.WakeUpLock;
-import com.op.cooker.cookconst.SettingsConst;
-import com.op.cooker.dialogs.TimePickDialog;
-import com.op.cooker.misc.Log;
-import com.op.cooker.model.AlarmClock;
-import com.op.cooker.music.MusicHandler;
-import com.op.cooker.ui.TextViewWithMenu;
+import com.op.kclock.alarm.AlarmService;
+import com.op.kclock.alarm.AlarmServiceImpl;
+import com.op.kclock.alarm.WakeUpLock;
+import com.op.kclock.cookconst.SettingsConst;
+import com.op.kclock.dialogs.TimePickDialog;
+import com.op.kclock.misc.Log;
+import com.op.kclock.model.AlarmClock;
+import com.op.kclock.music.MusicHandler;
+import com.op.kclock.ui.TextViewWithMenu;
 
 
 public class MainAlarmClockActivity extends Activity implements OnClickListener
