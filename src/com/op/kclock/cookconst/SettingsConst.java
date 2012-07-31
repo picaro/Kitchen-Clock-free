@@ -1,4 +1,4 @@
-package com.op.cooker.cookconst;
+package com.op.kclock.cookconst;
 
 /**
  *class with app settings const
