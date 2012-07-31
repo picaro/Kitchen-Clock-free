@@ -1,4 +1,4 @@
-package com.op.cooker.settings;
+package com.op.kclock.settings;
 
 
 import android.app.*;
@@ -6,7 +6,7 @@ import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
-import com.op.cooker.*;
+import com.op.kclock.*;
 import java.io.*;
 import java.util.*;
 
