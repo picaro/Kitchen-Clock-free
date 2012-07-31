@@ -1,4 +1,4 @@
-package com.op.cooker.utils;
+package com.op.kclock.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
