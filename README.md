@@ -1,8 +1,16 @@
 Kitchen-Clock-free
 ==================
 
-Kitchen Clock free
+Current work: AlarmClock - will be used for recipes
+   - Save alarms (for refresh) - Restore?
+   - Extract alarm to separate project. 
+      - fix menus, 
+      - languges, 
+      - Settings with music
+      
 
+
+Kitchen Clock free
 
 
 
