@@ -17,7 +17,7 @@
  *  
  */
 
-package com.op.cooker.misc;
+package com.op.kclock.misc;
 
 import android.util.Config;
 
