@@ -1,4 +1,4 @@
-package com.op.cooker.model;
+package com.op.kclock.model;
 
 import android.content.*;
 import android.os.*;
