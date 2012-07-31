@@ -1,4 +1,4 @@
-package com.op.cooker.music;
+package com.op.kclock.music;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -6,7 +6,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import com.op.cooker.*;
+import com.op.kclock.*;
 
 //import ohtu.beddit.io.PreferenceService;
 
