@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Андроид Рецепты</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="pref_savesession">Сохранить пароль</string>
+    <string name="pref_default_alarm">Звук будильника</string>
+    <string name="main_search">Поиск</string>
+    <string name="main_catalog">Выбрать Рецепт</string>
+    <string name="main_favour">Мои Рецепты</string>
+    <string name="main_shoplist">Что Купить</string>
+    <string name="main_addrecipe">Добавить рецепт</string>
+    <string name="main_alarmclock">Таймер</string>
+    <string name="main_fridge">Холодильник</string>
+    <string name="main_nearme">Что готовят рядом</string>
+    <string name="main_popular">Популярные</string>
+    <string name="changelog_title">Changelog</string>
+
+    <!-- Eula -->
+    <string name="eula_title">Лицензия</string>
+    <string name="eula_accept">Принять</string>
+    <string name="eula_refuse">Отказаться</string>
+    <string name="name">Имя</string>
+    <string name="save">Сохранить</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Отмена</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="back">Назад</string>
+    <string name="settime">Установить время</string>
+   
+   	<string name="min">мин</string>
+    <string name="hour">час</string>
+    <string name="sec">сек</string>
+    <string name="set">установить</string>
+	
+   
+    <!-- Notifications -->
+    <string name="timer_started">Таймер запущен</string>
+    <string name="click_to_open">Click here to open the application</string>
+    <string name="countdown_ended">Таймер завершен</string>
+
+</resources>
