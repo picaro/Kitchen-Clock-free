@@ -1,4 +1,4 @@
-package com.op.cooker.alarm;
+package com.op.kclock.alarm;
 
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
