@@ -40,7 +40,7 @@ import com.op.kclock.music.MusicHandler;
 import com.op.kclock.ui.TextViewWithMenu;
 
 
-public class MainAlarmClockActivity extends Activity implements OnClickListener
+public class MainActivity extends Activity implements OnClickListener
 {
 
     private MusicHandler music = null;
@@ -53,7 +53,6 @@ public class MainAlarmClockActivity extends Activity implements OnClickListener
 //	private SharedPreferences mPrefs;
 
 	private ArrayList<AlarmClock> alarmList = new ArrayList<AlarmClock>();
-	private Map<LinearLayout,AlarmClock> alarmMap = new HashMap<LinearLayout,AlarmClock>();
 
 	TextView tvOut;
 
@@ -223,7 +222,7 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 			case R.id.menu_exit:{
 				
 					//	mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID);
-				//	System.exit(0);
+					System.exit(0);
 				}
 
 		}	
@@ -281,7 +280,7 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 
 	private void setAlarmDialog(AlarmClock alarm)
 	{
-		TimePickDialog dialog = new TimePickDialog(MainAlarmClockActivity.this);
+		TimePickDialog dialog = new TimePickDialog(MainActivity.this);
 		dialog.setAlarm(alarm);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 

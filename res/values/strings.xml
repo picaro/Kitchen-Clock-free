@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">Cook-Droid</string>
+     <string name="app_name">Kitchen Clock</string>
     <string name="menu_settings">Settings</string>
     <string name="pref_savesession">Save session</string>
     <string name="pref_default_alarm">Alarm sound</string>
-    <string name="main_search">Search</string>
-    <string name="main_catalog">Recipes</string>
-    <string name="main_favour">My Recipes</string>
-    <string name="main_shoplist">Shopping List</string>
     <string name="main_addrecipe">Add Recipe</string>
     <string name="main_alarmclock">Alarm Clock</string>
-    <string name="main_fridge">Fridge</string>
-    <string name="main_nearme">Near</string>
-    <string name="main_popular">Popular</string>
     <string name="changelog_title">Changelog</string>
 
     <!-- Eula -->

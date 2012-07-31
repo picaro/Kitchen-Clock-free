@@ -20,8 +20,8 @@ public class SettingsActivity extends PreferenceActivity
         //setContentView(R.layout.settings);
 		addPreferencesFromResource(R.xml.settings);
 
-		prefs = getSharedPreferences(SettingsConst.SETTINGS, 0);
-		
-		isSessSavePref = (CheckBoxPreference) findPreference( SettingsConst.SAVE_SESSION);
+//		prefs = getSharedPreferences(SettingsConst.SETTINGS, 0);
+//		
+//		isSessSavePref = (CheckBoxPreference) findPreference( SettingsConst.SAVE_SESSION);
     }
 }

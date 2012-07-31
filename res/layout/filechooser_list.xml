@@ -13,7 +13,7 @@
 	  android:layout_marginTop="5dip"
 	  android:layout_marginBottom="5dip"
 	  android:layout_marginLeft="5dip"
-	  android:src="@drawable/ic_main_catalog"
+	  android:src="@drawable/ic_dialog_info"
 	  android:scaleType="centerCrop"/>
   <TextView
   	  android:id="@+id/file_picker_text"

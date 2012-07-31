@@ -1,19 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Андроид Рецепты</string>
+    <string name="app_name">Кухонный Таймер</string>
     <string name="menu_settings">Настройки</string>
-    <string name="pref_savesession">Сохранить пароль</string>
     <string name="pref_default_alarm">Звук будильника</string>
-    <string name="main_search">Поиск</string>
-    <string name="main_catalog">Выбрать Рецепт</string>
-    <string name="main_favour">Мои Рецепты</string>
-    <string name="main_shoplist">Что Купить</string>
-    <string name="main_addrecipe">Добавить рецепт</string>
     <string name="main_alarmclock">Таймер</string>
-    <string name="main_fridge">Холодильник</string>
-    <string name="main_nearme">Что готовят рядом</string>
-    <string name="main_popular">Популярные</string>
     <string name="changelog_title">Changelog</string>
 
     <!-- Eula -->

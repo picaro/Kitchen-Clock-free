@@ -35,7 +35,7 @@ public class NotificationFactory {
     }
 
     public void setNotification(int startHours, int startMinutes, int endHours, int endMinutes) {
-        Notification notification = new Notification(R.drawable.notify_alarm_default, "", 0);
+        Notification notification = new Notification(R.drawable.stat_notify_alarm, "", 0);
         notification.flags = Notification.FLAG_NO_CLEAR;
 
         // The notification will have time displayed either "8:15 AM" or "8:00 AM - 8:15 AM",
