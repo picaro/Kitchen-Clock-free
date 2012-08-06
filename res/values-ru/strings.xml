@@ -27,7 +27,7 @@
     <string name="sec">сек</string>
     <string name="set">установить</string>
 	
-   
+  
     <!-- Notifications -->
     <string name="timer_started">Таймер запущен</string>
     <string name="click_to_open">Click here to open the application</string>

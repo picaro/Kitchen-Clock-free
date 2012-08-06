@@ -38,15 +38,16 @@ import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.music.MusicHandler;
 import com.op.kclock.ui.TextViewWithMenu;
+import com.op.kclock.misc.*;
 
 
 public class MainActivity extends Activity implements OnClickListener
 {
 
     private MusicHandler music = null;
-  private Handler handler ;    
-  
-	
+	private Handler handler ;    
+
+
 	LinearLayout mainL = null; 
 	public final static String TAG = "AlarmaClockActivity";
 	NotificationManager mNotificationManager;
@@ -62,12 +63,12 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmclock);
-		
-	   //     Eula.show(this); 
-        //	Changelog.show(this);
-        
-		if(alarmList == null) alarmList  = new ArrayList<AlarmClock>();   
-  	
+
+		Eula.show(this); 
+       	Changelog.show(this);
+
+		if (alarmList == null) alarmList  = new ArrayList<AlarmClock>();   
+
 		tvOut = (TextView) findViewById(R.id.tvOut);
 		if (alarmList.size() > 0)
 		{ 
@@ -77,25 +78,26 @@ public class MainActivity extends Activity implements OnClickListener
 		{
 			addAlarmDialog();
 		} 
-		
-		
-		
+
+
+
 //		
 	}
 
-protected void onRestoreInstanceState(Bundle savedInstanceState) {
-    super.onRestoreInstanceState(savedInstanceState);
-    
-	   alarmList	= savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
-}
+	protected void onRestoreInstanceState(Bundle savedInstanceState)
+	{
+		super.onRestoreInstanceState(savedInstanceState);
 
-  @Override
-public void onSaveInstanceState(Bundle savedInstanceState)
-{
-  savedInstanceState.putParcelableArrayList("SAVE_SELECTED", alarmList);
-  super.onSaveInstanceState(savedInstanceState);
-}
-  
+		alarmList	= savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState)
+	{
+		savedInstanceState.putParcelableArrayList("SAVE_SELECTED", alarmList);
+		super.onSaveInstanceState(savedInstanceState);
+	}
+	
 	private void drawAlarms()
 	{
 		//get alarms from settings
@@ -115,7 +117,8 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 
 	private void addAlarm(AlarmClock newAlarm)
 	{
-		if (newAlarm.getElement() == null){
+		if (newAlarm.getElement() == null)
+		{
 			drawAlarm(newAlarm);
 			alarmList.add(newAlarm);
 		}
@@ -133,13 +136,13 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 		alarm.updateElement();
 		itemView.setOnClickListener(this);
 
-		AlarmService alarmService = new AlarmServiceImpl(this, 100,handler);
+		AlarmService alarmService = new AlarmServiceImpl(this, 100, handler);
 		alarmService.setAlarmClock(alarm);
 		alarm.setState(AlarmClock.TimerState.RUNNING);
 		new Thread(alarmService).start();
-		
 
-		
+
+
 		registerForContextMenu(alarm.getWidget());
 		//add the itemView
 		mainL.addView(itemView, new TableLayout.LayoutParams(
@@ -156,31 +159,34 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 		SharedPreferences sp= this.getSharedPreferences(SettingsConst.SETTINGS, 0);
 		int ss = sp.getInt("trr", 0);
 
-	//	if (alarmService.getStatus() == AlarmClock.TimerState.RUNNING){
-	//		alarmService.alarmSTOP();
-	//	} else {
+		//	if (alarmService.getStatus() == AlarmClock.TimerState.RUNNING){
+		//		alarmService.alarmSTOP();
+		//	} else {
 		//	alarmService.a);
-	//	}
+		//	}
 		tvOut.setText("Нажата кнопка Cancel" + v);
 		ss++;
-		sp.edit().putInt("ttr",ss);
+		sp.edit().putInt("ttr", ss);
 		sp.edit().commit();
 	}
-	
+
     public void onTimerClick(View v)
 	{
 		AlarmClock alarm = 	((TextViewWithMenu)v).getAlarm();
-		
-		if(alarm.getState().equals(AlarmClock.TimerState.ALARMING)){
-		//	alarm.finalize();
+
+		if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
+		{
+			//	alarm.finalize();
 			alarm.setState(AlarmClock.TimerState.STOPPED);
-			
-		} else{
+
+		}
+		else
+		{
 			alarm.setState(AlarmClock.TimerState.PAUSED);
-			
+
 		}
 	}	
-	
+
 
 // ============================================================
 // ====================  MENUS	===============================
@@ -201,9 +207,9 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.alarm_context, menu);
 		super.onCreateContextMenu(menu, v, menuInfo);	
-		
-	//    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-	      //long itemID = info.position;
+
+		//    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+		//long itemID = info.position;
 //	      menu.setHeaderTitle("lior" + 2);
   	}
 
@@ -224,7 +230,7 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 
 				return true;
 			case R.id.menu_exit:{
-				
+
 					//	mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID);
 					System.exit(0);
 				}
@@ -240,24 +246,24 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 	{
 		TextViewWithMenu.TextViewMenuInfo menuInfo = (TextViewWithMenu.TextViewMenuInfo) item.getMenuInfo();  
 		TextViewWithMenu text = (TextViewWithMenu) menuInfo.targetView;  
-		    		    
+
 		switch (item.getItemId())
 		{
 			case R.id.settime:{
-				setAlarmDialog(text.getAlarm());
-			//	alarmService.start();
+					setAlarmDialog(text.getAlarm());
+					//	alarmService.start();
 					//Intent i3 = new Intent(this, SettingsActivity.class); 
 					//startActivity(i3);	
 					return true;
 				}
 			case R.id.remove:{
-				this.deleteAlarm(text);
-				//	View entry = item.targetView;
-				//long entry = info.id;
-	        	//	View parent =(View)entry.getParent();
+					this.deleteAlarm(text);
+					//	View entry = item.targetView;
+					//long entry = info.id;
+					//	View parent =(View)entry.getParent();
 
-				return true;
-			}
+					return true;
+				}
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -268,8 +274,10 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 // ============================================================
 	private void deleteAlarm(TextViewWithMenu text)
 	{
-		for(AlarmClock alarm:alarmList){
-			if(alarm.getWidget() == (TextViewWithMenu)text) {
+		for (AlarmClock alarm:alarmList)
+		{
+			if (alarm.getWidget() == (TextViewWithMenu)text)
+			{
 				alarmList.remove(alarm);
 				alarm.setState(AlarmClock.TimerState.STOPPED);
 				break;
@@ -277,8 +285,9 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 		}
 		mainL.removeView(((LinearLayout)text.getParent()));
 	}
-	
-	private void addAlarmDialog() {
+
+	private void addAlarmDialog()
+	{
 		setAlarmDialog(null);		
 	}
 
@@ -286,37 +295,39 @@ public void onSaveInstanceState(Bundle savedInstanceState)
 	{
 		TimePickDialog dialog = new TimePickDialog(MainActivity.this);
 		dialog.setAlarm(alarm);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		dialog.setDialogResult(new TimePickDialog.OnMyDialogResult(){
-				public void finish(AlarmClock newAlarm)
-				{
-					addAlarm(newAlarm);
-				}
-			});
+//		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//
+//		dialog.setDialogResult(new TimePickDialog.OnMyDialogResult(){
+//				public void finish(AlarmClock newAlarm)
+//				{
+//					addAlarm(newAlarm);
+//				}
+//			});
 		dialog.show();
 	}
-	
-	
-	  /**
+
+
+	/**
      * Creates new MusicHandler and starts playing, Also creates ShowStopper.
      */
-    private void playMusic() {
+    private void playMusic()
+	{
         music = new MusicHandler();
         music.setMusic(this);
         music.play(true);
-    /*    ShowStopper stopper = new ShowStopper(PreferenceService.getAlarmLength(this), music, vibrator);
-        showStopperThread = new Thread(stopper);
-        showStopperThread.start();*/
+		/*    ShowStopper stopper = new ShowStopper(PreferenceService.getAlarmLength(this), music, vibrator);
+		 showStopperThread = new Thread(stopper);
+		 showStopperThread.start();*/
     }
 
 
-	
-	   /**
-	      * Finishes the activity, also closes the various things started by onCreate.
-	      */
+
+	/**
+	 * Finishes the activity, also closes the various things started by onCreate.
+	 */
     @Override
-    public void finish() {
+    public void finish()
+	{
         Log.v(TAG, "finish");
 		//alarmService.alarmSTOP();
     }

@@ -1,87 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="wrap_content" android:layout_height="wrap_content">
-     
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" 
-android:id="@+id/timepick"	>
-			 
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:paddingLeft="12dp"
-		android:paddingRight="12dp"
-		android:paddingTop="20dp">
-	  
-	  	<kankan.wheel.widget.WheelView android:id="@+id/hour"
-			android:layout_height="wrap_content"
-			android:layout_width="80dp"
-			android:label="hours"/>
-		<kankan.wheel.widget.WheelView android:id="@+id/mins"
-			android:layout_height="wrap_content"
-			android:layout_width="80dp"/>
-		<kankan.wheel.widget.WheelView android:id="@+id/secs"
-			android:layout_height="wrap_content"
-			android:layout_width="80dp"/>
-	</LinearLayout>	
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:paddingLeft="12dp"
-		android:paddingRight="12dp"
-		android:paddingTop="20dp">
-		<TextView
-					android:layout_width="80dp"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_horizontal"
-					android:text="@string/hour"
-					android:id="@+id/hourslbl"
-					/>
-		<TextView
-					android:layout_width="80dp"
-					android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"	
-					android:text="@string/min"
-					android:id="@+id/minslbl"/>
-		<TextView
-					android:layout_width="80dp"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_horizontal"
-					android:text="@string/sec" 
-					android:id="@+id/secslbl"/>
-	</LinearLayout>	
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:paddingLeft="12dp"
-		android:paddingRight="12dp"
-		android:paddingTop="20dp">
-	<Button
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:layout_weight="0.5"
-                                android:id="@+id/settimerbtn"
-                                android:text="@string/set"
-		                android:textSize="24dp"></Button>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="wrap_content">
 
-	<Button
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:layout_weight="0.5"
-                                android:id="@+id/cancelsettimer"
-                                android:text="@string/cancel"
-		                android:textSize="24dp"></Button>
-	
-		
-	</LinearLayout>	
-	
-		
-</LinearLayout> 
-   
-          
-    </RelativeLayout>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" 
+		android:id="@+id/timepick"	>
+
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:paddingLeft="12dp"
+			android:paddingRight="12dp"
+			android:paddingTop="20dp">
+
+			<kankan.wheel.widget.WheelView android:id="@+id/hour"
+				android:layout_height="wrap_content"
+				android:layout_width="80dp"
+				android:label="hours"/>
+			<kankan.wheel.widget.WheelView android:id="@+id/mins"
+				android:layout_height="wrap_content"
+				android:layout_width="80dp"/>
+			<kankan.wheel.widget.WheelView android:id="@+id/secs"
+				android:layout_height="wrap_content"
+				android:layout_width="80dp"/>
+		</LinearLayout>	
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:paddingLeft="12dp"
+			android:paddingRight="12dp"
+			android:paddingTop="20dp">
+			<TextView
+				android:layout_width="80dp"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:text="@string/hour"
+				android:id="@+id/hourslbl"
+			/>
+			<TextView
+				android:layout_width="80dp"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"	
+				android:text="@string/min"
+				android:id="@+id/minslbl"/>
+			<TextView
+				android:layout_width="80dp"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:text="@string/sec" 
+				android:id="@+id/secslbl"/>
+		</LinearLayout>	
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:paddingLeft="12dp"
+			android:paddingRight="12dp"
+			android:paddingTop="20dp">
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_weight="0.5"
+				android:id="@+id/settimerbtn"
+				android:text="@string/set"
+				android:textSize="24dp"></Button>
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:layout_weight="0.5"
+				android:id="@+id/cancelsettimer"
+				android:text="@string/cancel"
+				android:textSize="24dp"></Button>
+
+
+		</LinearLayout>	
+
+
+	</LinearLayout> 
+</RelativeLayout>
