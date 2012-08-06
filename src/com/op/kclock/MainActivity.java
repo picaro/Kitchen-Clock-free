@@ -63,8 +63,8 @@ public class MainActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmclock);
 		
-	        Eula.show(this); 
-        	Changelog.show(this);
+	   //     Eula.show(this); 
+        //	Changelog.show(this);
         
 		if(alarmList == null) alarmList  = new ArrayList<AlarmClock>();   
   	
