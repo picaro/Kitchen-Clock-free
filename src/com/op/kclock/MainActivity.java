@@ -64,8 +64,14 @@ public class MainActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmclock);
 
+		ActionBar actionBar = getActionBar();
+		//actionBar.setCustomView(R.layout.actionbar_view);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM 
+			| ActionBar.DISPLAY_SHOW_HOME);
+	 
+
 		Eula.show(this); 
-       	Changelog.show(this);
+       		Changelog.show(this);
 
 		if (alarmList == null) alarmList  = new ArrayList<AlarmClock>();   
 
