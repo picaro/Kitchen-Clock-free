@@ -19,6 +19,11 @@ public class TimePickDialog extends Dialog
 	AlarmClock alarm = null;
 	OnMyDialogResult mDialogResult; // the callback
 
+	private WheelView hours;
+	private WheelView mins;
+	private WheelView secs;
+	
+	
 	/**
 	 * Constructor with setup context. 
 	 * TODO - add alarm
@@ -35,15 +40,15 @@ public class TimePickDialog extends Dialog
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.picktime);
 
-		final WheelView hours = (WheelView) findViewById(R.id.hour);
+	    hours = (WheelView) findViewById(R.id.hour);
 		hours.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 23));
 
-		final WheelView mins = (WheelView) findViewById(R.id.mins);
+	    mins = (WheelView) findViewById(R.id.mins);
 		mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 59,
 													"%02d"));
 		mins.setCyclic(true);
 
-		final WheelView secs = (WheelView) findViewById(R.id.secs);
+	    secs = (WheelView) findViewById(R.id.secs);
 		secs.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 59,
 													"%02d"));
 		secs.setCyclic(true);
@@ -67,15 +72,16 @@ public class TimePickDialog extends Dialog
 	View.OnClickListener saveHandler = new View.OnClickListener() {
 		public void onClick(View v)
 		{
+			if (!validateTime()){
+				return;
+			}
+			
 			if (alarm == null)
 			{
 				alarm = new AlarmClock();
 			}
 
-			final TextView buttonCancel = (TextView) findViewById(R.id.hourslbl);
-			final WheelView hours = (WheelView) findViewById(R.id.hour);
-			final WheelView mins = (WheelView) findViewById(R.id.mins);
-			final WheelView secs = (WheelView) findViewById(R.id.secs);
+		//	final TextView buttonCancel = (TextView) findViewById(R.id.hourslbl);
 
 			long seconds = hours.getCurrentItem() * 3600 + 
 				mins.getCurrentItem() * 60 +
@@ -83,6 +89,11 @@ public class TimePickDialog extends Dialog
 			alarm.setTime(seconds);	
 			mDialogResult.finish(alarm);
 			dismiss();
+		}
+
+		private boolean validateTime()
+		{
+			return hours.getCurrentItem() == 0;
 		}
 	};
 
