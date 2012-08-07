@@ -282,6 +282,7 @@ public class MainActivity extends Activity implements OnClickListener
 			if (alarm.getElement().getChildAt(1) == (TextViewWithMenu)text)
 			{
 				alarmList.remove(alarm);
+				if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.stopNOW(this);
 				alarm.setState(AlarmClock.TimerState.STOPPED);
 				break;
 			}
