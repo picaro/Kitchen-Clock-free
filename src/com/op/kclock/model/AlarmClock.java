@@ -6,6 +6,7 @@ import android.telephony.*;
 import android.util.*;
 import android.widget.*;
 import java.util.*;
+import com.op.kclock.alarm.*;
 
 
 public class AlarmClock implements Parcelable {
@@ -179,7 +180,7 @@ public class AlarmClock implements Parcelable {
 		if (seconds > 0) {
 			return true;
 		} else {
-			//some logic??
+			this.state = TimerState.ALARMING;
 			return false;
 		}
 	}
@@ -204,7 +205,7 @@ public class AlarmClock implements Parcelable {
 	{
 		vibratePhone(context);
 		//playMusic();
-//		WakeUpLock.acquire(context);
+		WakeUpLock.acquire(context);
 	}
 
 	public void alarmSTOP()
@@ -212,7 +213,7 @@ public class AlarmClock implements Parcelable {
 		setState(AlarmClock.TimerState.STOPPED);
 		//music.release();          // Alarm has rung and we have closed the dialog. Music is released.
         vibrator.cancel();        // Also no need to vibrate anymore.
-		//    WakeUpLock.release();
+	   WakeUpLock.release();
 		// super.finish();
 	}
 	

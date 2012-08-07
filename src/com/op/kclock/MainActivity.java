@@ -164,7 +164,7 @@ public class MainActivity extends Activity implements OnClickListener
 			if(alarm.getElement().getChildAt(1)== v) {
 					if (alarm.getState() == AlarmClock.TimerState.RUNNING){
 						alarm.setState(AlarmClock.TimerState.PAUSED);
-					} else 	if (alarm.getState() == AlarmClock.TimerState.STOPPED){
+					} else 	if (alarm.getState() == AlarmClock.TimerState.PAUSED){
 						alarm.setState(AlarmClock.TimerState.RUNNING);
 					} else 	if (alarm.getState() == AlarmClock.TimerState.ALARMING){
 						alarm.alarmSTOP();		
