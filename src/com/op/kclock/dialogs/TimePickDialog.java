@@ -19,21 +19,14 @@ public class TimePickDialog extends Dialog
 	AlarmClock alarm = null;
 	OnMyDialogResult mDialogResult; // the callback
 
+	/**
+	 * Constructor with setup context. 
+	 * TODO - add alarm
+	 */
 	public TimePickDialog(Context context)
 	{
 		super(context);
-		this.setTitle("Set alarm time");
-	}
-
-
-//	@Override	
-//	public void show()
-//	{
-//		super.show();
-//
-//		final WheelView hours = (WheelView) findViewById(R.id.hour);
-//		hours.scroll(5, 1000);
-//	}	
+	}	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -84,11 +77,6 @@ public class TimePickDialog extends Dialog
 			final WheelView mins = (WheelView) findViewById(R.id.mins);
 			final WheelView secs = (WheelView) findViewById(R.id.secs);
 
-//			final Calendar cal = Calendar.getInstance();
-//			cal.set(Calendar.HOUR_OF_DAY, hours.getCurrentItem());
-//			cal.set(Calendar.MINUTE, mins.getCurrentItem());
-//			cal.set(Calendar.SECOND, secs.getCurrentItem());
-
 			long seconds = hours.getCurrentItem() * 3600 + 
 				mins.getCurrentItem() * 60 +
 				secs.getCurrentItem(); 
@@ -109,7 +97,6 @@ public class TimePickDialog extends Dialog
 		public void onClick(View v)
 		{
 			dismiss();
-			// it was the 2nd/ button
 		}
 	};
 
