@@ -137,7 +137,7 @@ public class MainActivity extends Activity implements OnClickListener
 		alarm.updateElement();
 		itemView.setOnClickListener(this);
 
-		AlarmService alarmService = new AlarmServiceImpl(this, 100, handler);
+		AlarmService alarmService = new AlarmServiceImpl(this, handler);
 		alarmService.setAlarmClock(alarm);
 		alarm.setState(AlarmClock.TimerState.RUNNING);
 		new Thread(alarmService).start();
