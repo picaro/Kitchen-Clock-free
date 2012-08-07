@@ -279,7 +279,7 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		for (AlarmClock alarm:alarmList)
 		{
-			if (alarm.getWidget() == (TextViewWithMenu)text)
+			if (alarm.getElement().getChildAt(1) == (TextViewWithMenu)text)
 			{
 				alarmList.remove(alarm);
 				alarm.setState(AlarmClock.TimerState.STOPPED);
