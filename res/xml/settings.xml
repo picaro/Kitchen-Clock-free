@@ -16,11 +16,19 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="settings">
+    android:title="@string/menu_settings">
 
     <CheckBoxPreference
         android:key="savesession"
         android:title="@string/pref_savesession"
-        android:summary="@string/pref_savesession" />
-
+        android:summary="@string/pref_savesession_sum" />
+    <CheckBoxPreference
+        android:key="musicon"
+        android:title="@string/pref_musicon"
+        android:summary="@string/pref_musicon_sum" />
+	<CheckBoxPreference
+        android:key="vobraon"
+        android:title="@string/pref_vibraon"
+        android:summary="@string/pref_vibraon_sum" />
+	
 </PreferenceScreen>

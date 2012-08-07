@@ -4,8 +4,14 @@
     <string name="app_name">Кухонный Таймер</string>
     <string name="menu_settings">Настройки</string>
     <string name="pref_default_alarm">Звук будильника</string>
+     <string name="pref_savesession">Сохранять таймеры</string>
+    <string name="pref_vibraon">Вибрация</string>
+	<string name="pref_musicon">Звук</string>
+    <string name="pref_savesession_sum">восстановить таймеры при запуске</string>
+    <string name="pref_vibraon_sum">вибрация по таймеру</string>
+	<string name="pref_musicon_sum">звук по таймеру</string>
     <string name="main_alarmclock">Таймер</string>
-    <string name="changelog_title">Changelog</string>
+    <string name="changelog_title">Изменения</string>
 
     <!-- Eula -->
     <string name="eula_title">Лицензия</string>

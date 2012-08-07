@@ -173,29 +173,29 @@ public class MainActivity extends Activity implements OnClickListener
 			}
 		}
 		
-		tvOut.setText("Нажата кнопка Cancel" 
-		+ v + " " + alarmList.get(0).getElement().getChildAt(1));
+	//	tvOut.setText("Нажата кнопка Cancel" 
+//		+ v + " " + alarmList.get(0).getElement().getChildAt(1));
 		ss++;
 		sp.edit().putInt("ttr", ss);
 		sp.edit().commit();
 	}
 
-    public void onTimerClick(View v)
-	{
-		AlarmClock alarm = 	((TextViewWithMenu)v).getAlarm();
-
-		if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
-		{
-			//	alarm.finalize();
-			alarm.setState(AlarmClock.TimerState.STOPPED);
-
-		}
-		else
-		{
-			alarm.setState(AlarmClock.TimerState.PAUSED);
-
-		}
-	}	
+//    public void onTimerClick(View v)
+//	{
+//		AlarmClock alarm = 	((TextViewWithMenu)v).getAlarm();
+//
+//		if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
+//		{
+//			//	alarm.finalize();
+//			alarm.setState(AlarmClock.TimerState.STOPPED);
+//
+//		}
+//		else
+//		{
+//			alarm.setState(AlarmClock.TimerState.PAUSED);
+//
+//		}
+//	}	
 
 
 // ============================================================
@@ -210,17 +210,12 @@ public class MainActivity extends Activity implements OnClickListener
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-									ContextMenu.ContextMenuInfo menuInfo)
+	public void onCreateContextMenu(ContextMenu menu, View v,									ContextMenu.ContextMenuInfo menuInfo)
 	{
-		//menuInfo = new ExpandableListContextMenuInfo(v, 1, 1); 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.alarm_context, menu);
 		super.onCreateContextMenu(menu, v, menuInfo);	
 
-		//    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-		//long itemID = info.position;
-//	      menu.setHeaderTitle("lior" + 2);
   	}
 
 	@Override
@@ -282,7 +277,7 @@ public class MainActivity extends Activity implements OnClickListener
 			if (alarm.getElement().getChildAt(1) == (TextViewWithMenu)text)
 			{
 				alarmList.remove(alarm);
-				if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.stopNOW(this);
+				if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.alarmSTOP();
 				alarm.setState(AlarmClock.TimerState.STOPPED);
 				break;
 			}
