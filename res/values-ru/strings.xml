@@ -20,9 +20,12 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="back">Назад</string>
+    <string name="add">Новый</string>
+    <string name="exit">Выход</string>
+    <string name="info">Инфо</string>
     <string name="settime">Установить время</string>
    
-   	<string name="min">мин</string>
+   <string name="min">мин</string>
     <string name="hour">час</string>
     <string name="sec">сек</string>
     <string name="set">установить</string>
