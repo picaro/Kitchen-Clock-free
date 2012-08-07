@@ -42,33 +42,33 @@ public class TimePickDialog extends Dialog
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.picktime);
 
-//		final WheelView hours = (WheelView) findViewById(R.id.hour);
-//		hours.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 23));
-//
-//		final WheelView mins = (WheelView) findViewById(R.id.mins);
-//		mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 59,
-//													"%02d"));
-//		mins.setCyclic(true);
-//
-//		final WheelView secs = (WheelView) findViewById(R.id.secs);
-//		secs.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 59,
-//													"%02d"));
-//		secs.setCyclic(true);
-//
-//		if (alarm != null && alarm.getTime() > 0)
-//		{
-//			hours.setCurrentItem((int) alarm.getHour());
-//			mins.setCurrentItem((int) alarm.getMin());
-//			secs.setCurrentItem((int) alarm.getSec());
-//		}
-//
-//		hours.setCurrentItem(16, true);
-//
-//
-//		Button buttonCancel = (Button) findViewById(R.id.cancelsettimer);
-//		buttonCancel.setOnClickListener(cancelHandler);
-//		Button settimerbtn = (Button) findViewById(R.id.settimerbtn);
-//		settimerbtn.setOnClickListener(saveHandler);
+		final WheelView hours = (WheelView) findViewById(R.id.hour);
+		hours.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 23));
+
+		final WheelView mins = (WheelView) findViewById(R.id.mins);
+		mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 59,
+													"%02d"));
+		mins.setCyclic(true);
+
+		final WheelView secs = (WheelView) findViewById(R.id.secs);
+		secs.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0, 59,
+													"%02d"));
+		secs.setCyclic(true);
+
+		if (alarm != null && alarm.getTime() > 0)
+		{
+			hours.setCurrentItem((int) alarm.getHour());
+			mins.setCurrentItem((int) alarm.getMin());
+			secs.setCurrentItem((int) alarm.getSec());
+		}
+
+		hours.setCurrentItem(16, true);
+
+
+		Button buttonCancel = (Button) findViewById(R.id.cancelsettimer);
+		buttonCancel.setOnClickListener(cancelHandler);
+		Button settimerbtn = (Button) findViewById(R.id.settimerbtn);
+		settimerbtn.setOnClickListener(saveHandler);
 	}
 
 	View.OnClickListener saveHandler = new View.OnClickListener() {

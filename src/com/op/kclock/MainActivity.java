@@ -64,10 +64,10 @@ public class MainActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmclock);
 
-		ActionBar actionBar = getActionBar();
+//		ActionBar actionBar = getActionBar();
 		//actionBar.setCustomView(R.layout.actionbar_view);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM 
-			| ActionBar.DISPLAY_SHOW_HOME);
+//		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM 
+//			| ActionBar.DISPLAY_SHOW_HOME);
 	 
 
 		Eula.show(this); 
@@ -83,17 +83,12 @@ public class MainActivity extends Activity implements OnClickListener
 		else
 		{
 			addAlarmDialog();
-		} 
-
-
-
-//		
+		} 	
 	}
 
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		super.onRestoreInstanceState(savedInstanceState);
-
 		alarmList	= savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
 	}
 
@@ -165,12 +160,21 @@ public class MainActivity extends Activity implements OnClickListener
 		SharedPreferences sp= this.getSharedPreferences(SettingsConst.SETTINGS, 0);
 		int ss = sp.getInt("trr", 0);
 
-		//	if (alarmService.getStatus() == AlarmClock.TimerState.RUNNING){
-		//		alarmService.alarmSTOP();
-		//	} else {
-		//	alarmService.a);
-		//	}
-		tvOut.setText("Нажата кнопка Cancel" + v);
+		for(AlarmClock alarm : alarmList){
+			if(alarm.getElement().getChildAt(1)== v) {
+					if (alarm.getState() == AlarmClock.TimerState.RUNNING){
+						alarm.setState(AlarmClock.TimerState.PAUSED);
+					} else 	if (alarm.getState() == AlarmClock.TimerState.STOPPED){
+						alarm.setState(AlarmClock.TimerState.RUNNING);
+					} else 	if (alarm.getState() == AlarmClock.TimerState.ALARMING){
+						alarm.alarmSTOP();		
+					}
+				break;
+			}
+		}
+		
+		tvOut.setText("Нажата кнопка Cancel" 
+		+ v + " " + alarmList.get(0).getElement().getChildAt(1));
 		ss++;
 		sp.edit().putInt("ttr", ss);
 		sp.edit().commit();
@@ -257,17 +261,10 @@ public class MainActivity extends Activity implements OnClickListener
 		{
 			case R.id.settime:{
 					setAlarmDialog(text.getAlarm());
-					//	alarmService.start();
-					//Intent i3 = new Intent(this, SettingsActivity.class); 
-					//startActivity(i3);	
 					return true;
 				}
 			case R.id.remove:{
-					this.deleteAlarm(text);
-					//	View entry = item.targetView;
-					//long entry = info.id;
-					//	View parent =(View)entry.getParent();
-
+					this.deleteAlarm(text);		
 					return true;
 				}
 		}
@@ -301,14 +298,14 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		TimePickDialog dialog = new TimePickDialog(MainActivity.this);
 		dialog.setAlarm(alarm);
-//		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//
-//		dialog.setDialogResult(new TimePickDialog.OnMyDialogResult(){
-//				public void finish(AlarmClock newAlarm)
-//				{
-//					addAlarm(newAlarm);
-//				}
-//			});
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		dialog.setDialogResult(new TimePickDialog.OnMyDialogResult(){
+				public void finish(AlarmClock newAlarm)
+				{
+					addAlarm(newAlarm);
+				}
+			});
 		dialog.show();
 	}
 

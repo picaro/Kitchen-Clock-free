@@ -18,37 +18,38 @@ import android.widget.*;
 public class AlarmServiceImpl implements AlarmService 
 {
 
- 
+
 
 	private long updateInterval;
 
-        
+
     private AlarmClock widget;
 
     private final String TAG = "Alarm Service";
     //private final AlarmManager alarmManager;
     private final Context context;
     private final NotificationFactory notificationFactory;
-	
+
     // The alarm is static, so that deleting alarm from Alarm dialog will also show correct information
     // to the alarm service in
     //private static AlarmClock alarm;
     Handler handler;
-    
-    
-    public AlarmServiceImpl(Context context, long updateInterval, Handler _handler) {
+
+
+    public AlarmServiceImpl(Context context, long updateInterval, Handler _handler)
+	{
 		this.context = context.getApplicationContext();
-     		this.updateInterval = updateInterval;
-     		this.handler = _handler;
+		this.updateInterval = updateInterval;
+		this.handler = _handler;
 		//time = 0;
 		//startTime = 0;
 
-		   
-       this.notificationFactory = new NotificationFactory(this.context);
-  
-		
+
+		this.notificationFactory = new NotificationFactory(this.context);
+
+
 	}
-    
+
 	public void setAlarmClock(AlarmClock alarm)
 	{
 		this.widget = alarm;
@@ -56,21 +57,23 @@ public class AlarmServiceImpl implements AlarmService
 
 
 	@Override
-	public void run() {
-do{		widget.updateElement();
+	public void run()
+	{
+		do{		widget.updateElement();
 			try
 			{
 	 			Thread.sleep(1000);
+				if(  widget.getState() == AlarmClock.TimerState.STOPPED) break;
 			}
 			catch (InterruptedException e)
 			{}
-}		while(widget.tick() && widget.getState() == AlarmClock.TimerState.RUNNING);
+		} while(widget.tick());
 		widget.updateElement();		
-		if ( widget.getState() == AlarmClock.TimerState.RUNNING)  widget.alarmNOW(context);
-		
+		if (widget.getState() == AlarmClock.TimerState.RUNNING)  widget.alarmNOW(context);
+
 	}
-	
-	
+
+
 	/**
 	 * Sets the timer into a running state and
 	 * initialises all time values.
@@ -104,16 +107,17 @@ do{		widget.updateElement();
      * @return
      */
 //    @Override
-    public String addAlarm(int hours, int minutes, int interval) {
-     
-         //    alarm = new Alarm(hours, minutes, interval, true);
+    public String addAlarm(int hours, int minutes, int interval)
+	{
+
+		//    alarm = new Alarm(hours, minutes, interval, true);
 //        if (alarm.isEnabled()) { //write succeeded
-            Calendar calendar = Calendar.getInstance();
-            notificationFactory.setNotification(calendar.get(Calendar.HOUR_OF_DAY),
-                    calendar.get(Calendar.MINUTE), hours, minutes);
+		Calendar calendar = Calendar.getInstance();
+		notificationFactory.setNotification(calendar.get(Calendar.HOUR_OF_DAY),
+											calendar.get(Calendar.MINUTE), hours, minutes);
         //    addWakeUpAttempt(calendar);
-            Log.v(TAG, "Adding alarm was successful");
-     //   }
+		Log.v(TAG, "Adding alarm was successful");
+		//   }
         return null;//alarm;
     }
 
@@ -127,44 +131,51 @@ do{		widget.updateElement();
      * Deletes alarm. From device and from file.
      */
     @Override
-    public void deleteAlarm() {
-       // Intent intent = new Intent(context, AlarmReceiver.class);
-    //    PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+    public void deleteAlarm()
+	{
+		// Intent intent = new Intent(context, AlarmReceiver.class);
+		//    PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         //alarmManager.cancel(sender);
-       
+
         notificationFactory.resetNotification();
-     //   alarm.setEnabled(false);
+		//   alarm.setEnabled(false);
     }
 
-    public boolean isAlarmSet() {
+    public boolean isAlarmSet()
+	{
         return false;// alarm.isEnabled();
     }
 
     @Override
-    public int getAlarmHours() {
+    public int getAlarmHours()
+	{
         return 0;//alarm.getHours();
     }
 
     @Override
-    public int getAlarmMinutes() {
+    public int getAlarmMinutes()
+	{
         return 0;// alarm.getMinutes();
     }
 
     @Override
-    public int getAlarmInterval() {
+    public int getAlarmInterval()
+	{
         return 100;//alarm.getInterval();
     }
 
 
 	@Override
-	public TimerState getStatus() {
+	public TimerState getStatus()
+	{
 		return widget.getState();
 	}
 
-    
 
-	public void finalize(){	
+
+	public void finalize()
+	{	
 		if (widget != null) widget.alarmSTOP();
 	}
 
