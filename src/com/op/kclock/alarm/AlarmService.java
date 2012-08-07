@@ -22,34 +22,6 @@ public interface AlarmService extends Runnable
 
 	public void setAlarmClock(AlarmClock alarm);
 
-    /**
-     * This method saves a new alarm with an interval to a file and sets it to android AlarmManager
-     * @param hours wake up hours
-     * @param minutes wake up minutes
-     * @param interval wake up interval
-     * @return alarm set as an object
-     */
- //   Alarm addAlarm(int hours, int minutes, int interval);
-
-
-    /**
-     * disables alarm, saves it to file and removes from androids AlarmManager
-     */
-    void deleteAlarm();
-
-    /**
-     * Gets saved alarm
-     * @return saved alarm
-     */
-///    public Alarm getAlarm();
-
-    public boolean isAlarmSet();
-
-    public int getAlarmHours();
-
-    public int getAlarmMinutes();
-
-    public int getAlarmInterval();
 
 	public TimerState getStatus();
 
