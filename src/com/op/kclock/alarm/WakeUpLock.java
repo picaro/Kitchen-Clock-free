@@ -25,9 +25,9 @@ public class WakeUpLock {
         if (sWakeLock != null) {
             sWakeLock.release();
         }
-        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-        keyguardLock = keyguardManager.newKeyguardLock("TAG");
-        keyguardLock.disableKeyguard();
+       // KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+      //  keyguardLock = keyguardManager.newKeyguardLock("TAG");
+      //  keyguardLock.disableKeyguard();
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 
@@ -46,6 +46,6 @@ public class WakeUpLock {
             sWakeLock.release();
             sWakeLock = null;
         }
-        keyguardLock.reenableKeyguard();
+      //  keyguardLock.reenableKeyguard();
     }
 }
