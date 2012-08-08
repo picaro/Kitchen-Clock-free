@@ -112,7 +112,7 @@
 	<string
 		name="pref_notification_led_color_summary">Изменить цвет индикации</string>
 	<string
-		name="pref_notification_led_color_dialogtitle">Select your LED color</string>
+		name="pref_notification_led_color_dialogtitle">Выбрать цвет индикации</string>
 
 	<string
 		name="pref_notification_led_color_green">Зеленый</string>
