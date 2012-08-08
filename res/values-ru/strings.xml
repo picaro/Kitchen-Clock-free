@@ -56,9 +56,9 @@
 	<string
 		name="pref_display_eula_summary">Показать лицензию приложения</string>
 	<string
-		name="pref_show_tips">Show Tips at Startup</string>
+		name="pref_show_tips">Показывать подсказки при загрузке</string>
 	<string
-		name="pref_display_settings">Display settings</string>
+		name="pref_display_settings">Настройки экрана</string>
 	<string
 		name="pref_keep_screen_on">Держать экран включенным</string>
 	<string
@@ -77,27 +77,27 @@
 	<string
 		name="pref_notification_settings">Notification settings</string>
 	<string
-		name="pref_notification_sound">Sound</string>
+		name="pref_notification_sound">Звук</string>
 	<string
-		name="pref_notification_sound_summary_on">Sound notification enabled</string>
+		name="pref_notification_sound_summary_on">Звуковое уведомление включено</string>
 	<string
-		name="pref_notification_sound_summary_off">Sound notification disabled</string>
+		name="pref_notification_sound_summary_off">Звуковое уведомление выкл</string>
 	<string
-		name="pref_notification_insistent">Insistent</string>
+		name="pref_notification_insistent">Настойчиво</string>
 	<string
-		name="pref_notification_insistent_summary_on">Insistent mode on</string>
+		name="pref_notification_insistent_summary_on">Настойчивый режим включен</string>
 	<string
-		name="pref_notification_insistent_summary_off">Insistent mode off</string>
+		name="pref_notification_insistent_summary_off">Настойчивый режим выкл</string>
 	<string
-		name="pref_notification_custom_sound">Custom sound</string>
+		name="pref_notification_custom_sound">Своя мелодия</string>
 	<string
-		name="pref_notification_custom_sound_summary_on">Use custom sound</string>
+		name="pref_notification_custom_sound_summary_on">Использовать свою мелодию</string>
 	<string
-		name="pref_notification_custom_sound_summary_off">Use default sound</string>
+		name="pref_notification_custom_sound_summary_off">Использовать мелодию по умолчанию</string>
 	<string
-		name="pref_notification_ringtone">Select alarm sound</string>
+		name="pref_notification_ringtone">Выбрать звук будильника</string>
 	<string
-		name="pref_notification_ringtone_summary">Select a custom sound from available system alarm sounds
+		name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе
 	</string>
 	<string
 		name="pref_notification_led">Свет</string>
