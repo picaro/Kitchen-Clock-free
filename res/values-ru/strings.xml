@@ -2,12 +2,13 @@
 <resources>
 
     <string name="app_name">Кухонный Таймер</string>
-    <string name="menu_settings">Настройки</string>     <string name="pref_savesession">Сохранять таймеры</string>
+    <string name="menu_settings">Настройки</string>     
+    <string name="pref_savesession">Сохранять таймеры</string>
     <string name="pref_vibraon">Вибрация</string>
-	<string name="pref_musicon">Звук</string>
+    <string name="pref_musicon">Звук</string>
     <string name="pref_savesession_sum">восстановить таймеры при запуске</string>
     <string name="pref_vibraon_sum">вибрация по таймеру</string>
-	<string name="pref_musicon_sum">звук по таймеру</string>
+    <string name="pref_musicon_sum">звук по таймеру</string>
     <string name="main_alarmclock">Таймер</string>
     <string name="changelog_title">Изменения</string>
 
@@ -104,12 +105,12 @@
 	<string
 		name="pref_notification_led_summary_on">Световая индикация включена</string>
 	<string
-		name="pref_notification_led_summary_off">LED notification disabled</string>
+		name="pref_notification_led_summary_off">Световая индикация выкл</string>
 
 	<string
 		name="pref_notification_led_color">Цвет света</string>
 	<string
-		name="pref_notification_led_color_summary">Change LED color</string>
+		name="pref_notification_led_color_summary">Изменить цвет индикации</string>
 	<string
 		name="pref_notification_led_color_dialogtitle">Select your LED color</string>
 
