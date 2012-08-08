@@ -2,9 +2,7 @@
 <resources>
 
     <string name="app_name">Кухонный Таймер</string>
-    <string name="menu_settings">Настройки</string>
-    <string name="pref_default_alarm">Звук будильника</string>
-     <string name="pref_savesession">Сохранять таймеры</string>
+    <string name="menu_settings">Настройки</string>     <string name="pref_savesession">Сохранять таймеры</string>
     <string name="pref_vibraon">Вибрация</string>
 	<string name="pref_musicon">Звук</string>
     <string name="pref_savesession_sum">восстановить таймеры при запуске</string>
@@ -41,5 +39,6 @@
     <string name="timer_started">Таймер запущен</string>
     <string name="click_to_open">Click here to open the application</string>
     <string name="countdown_ended">Таймер завершен</string>
-
+    <string name="toast_time_invalid">Время должно быть больше нуля</string>
+	
 </resources>

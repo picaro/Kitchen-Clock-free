@@ -73,6 +73,9 @@ public class TimePickDialog extends Dialog
 		public void onClick(View v)
 		{
 			if (!validateTime()){
+				Toast.makeText(getContext(),
+                      getContext().getText(R.string.toast_time_invalid),
+                      Toast.LENGTH_SHORT).show(); 
 				return;
 			}
 			
@@ -93,7 +96,9 @@ public class TimePickDialog extends Dialog
 
 		private boolean validateTime()
 		{
-			return hours.getCurrentItem() == 0;
+			return !(hours.getCurrentItem() == 0 &&
+				mins.getCurrentItem() == 0 &&
+				secs.getCurrentItem() == 0)	;
 		}
 	};
 

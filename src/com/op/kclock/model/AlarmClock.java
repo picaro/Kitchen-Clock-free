@@ -166,7 +166,6 @@ public class AlarmClock implements Parcelable {
 		}
 	};
 
-	// конструктор, считывающий данные из Parcel
 	private AlarmClock(Parcel parcel) {
 		Log.d(LOG_TAG, "AlarmClock(Parcel parcel)");
 		name = parcel.readString();
@@ -192,19 +191,11 @@ public class AlarmClock implements Parcelable {
 	public long getTime(){
 		return seconds;
 	}
-
-//	public void setTimeFromWidget() {
-//		String time = getWidget().getText().toString();
-//		StringTokenizer tokens = new StringTokenizer(time, ":");
-//		seconds = Integer.parseInt((String) tokens.nextElement()) * 3600;
-//		seconds += Integer.parseInt((String) tokens.nextElement()) * 60;
-//		seconds += Integer.parseInt((String) tokens.nextElement()) * 3600;
-//	}
 	
 	public void alarmNOW(Context context)
 	{
-		vibratePhone(context);
-		//playMusic();
+		if (1==1) vibratePhone(context);
+		//if (1==2) playMusic();
 		WakeUpLock.acquire(context);
 	}
 
@@ -212,9 +203,8 @@ public class AlarmClock implements Parcelable {
 	{
 		setState(AlarmClock.TimerState.STOPPED);
 		//music.release();          // Alarm has rung and we have closed the dialog. Music is released.
-        vibrator.cancel();        // Also no need to vibrate anymore.
+        if (1==1) vibrator.cancel();        // Also no need to vibrate anymore.
 	   WakeUpLock.release();
-		// super.finish();
 	}
 	
 	
@@ -223,7 +213,7 @@ public class AlarmClock implements Parcelable {
      * Vibrates the phone unless user is on call.
      */
     private void vibratePhone(Context context) {
-        Log.v(TAG, "I want to Vibrate 8==D");
+        Log.v(TAG, "I want to Vibrate");
 
         // Check that the phone wont vibrate if the user is on the phone
         if (((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getCallState() ==

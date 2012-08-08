@@ -4,6 +4,8 @@ import com.op.kclock.cookconst.*;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
+import android.content.pm.*;
+import com.op.kclock.misc.*;
 
 public class SettingsActivity extends PreferenceActivity
 {
@@ -20,6 +22,15 @@ public class SettingsActivity extends PreferenceActivity
         //setContentView(R.layout.settings);
 		addPreferencesFromResource(R.xml.settings);
 
+		String version;
+		try {	
+				PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);		
+			version = pi.versionName;
+		} catch (PackageManager.NameNotFoundException e) {
+			Log.e(MainActivity.TAG, "Package name not found", e);
+			version = getString(R.string.pref_info_version_error);
+		}
+			
 //		prefs = getSharedPreferences(SettingsConst.SETTINGS, 0);
 //		
 //		isSessSavePref = (CheckBoxPreference) findPreference( SettingsConst.SAVE_SESSION);

@@ -33,6 +33,7 @@ public class WakeUpLock {
 
         sWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK |
                                    PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, TAG);
+		sWakeLock.setReferenceCounted(false);						   
         sWakeLock.acquire();
     }
 
