@@ -32,7 +32,7 @@
    <string name="min">мин</string>
     <string name="hour">час</string>
     <string name="sec">сек</string>
-    <string name="set">установить</string>
+    <string name="set">Установить</string>
 	
   
     <!-- Notifications -->
@@ -107,49 +107,49 @@
 		name="pref_notification_led_summary_off">LED notification disabled</string>
 
 	<string
-		name="pref_notification_led_color">LED color</string>
+		name="pref_notification_led_color">Цвет света</string>
 	<string
 		name="pref_notification_led_color_summary">Change LED color</string>
 	<string
 		name="pref_notification_led_color_dialogtitle">Select your LED color</string>
 
 	<string
-		name="pref_notification_led_color_green">Green</string>
+		name="pref_notification_led_color_green">Зеленый</string>
 	<string
-		name="pref_notification_led_color_white">White</string>
+		name="pref_notification_led_color_white">Белый</string>
 	<string
-		name="pref_notification_led_color_red">Red/Default</string>
+		name="pref_notification_led_color_red">Красный/По умолчанию</string>
 	<string
-		name="pref_notification_led_color_blue">Blue</string>
+		name="pref_notification_led_color_blue">Синий</string>
 	<string
-		name="pref_notification_led_color_yellow">Yellow</string>
+		name="pref_notification_led_color_yellow">Желтый</string>
 	<string
-		name="pref_notification_led_color_cyan">Cyan</string>
+		name="pref_notification_led_color_cyan">Голубой</string>
 	<string
-		name="pref_notification_led_color_magenta">Magenta</string>
+		name="pref_notification_led_color_magenta">Пурпурный</string>
 	<string
-		name="pref_notification_led_color_pink">Pink</string>
+		name="pref_notification_led_color_pink">Розовый</string>
 	<string
-		name="pref_notification_led_color_orange">Orange</string>
+		name="pref_notification_led_color_orange">Оранжевый</string>
 	<string
-		name="pref_notification_led_color_light_blue">Light Blue</string>
+		name="pref_notification_led_color_light_blue">Светло-голубой</string>
 
 	<string
-		name="pref_notification_led_blink_rate">LED blink rate</string>
+		name="pref_notification_led_blink_rate">Частота мигания</string>
 	<string
-		name="pref_notification_led_blink_rate_summary">Change LED blink rate</string>
+		name="pref_notification_led_blink_rate_summary">Изменить частоту мигания света</string>
 	<string
-		name="pref_notification_led_blink_rate_dialogtitle">Select your LED blink rate</string>
+		name="pref_notification_led_blink_rate_dialogtitle">Установить свою частоту мигания света</string>
 	<string
-		name="pref_notification_led_blink_rate_two">2 (Fast)</string>
+		name="pref_notification_led_blink_rate_two">2 (Быстро)</string>
 	<string
 		name="pref_notification_led_blink_rate_three">3</string>
 	<string
-		name="pref_notification_led_blink_rate_four">4 (Medium)</string>
+		name="pref_notification_led_blink_rate_four">4 (Средне)</string>
 	<string
 		name="pref_notification_led_blink_rate_five">5</string>
 	<string
-		name="pref_notification_led_blink_rate_six">6 (Slow)</string>
+		name="pref_notification_led_blink_rate_six">6 (Медленно)</string>
 
 	<string
 		name="pref_notification_vibrate">Вибрация</string>
