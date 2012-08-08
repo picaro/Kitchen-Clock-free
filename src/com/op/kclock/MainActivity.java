@@ -90,6 +90,9 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		super.onRestoreInstanceState(savedInstanceState);
 		alarmList = savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
+		for(AlarmClock:alarmList){
+		
+		};
 	}
 
 	@Override
@@ -102,10 +105,12 @@ public class MainActivity extends Activity implements OnClickListener
 	private void drawAlarms()
 	{
 		//get alarms from settings
-		for (AlarmClock alarm : alarmList)
-		{
+		//android.view.Display display = ((android.view.WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();      
+                Display display = getWindowManager().getDefaultDisplay(); 
+		for(AlarmClock alarm : alarmList){
+			LinearLayout alarmL = alarm.getElement();
 			//draw alarm
-			drawAlarm(alarm);
+			//drawAlarm(alarm);
 		}
 	}
 
