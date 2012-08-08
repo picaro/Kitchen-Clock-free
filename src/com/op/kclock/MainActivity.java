@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements OnClickListener
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		super.onRestoreInstanceState(savedInstanceState);
-		alarmList	= savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
+		alarmList = savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
 	}
 
 	@Override
@@ -173,30 +173,11 @@ public class MainActivity extends Activity implements OnClickListener
 			}
 		}
 		
-	//	tvOut.setText("Нажата кнопка Cancel" 
-//		+ v + " " + alarmList.get(0).getElement().getChildAt(1));
+	//tvOut.setText("__");
 		ss++;
 		sp.edit().putInt("ttr", ss);
 		sp.edit().commit();
 	}
-
-//    public void onTimerClick(View v)
-//	{
-//		AlarmClock alarm = 	((TextViewWithMenu)v).getAlarm();
-//
-//		if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
-//		{
-//			//	alarm.finalize();
-//			alarm.setState(AlarmClock.TimerState.STOPPED);
-//
-//		}
-//		else
-//		{
-//			alarm.setState(AlarmClock.TimerState.PAUSED);
-//
-//		}
-//	}	
-
 
 // ============================================================
 // ====================  MENUS	===============================
@@ -229,16 +210,14 @@ public class MainActivity extends Activity implements OnClickListener
 					return true;
 
 				}
-			case R.id.menu_add:
+			case R.id.menu_add:{
 				addAlarmDialog();
-
-
 				return true;
+			}
 			case R.id.menu_exit:{
-
-					//	mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID);
-					System.exit(0);
-				}
+				//	mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID);
+				System.exit(0);
+			}
 
 		}	
 		return false;
