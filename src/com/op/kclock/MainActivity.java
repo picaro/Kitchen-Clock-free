@@ -233,8 +233,9 @@ timer = (int) when + 4000;
 						
 						tvTimer.setTextColor(getResources().getColor(R.color.indian_red_1));
 						tvTimer.setShadowLayer(2f, 4f, 0f, 0);
-						
-						
+					Animation hyperspaceJump = 
+           					 AnimationUtils.loadAnimation(this, R.drawable.gradient_bwb_vertical);	
+					tvTimer.startAnimation(hyperspaceJump);	
 					} else 	if (alarm.getState() == AlarmClock.TimerState.PAUSED){
 						alarm.setState(AlarmClock.TimerState.RUNNING);
 					} else 	if (alarm.getState() == AlarmClock.TimerState.ALARMING){
