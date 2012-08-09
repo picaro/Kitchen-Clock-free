@@ -20,6 +20,7 @@ import com.op.kclock.music.*;
 import com.op.kclock.ui.*;
 import java.util.*;
 import android.view.animation.*;
+import android.animation.*;
 
 //import android.view.View.View.OnClickListener;
 
@@ -324,26 +325,27 @@ timer = (int) when + 4000;
 // ============================================================
 	private void deleteAlarm(TextViewWithMenu text)
 	{
-		for (AlarmClock alarm:alarmList)
+		for (final AlarmClock alarm:alarmList)
 		{
 			if (alarm.getElement().getChildAt(1) == (TextViewWithMenu)text)
 			{
+				//final AlarmClock falarm = alarm;
 				Animation hyperspaceJump = 
            			AnimationUtils.loadAnimation(this, R.drawable.gradient_bwb_vertical);
-           			hyperspaceJump.addListener(new AnimatorListenerAdapter()
+           			hyperspaceJump.setAnimationListener( new Animation.AnimationListener()
         			{
 				   @Override
 			            public void onAnimationEnd(Animator animation)
 			            {
-			             		alarm.getElement().startAnimation(hyperspaceJump);	
-						alarmList.remove(alarm);
+			  			alarmList.remove(alarm);
 						if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.alarmSTOP();
 						alarm.setState(AlarmClock.TimerState.STOPPED);
 			            }
 			        });
            			
            			
-
+           		alarm.getElement().startAnimation(hyperspaceJump);	
+				
 				break;
 			}
 		}
