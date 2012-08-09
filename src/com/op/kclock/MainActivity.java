@@ -332,16 +332,16 @@ timer = (int) when + 4000;
 				//final AlarmClock falarm = alarm;
 				Animation hyperspaceJump = 
            			AnimationUtils.loadAnimation(this, R.drawable.gradient_bwb_vertical);
-           			hyperspaceJump.setAnimationListener( new Animation.AnimationListener()
-        			{
-				   @Override
-			            public void onAnimationEnd(Animator animation)
-			            {
-			  			alarmList.remove(alarm);
+           			hyperspaceJump.setAnimationListener( 
+           				new AnimationListenerEndCallback(delegate
+					{
+           		  			alarmList.remove(alarm);
 						if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.alarmSTOP();
 						alarm.setState(AlarmClock.TimerState.STOPPED);
-			            }
-			        });
+					})
+           				
+           				
+				);
            			
            			
            		alarm.getElement().startAnimation(hyperspaceJump);	
@@ -399,5 +399,29 @@ timer = (int) when + 4000;
     }
 
 
+class AnimationListenerEndCallback : Java.Lang.Object, Animation.IAnimationListener
+{
+    public delegate void Callback(Animation animation);
+    private Callback callback;
+    public AnimationListenerEndCallback(Callback callback)
+    {
+        this.callback = callback;
+    }
+
+    public void OnAnimationEnd(Android.Views.Animations.Animation animation)
+    {
+        callback(animation);
+    }
+
+    public void OnAnimationRepeat(Android.Views.Animations.Animation animation)
+    {
+        // do nothing
+    }
+
+    public void OnAnimationStart(Android.Views.Animations.Animation animation)
+    {
+        // do nothing
+    }
+}
 }
 
