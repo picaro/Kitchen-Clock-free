@@ -1,12 +1,16 @@
 package com.op.kclock.model;
 
+import android.app.*;
 import android.content.*;
+import android.graphics.*;
+import android.net.*;
 import android.os.*;
 import android.telephony.*;
 import android.util.*;
 import android.widget.*;
-import java.util.*;
+import com.op.kclock.*;
 import com.op.kclock.alarm.*;
+import java.util.*;
 
 
 public class AlarmClock implements Parcelable {
@@ -20,6 +24,8 @@ public class AlarmClock implements Parcelable {
 	private static final long[] vibratePattern = {0, 200, 500};
 
 	private String TAG ="op";
+
+	private CharSequence timerName;
 	
 	
 	public static enum TimerState {
@@ -223,5 +229,42 @@ public class AlarmClock implements Parcelable {
             Log.v(TAG, "Vibrator says:" + vibrator.toString());
         }
     }
+	
+	
+	
+	/**
+	 * Parse the user provided custom vibrate pattern into a long[] Borrowed
+	 * from SMSPopup
+	 */
+	public static long[] parseVibratePattern(String stringPattern) {
+		ArrayList<Long> arrayListPattern = new ArrayList<Long>();
+		Long l;
+		String[] splitPattern = stringPattern.split(",");
+		int VIBRATE_PATTERN_MAX_SECONDS = 60000;
+		int VIBRATE_PATTERN_MAX_PATTERN = 100;
+
+		for (int i = 0; i < splitPattern.length; i++) {
+			try {
+				l = Long.parseLong(splitPattern[i].trim());
+			} catch (NumberFormatException e) {
+				return null;
+			}
+			if (l > VIBRATE_PATTERN_MAX_SECONDS) {
+				return null;
+			}
+			arrayListPattern.add(l);
+		}
+
+		int size = arrayListPattern.size();
+		if (size > 0 && size < VIBRATE_PATTERN_MAX_PATTERN) {
+			long[] pattern = new long[size];
+			for (int i = 0; i < pattern.length; i++) {
+				pattern[i] = arrayListPattern.get(i);
+			}
+			return pattern;
+		}
+
+		return null;
+	}	
 
 }
