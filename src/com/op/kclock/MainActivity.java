@@ -323,7 +323,7 @@ timer = (int) when + 4000;
 // ============================================================
 // ====================  END MENUS	===============================
 // ============================================================
-	private void deleteAlarm(TextViewWithMenu text)
+	private void deleteAlarm(final TextViewWithMenu text)
 	{
 		for (final AlarmClock alarm:alarmList)
 		{
@@ -335,18 +335,20 @@ timer = (int) when + 4000;
            			hyperspaceJump.setAnimationListener( new Animation.AnimationListener() {
 						    @Override
 						    public void onAnimationEnd(Animation arg0) {
-						           		  			alarmList.remove(alarm);
+						           		  		alarmList.remove(alarm);
 												if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.alarmSTOP();
 												alarm.setState(AlarmClock.TimerState.STOPPED);
+									mainL.removeView(((LinearLayout)alarm.getElement() ));
+								alarm.setElement(null);
+								
+												
 						    }
 						     @Override
-					            public void onAnimationStart(Animator animation)
-					            {
-					            }
+					            public void onAnimationStart(Animation animation)
+					            { }
 					            
-						    public void onAnimationRestart(Animator animation)
-					            {
-					            }
+						    public void onAnimationRepeat(Animation animation)
+					            { }
 
 						
 					});
@@ -357,7 +359,6 @@ timer = (int) when + 4000;
 				break;
 			}
 		}
-		mainL.removeView(((LinearLayout)text.getParent()));
 	}
 
 	private void addAlarmDialog()

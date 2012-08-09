@@ -68,10 +68,8 @@ public class AlarmClock implements Parcelable {
 	public void updateElement() {
 		// TextView widget =(TextView)element.getChildAt(1);
 
-		getWidget().post(new Runnable() {
+		if(getWidget()!=null && this.getState() != TimerState.STOPPED) getWidget().post(new Runnable() {
 			public void run() {
-				// getWidget().setText(String.format("%02d:%02d:%tS", 60, 60,
-				// Calendar.getInstance()));
 				getWidget().setText(
 						(CharSequence) (String.format("%02d:%02d:%02d",
 								getHour(), getMin(), getSec())));
@@ -156,6 +154,7 @@ public class AlarmClock implements Parcelable {
 	}
 
 	public TextView getWidget() {
+		if (element == null) return null;
 		final TextView widget = (TextView) element.getChildAt(1);
 		return widget;
 	}

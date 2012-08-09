@@ -53,8 +53,7 @@ public class AlarmServiceImpl implements AlarmService
 			catch (InterruptedException e)
 			{}
 	
-	} while(widget.tick());
-	
+	} while(widget.tick());	
 		widget.updateElement();		
 		if (widget.getState() == AlarmClock.TimerState.ALARMING)  widget.alarmNOW(context);
 
