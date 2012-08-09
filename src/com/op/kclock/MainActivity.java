@@ -19,6 +19,7 @@ import com.op.kclock.model.*;
 import com.op.kclock.music.*;
 import com.op.kclock.ui.*;
 import java.util.*;
+import android.view.animation.*;
 
 //import android.view.View.View.OnClickListener;
 
@@ -235,7 +236,7 @@ timer = (int) when + 4000;
 						tvTimer.setShadowLayer(2f, 4f, 0f, 0);
 					Animation hyperspaceJump = 
            					 AnimationUtils.loadAnimation(this, R.drawable.gradient_bwb_vertical);	
-					tvTimer.startAnimation(hyperspaceJump);	
+					alarm.getElement().startAnimation(hyperspaceJump);	
 					} else 	if (alarm.getState() == AlarmClock.TimerState.PAUSED){
 						alarm.setState(AlarmClock.TimerState.RUNNING);
 					} else 	if (alarm.getState() == AlarmClock.TimerState.ALARMING){
