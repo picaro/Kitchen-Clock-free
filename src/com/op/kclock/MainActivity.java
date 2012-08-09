@@ -310,7 +310,7 @@ timer = (int) when + 4000;
 					return true;
 				}
 			case R.id.remove:{
-					this.deleteAlarm(text);		
+					deleteAlarm(text);		
 					return true;
 				}
 		}
@@ -327,6 +327,10 @@ timer = (int) when + 4000;
 		{
 			if (alarm.getElement().getChildAt(1) == (TextViewWithMenu)text)
 			{
+				Animation hyperspaceJump = 
+           			AnimationUtils.loadAnimation(this, R.drawable.gradient_bwb_vertical);	
+				alarm.getElement().startAnimation(hyperspaceJump);	
+		
 				alarmList.remove(alarm);
 				if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.alarmSTOP();
 				alarm.setState(AlarmClock.TimerState.STOPPED);
