@@ -199,8 +199,14 @@ timer = (int) when + 4000;
 
 		LinearLayout itemView = (LinearLayout) inflater.inflate(R.layout.alarm_incl, null);
 		alarm.setElement(itemView);
-		((TextViewWithMenu)(alarm.getWidget())).setAlarm(alarm);
-		//alarm.setTimeFromWidget();
+		
+		Animation in = AnimationUtils.loadAnimation(this,R.anim.fade_in);
+            	Animation out = AnimationUtils.loadAnimation(this,R.anim.fade_out);
+		TextViewWithMenu textView = (TextViewWithMenu)(alarm.getWidget());
+		textView.setInAnimation(in);
+                textView.setOutAnimation(out);
+		textView.setAlarm(alarm);
+		
 		alarm.updateElement();
 		itemView.setOnClickListener(this);
 
