@@ -203,8 +203,7 @@ timer = (int) when + 4000;
 		Animation in = AnimationUtils.loadAnimation(this,R.anim.fade_in);
             	Animation out = AnimationUtils.loadAnimation(this,R.anim.fade_out);
 		TextViewWithMenu textView = (TextViewWithMenu)(alarm.getWidget());
-		textView.setInAnimation(in);
-                textView.setOutAnimation(out);
+	    //       textView.setOutAnimation(out);
 		textView.setAlarm(alarm);
 		
 		alarm.updateElement();
@@ -222,7 +221,10 @@ timer = (int) when + 4000;
 		mainL.addView(itemView, new TableLayout.LayoutParams(
 						  LayoutParams.FILL_PARENT, 
 						  LayoutParams.WRAP_CONTENT));
-		return itemView;
+	
+		textView.startAnimation(in);
+		
+	return itemView;
 	}
 
 	// ON-CLICK
@@ -239,12 +241,18 @@ timer = (int) when + 4000;
 					if (alarm.getState() == AlarmClock.TimerState.RUNNING){
 						alarm.setState(AlarmClock.TimerState.PAUSED);
 						
-						tvTimer.setTextColor(getResources().getColor(R.color.indian_red_1));
-						tvTimer.setShadowLayer(2f, 4f, 0f, 0);
+						tvTimer.setTextColor(getResources().getColor(R.color.gray));
+						//tvTimer.setShadowLayer(2f, 4f, 0f, 0);
 					Animation hyperspaceJump = 
-           					 AnimationUtils.loadAnimation(this, R.drawable.gradient_bwb_vertical);	
-					alarm.getElement().startAnimation(hyperspaceJump);	
+           					 AnimationUtils.loadAnimation(this, R.anim.fade_out);	
+					alarm.getWidget().startAnimation(hyperspaceJump);	
 					} else 	if (alarm.getState() == AlarmClock.TimerState.PAUSED){
+						tvTimer.setTextColor(getResources().getColor(R.color.white));
+						
+						Animation hyperspaceJump = 
+							AnimationUtils.loadAnimation(this, R.anim.fade_in);	
+						alarm.getWidget().startAnimation(hyperspaceJump);	
+						
 						alarm.setState(AlarmClock.TimerState.RUNNING);
 					} else 	if (alarm.getState() == AlarmClock.TimerState.ALARMING){
 						alarm.alarmSTOP();		
@@ -337,14 +345,15 @@ timer = (int) when + 4000;
 			{
 				//final AlarmClock falarm = alarm;
 				Animation hyperspaceJump = 
-           			AnimationUtils.loadAnimation(this, R.drawable.gradient_bwb_vertical);
+           			AnimationUtils.loadAnimation(this, R.anim.hsjump);
            			hyperspaceJump.setAnimationListener( new Animation.AnimationListener() {
 						    @Override
 						    public void onAnimationEnd(Animation arg0) {
 						           		  		alarmList.remove(alarm);
 												if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) alarm.alarmSTOP();
 												alarm.setState(AlarmClock.TimerState.STOPPED);
-									mainL.removeView(((LinearLayout)alarm.getElement() ));
+												alarm.getElement().setVisibility(View.GONE);
+								//	mainL.removeView(((LinearLayout)alarm.getElement() ));
 								alarm.setElement(null);
 								
 												
