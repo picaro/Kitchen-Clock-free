@@ -242,19 +242,21 @@ public class AlarmClock implements Parcelable
 		final Animation anim = 
 			AnimationUtils.loadAnimation(context, R.anim.fade_bwb);	
 			anim.setRepeatMode(Animation.RESTART);
-			anim.setRepeatCount(1000);
-			anim.setDuration(500);
+		//	anim.setRepeatCount(1000);
+		//	anim.setDuration(500);
 //		element.startAnimation(anim);
 			
 		final LinearLayout element = getElement();	
+		getWidget().setTextColor(context.getResources().getColor(R.color.white));
+		
 		if (getWidget() != null ) getWidget().post(new Runnable() {
 					public void run()
 					{
-						anim.setAnimationListener(new AnimationListener() {
+						anim.setAnimationListener(new Animation.AnimationListener() {
 					                @Override
 					                public void onAnimationEnd(Animation arg0) {
 					                    Animation anim = AnimationUtils.loadAnimation(context, R.anim.fade_bwb);
-					                    anim.setAnimationListener(context);
+					                    anim.setAnimationListener(this);
 					                    element.startAnimation(anim);
 					                }
 					
@@ -278,7 +280,9 @@ public class AlarmClock implements Parcelable
 	{
 		if (this.state == TimerState.ALARMING)
 		{
-			//music.release();          // Alarm has rung and we have closed the dialog. Music is released.
+			element.clearAnimation();
+			//music.release(); 
+			// Alarm has rung and we have closed the dialog. Music is released.
 			if (1 == 1) vibrator.cancel();        // Also no need to vibrate anymore.
 			WakeUpLock.release();
 		}
