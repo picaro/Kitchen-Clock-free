@@ -84,7 +84,14 @@ public class MainActivity extends Activity implements OnClickListener
 		startService(new Intent(this, ClockService.class));
 	}
 
-	
+	// Store the instance of an object
+@Override
+public Object onRetainNonConfigurationInstance() 
+{
+  if (alarmList != null) // Check that the object exists
+      return(alarmList);
+  return super.onRetainNonConfigurationInstance();
+}
 	
 	/**
 	 * 
