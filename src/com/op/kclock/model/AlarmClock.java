@@ -235,7 +235,7 @@ public class AlarmClock implements Parcelable
 		return seconds;
 	}
 
-	public void alarmNOW(Context context)
+	public void alarmNOW(final Context context)
 	{
 		if (1 == 1) vibratePhone(context);
 		//if (1==2) playMusic();
@@ -246,12 +246,28 @@ public class AlarmClock implements Parcelable
 			anim.setDuration(500);
 //		element.startAnimation(anim);
 			
+		final LinearLayout element = getElement();	
 		if (getWidget() != null ) getWidget().post(new Runnable() {
 					public void run()
 					{
-						getWidget().startAnimation(anim);
+						anim.setAnimationListener(new AnimationListener() {
+					                @Override
+					                public void onAnimationEnd(Animation arg0) {
+					                    Animation anim = AnimationUtils.loadAnimation(context, R.anim.fade_bwb);
+					                    anim.setAnimationListener(context);
+					                    element.startAnimation(anim);
+					                }
+					
+					                @Override
+					                public void onAnimationRepeat(Animation arg0) {                }
+					
+					                @Override
+					                public void onAnimationStart(Animation arg0) {}
+					            });
+						element.startAnimation(anim);							
 						
-						}
+						
+					}
 				});		
 			
 		Log.d("op","a" +element);
