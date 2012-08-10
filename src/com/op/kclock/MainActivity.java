@@ -52,8 +52,8 @@ public class MainActivity extends Activity implements OnClickListener
 		//actionBar.setCustomView(R.layout.actionbar_view);
 //		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM 
 //			| ActionBar.DISPLAY_SHOW_HOME);
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-		oControl.setText(mPrefs.getString("Name", null));
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+	//	oControl.setText(mPrefs.getString("Name", null));
 		  // Get the instance of the object that was stored
 		  // if one exists
 		  if (getLastNonConfigurationInstance() != null)
