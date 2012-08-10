@@ -52,7 +52,8 @@ public class MainActivity extends Activity implements OnClickListener
 		//actionBar.setCustomView(R.layout.actionbar_view);
 //		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM 
 //			| ActionBar.DISPLAY_SHOW_HOME);
-	 
+	 	if(savedInstanceState!=null)	alarmList = savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
+		if (alarmList == null) alarmList = new ArrayList<AlarmClock>();
 
 		Eula.show(this); 
        		Changelog.show(this);
@@ -68,11 +69,13 @@ public class MainActivity extends Activity implements OnClickListener
 		{
 			addAlarmDialog();
 		} 
-		
+		Log.d("oo","start");
 		
 		startService(new Intent(this, ClockService.class));
 	}
 
+	
+	
 	/**
 	 * 
 	 * @param timer
@@ -148,6 +151,8 @@ timer = (int) when + 4000;
 	
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
+				Log.d("oo","onrestore");
+
 		super.onRestoreInstanceState(savedInstanceState);
 		alarmList = savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
 
@@ -165,6 +170,9 @@ timer = (int) when + 4000;
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState)
 	{
+				Log.d("oo","onsave");
+
+		
 		savedInstanceState.putParcelableArrayList("SAVE_SELECTED", alarmList);
 		super.onSaveInstanceState(savedInstanceState);
 	}

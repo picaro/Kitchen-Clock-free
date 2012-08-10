@@ -3,12 +3,13 @@ package com.op.kclock.alarm;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
+import android.util.*;
+
 
 public class ClockService extends Service
 {
   
-  final String LOG_TAG = "myLogs";
+  final String LOG_TAG = "op";
   
     public void onCreate() {
     super.onCreate();
