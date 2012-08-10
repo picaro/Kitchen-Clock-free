@@ -67,7 +67,10 @@ public class MainActivity extends Activity implements OnClickListener
 		else
 		{
 			addAlarmDialog();
-		} 	
+		} 
+		
+		
+		startService(new Intent(this, ClockService.class));
 	}
 
 	/**
