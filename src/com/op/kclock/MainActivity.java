@@ -219,11 +219,9 @@ timer = (int) when + 4000;
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState)
 	{
-				Log.d("oo","onsave");
-
-		
-		savedInstanceState.putParcelableArrayList("SAVE_SELECTED", alarmList);
+		Log.d("oo","onsave");
 		super.onSaveInstanceState(savedInstanceState);
+		savedInstanceState.putParcelableArrayList("SAVE_SELECTED", alarmList);
 	}
 	
 	private void drawAlarms()
