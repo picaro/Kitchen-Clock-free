@@ -52,6 +52,16 @@ public class MainActivity extends Activity implements OnClickListener
 		//actionBar.setCustomView(R.layout.actionbar_view);
 //		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM 
 //			| ActionBar.DISPLAY_SHOW_HOME);
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+		oControl.setText(mPrefs.getString("Name", null));
+		  // Get the instance of the object that was stored
+		  // if one exists
+		  if (getLastNonConfigurationInstance() != null)
+		  {
+		    alarmList = ( ArrayList<AlarmClock>)getLastNonConfigurationInstance();
+		  }
+
+
 	 	if(savedInstanceState!=null)	alarmList = savedInstanceState.getParcelableArrayList("SAVE_SELECTED");
 		if (alarmList == null) alarmList = new ArrayList<AlarmClock>();
 
@@ -108,7 +118,6 @@ timer = (int) when + 4000;
 																PendingIntent.FLAG_UPDATE_CURRENT);
 		notification.setLatestEventInfo(mContext, mContentTitle, mContentText, contentIntent);
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 			String defaultNotification = "select";// "android.resource://com.leinardi.kitchentimer/" + R.raw.mynotification;
 		if (mPrefs.getBoolean(mContext.getString(R.string.pref_notification_sound_key), true)) {
 			if (mPrefs.getBoolean(mContext.getString(R.string.pref_notification_custom_sound_key), false)) {
