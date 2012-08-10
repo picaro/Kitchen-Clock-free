@@ -33,7 +33,7 @@
 			android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar"/>
         <service android:name=".ClockService"
-        		android:label="clock service">	
+        		android:label="clock service"/>	
         
     </application>
 	<uses-permission android:name="android.permission.VIBRATE" />
