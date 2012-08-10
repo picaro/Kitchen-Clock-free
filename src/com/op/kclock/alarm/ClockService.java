@@ -32,6 +32,19 @@ public class ClockService extends Service
   }
   
   void someTask() {
+    
+    do{  	
+			try
+			{
+        Log.d(LOG_TAG, "ho-ho");
+	 			Thread.sleep(1000);
+			}
+			catch (InterruptedException e)
+			{}
+
+	} while(true);	
+    
+    
   }
   
 }
