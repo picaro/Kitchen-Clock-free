@@ -1,18 +1,21 @@
 package com.op.kclock.model;
 
-import android.app.*;
-import android.content.*;
-import android.graphics.*;
-import android.net.*;
-import android.os.*;
-import android.telephony.*;
-import android.util.*;
-import android.widget.*;
-import com.op.kclock.*;
-import com.op.kclock.alarm.*;
-import java.util.*;
-import android.view.animation.*;
-import android.animation.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Vibrator;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.op.kclock.R;
+import com.op.kclock.alarm.WakeUpLock;
 
 
 public class AlarmClock implements Parcelable

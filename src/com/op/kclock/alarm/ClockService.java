@@ -11,14 +11,14 @@ public class ClockService extends Service
   
   final String LOG_TAG = "op";
   
-    public void onCreate() {
+   public void onCreate() {
     super.onCreate();
     Log.d(LOG_TAG, "onCreate");
   }
   
   public int onStartCommand(Intent intent, int flags, int startId) {
     Log.d(LOG_TAG, "onStartCommand");
-    someTask();
+   // someTask();
     return super.onStartCommand(intent, flags, startId);
   }
 
