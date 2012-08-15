@@ -2,11 +2,15 @@ Kitchen-Clock-free
 ==================
 
 Current work: AlarmClock - will be used for recipes
-   - Save alarms (for refresh) - Restore?
-   - Extract alarm to separate project. 
-      - fix menus, 
-      - languges, 
-      - Settings with music
+	- Save alarms (for refresh) - Restore?
+    - languges, 
+    - need only one thread
+	- show names
+	- pick dialog onrotate
+	- pick dialog variants
+	- api 
+	- tests
+     
       
 
 
@@ -26,4 +30,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-TO-DO
+

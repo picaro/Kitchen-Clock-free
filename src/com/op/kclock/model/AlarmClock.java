@@ -1,360 +1,428 @@
+/**
+ *  Kitchen Clock
+ *  Copyright (C) 2012 Alexander Pastukhov
+ *  
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ */ 
 package com.op.kclock.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Vibrator;
-import android.telephony.TelephonyManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.op.kclock.MainActivity;
 import com.op.kclock.R;
 import com.op.kclock.alarm.WakeUpLock;
+import com.op.kclock.cookconst.SettingsConst;
 
-
-public class AlarmClock implements Parcelable
-{
+public class AlarmClock implements Parcelable {
 
 	private static final int MINUTE = 60;
 
 	private static final int HOUR = 3600;
 
-	private Vibrator vibrator;
-
-	private static final long[] vibratePattern = {0, 200, 500};
-
-	private String TAG ="op";
-
-	private CharSequence timerName;
-
-
-	public static enum TimerState
-	{
-		STOPPED, PAUSED, RUNNING, ALARMING
-		};
-
-	private TimerState state = TimerState.STOPPED;
-
-	public TimerState getState()
-	{
-		return state;
+    private Thread thread;
+    
+	public Thread getThread() {
+		return thread;
 	}
 
-	public void setState(TimerState state)
-	{
-		this.state = state;
+	public void setThread(Thread thread) {
+		this.thread = thread;
 	}
 
 	private int id;
 
 	private String name;
 
-	private Calendar stopTime;
-
-	private Calendar currTime;
-
 	private long seconds;
 
 	private LinearLayout element;
+	
+	NotificationManager mNotificationManager;
 
-	final static String LOG_TAG = "op";
+	private CharSequence timerName;
 
-	// обычный конструктор
-	public AlarmClock(String _name, int _id)
-	{
+	public static enum TimerState {
+		STOPPED, PAUSED, RUNNING, ALARMING
+	};
+
+	private TimerState state = TimerState.STOPPED;
+
+	public TimerState getState() {
+		return state;
+	}
+
+	public AlarmClock(LinearLayout _element){
+		element = _element;
+	}
+	
+	public void setState(Context context, TimerState state) {
+		this.state = state;
+		if (element != null) {
+			Animation in = AnimationUtils.loadAnimation(
+					context, R.anim.fade_in);
+			Animation out = AnimationUtils.loadAnimation(
+					context, R.anim.fade_out);
+
+			if (state == AlarmClock.TimerState.RUNNING) {
+				getWidget().startAnimation(in);
+				getWidget().setTextColor(
+						context.getResources().getColor(R.color.white));
+			} else if (getState() == AlarmClock.TimerState.PAUSED) {
+				getWidget().startAnimation(out);
+				getWidget().setTextColor(
+						context.getResources().getColor(R.color.gray));
+			} else if (getState() == AlarmClock.TimerState.STOPPED) {
+				getWidget().startAnimation(out);
+				getWidget().setTextColor(
+						context.getResources().getColor(R.color.gray));
+			}
+		}
+	}
+
+
+	public AlarmClock(String _name, int _id) {
 		name = _name;
 		id = _id;
 	}
 
-	public AlarmClock()
-	{
+	public AlarmClock() {
 	}
 
-	public void updateElement()
-	{
-		// TextView widget =(TextView)element.getChildAt(1);
-
-		if (getWidget() != null && this.getState() != TimerState.STOPPED) getWidget().post(new Runnable() {
-					public void run()
-					{
-						getWidget().setText(
+	public void updateElement() {
+		if (element != null)
+			getWidget().post(new Runnable() {
+				public void run() {
+					if (element != null) getWidget().setText(
 							(CharSequence) (String.format("%02d:%02d:%02d",
-														  getHour(), getMin(), getSec())));
-					}
-				});
+									getHour(), getMin(), getSec())));
+				}
+			});
 	}
 
-	public void setElement(LinearLayout element)
-	{
+	public void setElement(LinearLayout element) {
 		this.element = element;
 	}
 
-	public LinearLayout getElement()
-	{
+	public LinearLayout getElement() {
 		return element;
 	}
 
-	public void setSec(long sec)
-	{
+	public void setSec(long sec) {
 		this.seconds = sec;
 	}
 
-	public long getSec()
-	{
+	public long getSec() {
 		return seconds - (getHour() * HOUR) - (getMin() * MINUTE);
 	}
 
-	public void setMin(int min)
-	{
+	public void setMin(int min) {
 		seconds += min * MINUTE;
 	}
 
-	public long getMin()
-	{
+	public long getMin() {
 		return (seconds - (getHour() * HOUR)) / MINUTE;
 	}
 
-	public void setHour(int hour)
-	{
+	public void setHour(int hour) {
 		seconds += hour * HOUR;
 	}
 
-	public long getHour()
-	{
+	public long getHour() {
 		return seconds / HOUR;
 	}
 
-	public void setCurrTime(Calendar currTime)
-	{
-		this.currTime = currTime;
-	}
-
-	public Calendar getCurrTime()
-	{
-		return currTime;
-	}
-
-	public void setStopTime(Calendar stopTime)
-	{
-		this.stopTime = stopTime;
-	}
-
-	public Calendar getStopTime()
-	{
-		return stopTime;
-	}
-
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public int describeContents()
-	{
+	public int describeContents() {
 		return 0;
 	}
 
-	// упаковываем объект в Parcel
-	public void writeToParcel(Parcel parcel, int flags)
-	{
-		Log.d(LOG_TAG, "writeToParcel");
+	public void writeToParcel(Parcel parcel, int flags) {
+		Log.d(MainActivity.TAG, "writeToParcel");
 		parcel.writeString(name);
 		parcel.writeInt(id);
 		parcel.writeLong(seconds);
 	}
 
-	public TextView getWidget()
-	{
-		if (element == null) return null;
+	public TextView getWidget() {
+		if (element == null)
+			return null;
 		final TextView widget = (TextView) element.getChildAt(1);
 		return widget;
 	}
 
 	public static final Parcelable.Creator<AlarmClock> CREATOR = new Parcelable.Creator<AlarmClock>() {
-		// распаковываем объект из Parcel
-		public AlarmClock createFromParcel(Parcel in)
-		{
-			Log.d(LOG_TAG, "createFromParcel");
+		public AlarmClock createFromParcel(Parcel in) {
+			Log.d(MainActivity.TAG, "createFromParcel");
 			return new AlarmClock(in);
 		}
 
-		public AlarmClock[] newArray(int size)
-		{
+		public AlarmClock[] newArray(int size) {
 			return new AlarmClock[size];
 		}
 	};
 
-	private AlarmClock(Parcel parcel)
-	{
-		Log.d(LOG_TAG, "AlarmClock(Parcel parcel)");
+	private AlarmClock(Parcel parcel) {
+		Log.d(MainActivity.TAG, "AlarmClock(Parcel parcel)");
 		name = parcel.readString();
 		id = parcel.readInt();
 		seconds = parcel.readLong();
 	}
 
-	public boolean tick()
-	{
+	public boolean tick() {
 
-		if (state == TimerState.RUNNING) seconds--;
-		if (seconds > 0)
-		{
+		if (state == TimerState.RUNNING)
+			seconds--;
+		if (seconds > 0) {
 			return true;
-		}
-		else
-		{
+		} else {
 			this.state = TimerState.ALARMING;
 			return false;
 		}
 	}
 
-	public void setTime(long i)
-	{
+	public void setTime(long i) {
 		seconds = i;
 	}
 
-	public long getTime()
-	{
+	public long getTime() {
 		return seconds;
 	}
 
-	public void alarmNOW(final Context context)
-	{
-		if (1 == 1) vibratePhone(context);
-		//if (1==2) playMusic();
-		final Animation anim = 
-			AnimationUtils.loadAnimation(context, R.anim.fade_bwb);	
-			anim.setRepeatMode(Animation.RESTART);
-		//	anim.setRepeatCount(1000);
-		//	anim.setDuration(500);
-//		element.startAnimation(anim);
-			
-		final LinearLayout element = getElement();	
-		getWidget().setTextColor(context.getResources().getColor(R.color.white));
+	public void alarmNOW(final Context context) {
+		// vibratePhone(context);
+		sendTimeIsOverNotification(0, context);
+
+		final Animation anim = AnimationUtils.loadAnimation(context,
+				R.anim.fade_bwb);
+		anim.setRepeatMode(Animation.RESTART);
+
+		final LinearLayout element = getElement();
+
+		getWidget().post(new Runnable() {
+			public void run() {
+				getWidget()
+				.setTextColor(context.getResources().getColor(R.color.indian_red_1));
+	
+			}
+		});
 		
-		if (getWidget() != null ) getWidget().post(new Runnable() {
-					public void run()
-					{
-						anim.setAnimationListener(new Animation.AnimationListener() {
-					                @Override
-					                public void onAnimationEnd(Animation arg0) {
-					                    Animation anim = AnimationUtils.loadAnimation(context, R.anim.fade_bwb);
-					                    anim.setAnimationListener(this);
-					                    element.startAnimation(anim);
-					                }
-					
-					                @Override
-					                public void onAnimationRepeat(Animation arg0) {                }
-					
-					                @Override
-					                public void onAnimationStart(Animation arg0) {}
-					            });
-						element.startAnimation(anim);							
-						
-						
-					}
-				});		
-			
-		Log.d("op","a" +element);
+		
+		if (getWidget() != null)
+			getWidget().post(new Runnable() {
+				public void run() {
+					anim.setAnimationListener(new Animation.AnimationListener() {
+						@Override
+						public void onAnimationEnd(Animation arg0) {
+							Animation anim = AnimationUtils.loadAnimation(
+									context, R.anim.fade_bwb);
+							anim.setAnimationListener(this);
+							element.startAnimation(anim);
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation arg0) {
+						}
+
+						@Override
+						public void onAnimationStart(Animation arg0) {
+						}
+					});
+					element.startAnimation(anim);
+
+				}
+			});
+
+		Log.d("op", "a" + element);
 		WakeUpLock.acquire(context);
 	}
 
-	public void alarmSTOP()
-	{
-		if (this.state == TimerState.ALARMING)
-		{
+	public void alarmSTOP(Context context) {
+		mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID+1);
+
+		if (this.state == TimerState.ALARMING) {
 			element.clearAnimation();
-			//music.release(); 
-			// Alarm has rung and we have closed the dialog. Music is released.
-			if (1 == 1) vibrator.cancel();        // Also no need to vibrate anymore.
 			WakeUpLock.release();
 		}
-		setState(AlarmClock.TimerState.STOPPED);
-		
+		setState(context, AlarmClock.TimerState.STOPPED);
 	}
-	
-
-
-    /**
-     * Vibrates the phone unless user is on call.
-     */
-    private void vibratePhone(Context context)
-	{
-        Log.v(TAG, "I want to Vibrate");
-
-        // Check that the phone wont vibrate if the user is on the phone
-        if (((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getCallState() ==
-			TelephonyManager.CALL_STATE_IDLE)
-		{
-            vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(vibratePattern, 0);
-            Log.v(TAG, "Vibrator says:" + vibrator.toString());
-        }
-    }
-
-
 
 	/**
 	 * Parse the user provided custom vibrate pattern into a long[] Borrowed
 	 * from SMSPopup
 	 */
-	public static long[] parseVibratePattern(String stringPattern)
-	{
+	public static long[] parseVibratePattern(String stringPattern) {
 		ArrayList<Long> arrayListPattern = new ArrayList<Long>();
 		Long l;
 		String[] splitPattern = stringPattern.split(",");
 		int VIBRATE_PATTERN_MAX_SECONDS = 60000;
 		int VIBRATE_PATTERN_MAX_PATTERN = 100;
 
-		for (int i = 0; i < splitPattern.length; i++)
-		{
-			try
-			{
+		for (int i = 0; i < splitPattern.length; i++) {
+			try {
 				l = Long.parseLong(splitPattern[i].trim());
-			}
-			catch (NumberFormatException e)
-			{
+			} catch (NumberFormatException e) {
 				return null;
 			}
-			if (l > VIBRATE_PATTERN_MAX_SECONDS)
-			{
+			if (l > VIBRATE_PATTERN_MAX_SECONDS) {
 				return null;
 			}
 			arrayListPattern.add(l);
 		}
 
 		int size = arrayListPattern.size();
-		if (size > 0 && size < VIBRATE_PATTERN_MAX_PATTERN)
-		{
+		if (size > 0 && size < VIBRATE_PATTERN_MAX_PATTERN) {
 			long[] pattern = new long[size];
-			for (int i = 0; i < pattern.length; i++)
-			{
+			for (int i = 0; i < pattern.length; i++) {
 				pattern[i] = arrayListPattern.get(i);
 			}
 			return pattern;
 		}
 
 		return null;
-	}	
+	}
+
+	/**
+	 * 
+	 * @param timer
+	 * @param tickerText
+	 * @param contentTitle
+	 * @param contentText
+	 */
+	private void sendTimeIsOverNotification(int timer, Context context) {
+		int icon;
+
+		SharedPreferences mPrefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+
+		String ns = Context.NOTIFICATION_SERVICE;
+		mNotificationManager = (NotificationManager) context
+				.getSystemService(ns);
+
+		icon = R.drawable.stat_notify_alarm;
+		CharSequence mTickerText = " - "
+				+ context.getResources().getString(R.string.app_name);
+		long when = System.currentTimeMillis();
+
+		timer = (int) when + 4000;
+		Notification notification = new Notification(icon, mTickerText, when);
+		notification.number = timer + 1;
+
+		CharSequence mContentTitle = context.getResources().getString(
+				R.string.countdown_ended);
+		CharSequence mContentText = context.getResources().getString(
+				R.string.countdown_ended);
+
+		Intent clickIntent = new Intent(context, MainActivity.class);
+		clickIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_SINGLE_TOP
+				| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+				clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		notification.setLatestEventInfo(context, mContentTitle, mContentText,
+				contentIntent);
+
+		String defaultNotification = "select";// "android.resource://com.leinardi.kitchentimer/"
+												// + R.raw.mynotification;
+		if (mPrefs.getBoolean(
+				context.getString(R.string.pref_notification_sound_key), true)) {
+			if (mPrefs.getBoolean(context
+					.getString(R.string.pref_notification_custom_sound_key),
+					false)) {
+				String customNotification = mPrefs.getString(context
+						.getString(R.string.pref_notification_ringtone_key),
+						defaultNotification);
+				if (!customNotification.equals(defaultNotification)) {
+					notification.sound = Uri.parse(customNotification);
+				}
+			} else {
+				notification.sound = Uri.parse(defaultNotification);
+			}
+		}
+		if (mPrefs.getBoolean(
+				context.getString(R.string.pref_notification_insistent_key),
+				true))
+			notification.flags |= Notification.FLAG_INSISTENT;
+		if (mPrefs
+				.getBoolean(context
+						.getString(R.string.pref_notification_vibrate_key),
+						true)) {
+			String mVibratePattern = mPrefs.getString(context
+					.getString(R.string.pref_notification_vibrate_pattern_key),
+					"");
+			if (!mVibratePattern.equals("")) {
+				notification.vibrate = AlarmClock
+						.parseVibratePattern(mVibratePattern);
+			} else {
+				notification.defaults |= Notification.DEFAULT_VIBRATE;
+			}
+		}
+		if (mPrefs.getBoolean(
+				context.getString(R.string.pref_notification_led_key), true)) {
+			notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+			notification.ledARGB = Color
+					.parseColor(mPrefs.getString(
+							context.getString(R.string.pref_notification_led_color_key),
+							"red"));
+			int mLedBlinkRate = Integer.parseInt(mPrefs.getString(context
+					.getString(R.string.pref_notification_led_blink_rate_key),
+					"2"));
+			notification.ledOnMS = 500;
+			notification.ledOffMS = mLedBlinkRate * 1000;
+		}
+
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+		mNotificationManager.notify(SettingsConst.APP_NOTIF_ID+1, notification);
+	}
+
+	public void updateState(Context context) {
+		this.setState(context, state);
+		
+	}
 
 }

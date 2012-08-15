@@ -1,6 +1,6 @@
 /**
- *  Kitchen Timer
- *  Copyright (C) 2010 Roberto Leinardi
+ *  Kitchen Clock
+ *  Copyright (C) 2012 Alexander Pastukhov
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  
- */
+ */ 
 
 package com.op.kclock.misc;
 
@@ -36,10 +36,10 @@ public class Changelog {
 
 	public static boolean show(Activity activity) {
 		SharedPreferences preferences = activity.getSharedPreferences(SettingsConst.PREF_CHANGELOG, Activity.MODE_PRIVATE);
-		int prefVersion = preferences.getInt(SettingsConst.PREF_APP_VERSION, 0);
+		int prefVersion = preferences.getInt(SettingsConst.PREF_APP_VERSION, 1);
 		int currentVersion;
 		try {
-			PackageInfo pi = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
+			PackageInfo pi = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 1);
 			currentVersion = pi.versionCode;
 		} catch (NameNotFoundException e) {
 			Log.e(TAG, "Package name not found", e);

@@ -1,6 +1,5 @@
 package com.op.kclock.alarm;
 
-
 import java.util.Calendar;
 import android.widget.*;
 
@@ -17,11 +16,9 @@ import com.op.kclock.model.AlarmClock.TimerState;
  * Make this class singleton to get rid of the static alarm.
  *
  */
-public interface AlarmService extends Runnable
-{
+public interface AlarmService extends Runnable {
 
 	public void setAlarmClock(AlarmClock alarm);
-
 
 	public TimerState getStatus();
 

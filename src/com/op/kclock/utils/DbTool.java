@@ -1,6 +1,6 @@
 /**
- *  Kitchen Timer
- *  Copyright (C) 2010 Roberto Leinardi
+ *  Kitchen Clock
+ *  Copyright (C) 2012 Alexander Pastukhov
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,20 +15,20 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  
- */
+ */ 
 
 package com.op.kclock.utils;
- //leinardi.kitchentimer.database;
 
-//import com.leinardi.kitchentimer.customtypes.Food;
-//import com.leinardi.kitchentimer.customtypes.Food.FoodMetaData;
-//import com.leinardi.kitchentimer.misc.Log;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.op.kclock.MainActivity;
 import com.op.kclock.model.*;
 import com.op.kclock.misc.*;
 
@@ -106,7 +106,7 @@ public class DbTool {
 		ContentValues values = new ContentValues();
 		values.put(NAME,  record.getName()== null? "alarm":  record.getName());
 		values.put(STATE, record.getState().toString());
-		values.put(SECONDS, record.getSec());
+		values.put(SECONDS, record.getTime());
 		db.insert(TABLE, null, values);
 	}
 
@@ -114,17 +114,51 @@ public class DbTool {
 		ContentValues values = new ContentValues();
 		values.put(NAME, record.getName());
 		values.put(STATE, record.getState().toString());
-		values.put(SECONDS, record.getSec());
-		db.update(TABLE, values, "_id="+record.getId(), null);
+		values.put(SECONDS, record.getTime());
+		db.update(TABLE, values, ID+"="+record.getId(), null);
 	}
 
 	public void delete(long examId){
-		db.delete(TABLE, "_id=" + examId, null);
+		db.delete(TABLE, ID+"=" + examId, null);
+	}
+
+	public List<AlarmClock> getAlarmsList() {
+		Cursor cursor;
+
+		open();
+		List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
+		cursor = getRecords();
+		if (cursor.moveToFirst()) {
+			do {
+			int idColIndex = cursor.getColumnIndex(DbTool.ID);
+			int nameColIndex = cursor.getColumnIndex(DbTool.NAME);
+			int seconds = cursor.getColumnIndex(DbTool.SECONDS);
+			//int state = cursor.getColumnIndex(DbTool.STATE);
+			AlarmClock alarm = new AlarmClock();
+			alarm.setId(cursor.getInt(idColIndex));
+			alarm.setSec(cursor.getInt(seconds));
+//			alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
+//					.getString(state)));
+			alarm.setName(cursor.getString(nameColIndex));
+			alarm.setState(context, AlarmClock.TimerState.PAUSED);
+			alarmList.add(alarm);
+				Log.d(MainActivity.TAG,
+						"ID = " + cursor.getInt(idColIndex) + ", "
+								+ NAME + " = "
+								+ cursor.getString(nameColIndex) + ", "
+								+ SECONDS + " = "
+								+ cursor.getString(seconds));
+			} while (cursor.moveToNext());
+		} else
+			Log.d(MainActivity.TAG, "0 rows");
+		close();
+		return alarmList;
 	}
 
 	public void truncate(){
 		db.delete(TABLE, null, null);
 	}
+
 
 	public Cursor query(long examId){
 		return db.query(TABLE, COLUMNS, "_id=" + examId, null, null, null,null);

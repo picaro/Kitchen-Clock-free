@@ -29,8 +29,10 @@ public class SettingsActivity extends PreferenceActivity
 		} catch (PackageManager.NameNotFoundException e) {
 			Log.e(MainActivity.TAG, "Package name not found", e);
 			version = getString(R.string.pref_info_version_error);
-		}
+		}		findPreference(getString(R.string.pref_info_version_key)).setSummary(version);
 			
+			findPreference(getString(R.string.pref_info_version_key)).setSummary(version);
+	
 //		prefs = getSharedPreferences(SettingsConst.SETTINGS, 0);
 //		
 //		isSessSavePref = (CheckBoxPreference) findPreference( SettingsConst.SAVE_SESSION);

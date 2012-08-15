@@ -1,6 +1,6 @@
 /**
- *  Kitchen Timer
- *  Copyright (C) 2010 Roberto Leinardi
+ *  Kitchen Clock
+ *  Copyright (C) 2012 Alexander Pastukhov
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -15,8 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  
- */
-
+ */ 
 package com.op.kclock.misc;
 
 import android.util.Config;
@@ -25,8 +24,8 @@ public class Log
 {
 	private final static String LOGTAG = "kitchen-clock";
 
-	//static final boolean DEBUG = false;
-	//public static final boolean LOGV = DEBUG ? Config.LOGD : Config.LOGV;
+	static final boolean DEBUG = false;
+	public static final boolean LOGV = DEBUG ? Config.LOGD : Config.LOGV;
 	//Replace all Log.d with if(Log.LOGV) Log.v() to prevent Strings to be builded and to save memory
 
 	public static void v(String TAG, String logMe)

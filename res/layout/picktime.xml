@@ -18,14 +18,14 @@
 
 			<kankan.wheel.widget.WheelView android:id="@+id/hour"
 				android:layout_height="wrap_content"
-				android:layout_width="80dp"
+				android:layout_width="70dp"
 				android:label="hours"/>
 			<kankan.wheel.widget.WheelView android:id="@+id/mins"
 				android:layout_height="wrap_content"
-				android:layout_width="80dp"/>
+				android:layout_width="120dp"/>
 			<kankan.wheel.widget.WheelView android:id="@+id/secs"
 				android:layout_height="wrap_content"
-				android:layout_width="80dp"/>
+				android:layout_width="50dp"/>
 		</LinearLayout>	
 		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			android:layout_height="wrap_content"
@@ -33,22 +33,23 @@
 			android:layout_gravity="center_horizontal"
 			android:paddingLeft="12dp"
 			android:paddingRight="12dp"
-			android:paddingTop="20dp">
+			android:paddingTop="20dp"
+android:id="@+id/pick_text">
 			<TextView
-				android:layout_width="80dp"
+				android:layout_width="65dp"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal"
 				android:text="@string/hour"
 				android:id="@+id/hourslbl"
 			/>
 			<TextView
-				android:layout_width="80dp"
+				android:layout_width="110dp"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal"	
 				android:text="@string/min"
 				android:id="@+id/minslbl"/>
 			<TextView
-				android:layout_width="80dp"
+				android:layout_width="65dp"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal"
 				android:text="@string/sec" 

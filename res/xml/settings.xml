@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!--
+     Copyright (C) 2009 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,74 +13,67 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
+
+
 -->
 
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/menu_settings">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/menu_settings" >
 
- 	<Preference
-			android:key="@string/pref_info_version_key"
-			style="?android:preferenceInformationStyle"
-			android:title="@string/pref_info_version" />
-	   <CheckBoxPreference
-        android:key="savesession"
-        android:title="@string/pref_savesession"
-        android:summary="@string/pref_savesession_sum" />
+    <Preference
+        style="?android:preferenceInformationStyle"
+        android:key="@string/pref_info_version_key"
+        android:title="@string/pref_info_version" />
+
+
+    <RingtonePreference
+        android:key="@string/pref_notification_ringtone_key"
+        android:ringtoneType="alarm"
+        android:showSilent="true"
+        android:summary="@string/pref_notification_ringtone_summary"
+        android:title="@string/pref_notification_ringtone" />
+
     <CheckBoxPreference
-        android:key="musicon"
-        android:title="@string/pref_musicon"
-        android:summary="@string/pref_musicon_sum" />
-	<CheckBoxPreference
-        android:key="vibraon"
-        android:title="@string/pref_vibraon"
-        android:summary="@string/pref_vibraon_sum" />
+        android:defaultValue="true"
+        android:key="@string/pref_notification_led_key"
+        android:summaryOff="@string/pref_notification_led_summary_off"
+        android:summaryOn="@string/pref_notification_led_summary_on"
+        android:title="@string/pref_notification_led" />
 
-		<RingtonePreference
-			android:key="@string/pref_notification_ringtone_key"
-			android:title="@string/pref_notification_ringtone"
-			android:summary="@string/pref_notification_ringtone_summary"
-			android:ringtoneType="alarm"
-			android:showSilent="false"
-			android:dependency="musicon" />
-		<CheckBoxPreference
-			android:key="@string/pref_notification_led_key"
-			android:title="@string/pref_notification_led"
-			android:summaryOn="@string/pref_notification_led_summary_on"
-			android:summaryOff="@string/pref_notification_led_summary_off"
-			android:defaultValue="true" />
-		<ListPreference
-			android:key="@string/pref_notification_led_color_key"
-			android:dependency="@string/pref_notification_led_key"
-			android:defaultValue="red"
-			android:title="@string/pref_notification_led_color"
-			android:summary="@string/pref_notification_led_color_summary"
-			android:entries="@array/pref_notification_led_color_entries"
-			android:entryValues="@array/pref_notification_led_color_values"
-			android:dialogTitle="@string/pref_notification_led_color_dialogtitle" />
-		<ListPreference
-			android:key="@string/pref_notification_led_blink_rate_key"
-			android:dependency="@string/pref_notification_led_key"
-			android:defaultValue="2"
-			android:title="@string/pref_notification_led_blink_rate"
-			android:summary="@string/pref_notification_led_blink_rate_summary"
-			android:entries="@array/pref_notification_led_blink_rate_entries"
-			android:entryValues="@array/pref_notification_led_blink_rate_values"
-			android:dialogTitle="@string/pref_notification_led_blink_rate_dialogtitle" />
-		<CheckBoxPreference
-			android:key="@string/pref_notification_vibrate_key"
-			android:title="@string/pref_notification_vibrate"
-			android:summaryOn="@string/pref_notification_vibrate_summary_on"
-			android:summaryOff="@string/pref_notification_vibrate_summary_off"
-			android:defaultValue="true" />
-		<ListPreference
-			android:key="@string/pref_notification_vibrate_pattern_key"
-			android:dependency="@string/pref_notification_vibrate_key"
-			android:defaultValue=""
-			android:title="@string/pref_notification_vibrate_pattern"
-			android:summary="@string/pref_notification_vibrate_pattern_summary"
-			android:entries="@array/pref_notification_vibrate_pattern_entries"
-			android:entryValues="@array/pref_notification_vibrate_pattern_values"
-			android:dialogTitle="@string/pref_notification_vibrate_pattern_dialogtitle" />
-	
+    <ListPreference
+        android:defaultValue="red"
+        android:dependency="@string/pref_notification_led_key"
+        android:dialogTitle="@string/pref_notification_led_color_dialogtitle"
+        android:entries="@array/pref_notification_led_color_entries"
+        android:entryValues="@array/pref_notification_led_color_values"
+        android:key="@string/pref_notification_led_color_key"
+        android:summary="@string/pref_notification_led_color_summary"
+        android:title="@string/pref_notification_led_color" />
+    <ListPreference
+        android:defaultValue="2"
+        android:dependency="@string/pref_notification_led_key"
+        android:dialogTitle="@string/pref_notification_led_blink_rate_dialogtitle"
+        android:entries="@array/pref_notification_led_blink_rate_entries"
+        android:entryValues="@array/pref_notification_led_blink_rate_values"
+        android:key="@string/pref_notification_led_blink_rate_key"
+        android:summary="@string/pref_notification_led_blink_rate_summary"
+        android:title="@string/pref_notification_led_blink_rate" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_notification_vibrate_key"
+        android:summaryOff="@string/pref_notification_vibrate_summary_off"
+        android:summaryOn="@string/pref_notification_vibrate_summary_on"
+        android:title="@string/pref_notification_vibrate" />
+
+    <ListPreference
+        android:defaultValue=""
+        android:dependency="@string/pref_notification_vibrate_key"
+        android:dialogTitle="@string/pref_notification_vibrate_pattern_dialogtitle"
+        android:entries="@array/pref_notification_vibrate_pattern_entries"
+        android:entryValues="@array/pref_notification_vibrate_pattern_values"
+        android:key="@string/pref_notification_vibrate_pattern_key"
+        android:summary="@string/pref_notification_vibrate_pattern_summary"
+        android:title="@string/pref_notification_vibrate_pattern" />
+
 </PreferenceScreen>

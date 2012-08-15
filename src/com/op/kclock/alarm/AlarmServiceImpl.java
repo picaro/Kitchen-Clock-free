@@ -1,16 +1,31 @@
+/**
+ *  Kitchen Clock
+ *  Copyright (C) 2012 Alexander Pastukhov
+ *  
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ */ 
 package com.op.kclock.alarm;
 
-import android.content.*;
-import android.os.*;
-import android.telephony.TelephonyManager;
-import android.util.*;
+import java.util.Calendar;
+
+import android.content.Context;
+import android.os.Handler;
 
 import com.op.kclock.misc.Log;
-import com.op.kclock.model.*;
+import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
-
-import java.util.*;
-import android.widget.*;
 
 /**
  *  Class that handles Putting alarm to file and to device. So that we can wake our code on correct time.
@@ -25,7 +40,6 @@ public class AlarmServiceImpl implements AlarmService
     private final NotificationFactory notificationFactory;
 
     Handler handler;
-
 
     public AlarmServiceImpl(Context context, Handler _handler)
 	{
@@ -44,7 +58,7 @@ public class AlarmServiceImpl implements AlarmService
 	public void run()
 	{
 		do{		
-			widget.updateElement();
+			if (widget.getState() == AlarmClock.TimerState.RUNNING) widget.updateElement();
 			try
 			{
 	 			Thread.sleep(1000);
@@ -89,7 +103,7 @@ public class AlarmServiceImpl implements AlarmService
 
 	public void finalize()
 	{	
-		if (widget != null) widget.alarmSTOP();
+		if (widget != null) widget.alarmSTOP(context);
 	}
 
 }
