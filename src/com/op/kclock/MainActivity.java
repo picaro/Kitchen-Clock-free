@@ -368,7 +368,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		case R.id.menu_delete_all: {
 			deleteAllAlarms();
-		    addAlarmDialog();
+			if (mPrefs.getBoolean(
+					getApplicationContext()
+							.getString(R.string.pref_addalarmonstart_key), true)) {
+				addAlarmDialog();
+			}
 			return true;
 		}
 		case R.id.menu_exit: {

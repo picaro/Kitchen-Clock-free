@@ -90,18 +90,41 @@ public class TimePickDialog extends Dialog {
 
 		if (pickerType.equals("wheel")) {
 			hours = (WheelView) findViewById(R.id.hour);
-			hours.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
+			if (mPrefs.getBoolean(
+					getContext()
+							.getString(R.string.pref_showhr_key), true)) {
+				hours.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
 					23));
-
+			} else {
+				hours.setVisibility(View.GONE);
+				View hourslbl = (View) findViewById(R.id.hourslbl);
+				hourslbl.setVisibility(View.GONE);				
+			}
+			
 			mins = (WheelView) findViewById(R.id.mins);
-			mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
-					59, "%02d"));
-			mins.setCyclic(true);
-
+			if(1==2){
+				mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
+						59, "%02d"));
+				mins.setCyclic(true);
+			} else {
+				mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
+						120, "%02d"));
+				mins.setCyclic(false);				
+			}
+			
 			secs = (WheelView) findViewById(R.id.secs);
-			secs.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
-					59, "%02d"));
-			secs.setCyclic(true);
+
+			if (mPrefs.getBoolean(
+					getContext()
+							.getString(R.string.pref_showsec_key), true)) {
+				secs.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
+						59, "%02d"));
+				secs.setCyclic(true);
+			} else {
+				secs.setVisibility(View.GONE);
+				View secslbl = (View) findViewById(R.id.secslbl);
+				secslbl.setVisibility(View.GONE);				
+			}
 
 			if (alarm != null && alarm.getTime() > 0) {
 				hours.setCurrentItem((int) alarm.getHour());

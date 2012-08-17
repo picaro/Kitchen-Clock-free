@@ -117,9 +117,9 @@
     <string name="pref_autostart">Автозапуск таймера</string>
     <string name="pref_autostart_summary_on">автозапуск таймера вкл</string>
     <string name="pref_autostart_summary_off">автозапуск таймера выкл</string>
-    <string name="pref_pickstyle">Стиль выбора</string>
-    <string name="pref_pickstyle_summary">стиль выбора времени</string>
-    <string name="pref_pickstyle_dialogtitle">Выберите стиль</string>
+    <string name="pref_pickstyle">Окно установки времени</string>
+    <string name="pref_pickstyle_summary">тип окна</string>
+    <string name="pref_pickstyle_dialogtitle">Выберите тип</string>
          <string name="pref_addalarmonstart">Добавлять таймер при старте</string>
     <string name="pref_addalarmonstart_summary_on">показывать диалог добавления таймера вкл</string>
     <string name="pref_addalarmonstart_summary_off">показывать диалог добавления таймера выкл</string>
