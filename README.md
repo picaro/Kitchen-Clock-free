@@ -6,8 +6,7 @@ Current work: AlarmClock - will be used for recipes
     
     - languges, 
     
-    - need only one thread
-    
+    - need only one thread  
     - show names
     - dialog numeric
     - api
@@ -36,4 +35,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-
+Some code and images is taken from http://code.google.com/p/kitchentimer/
+It's a prefect timer but I need my custom :)
