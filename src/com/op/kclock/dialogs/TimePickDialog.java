@@ -102,7 +102,9 @@ public class TimePickDialog extends Dialog {
 			}
 			
 			mins = (WheelView) findViewById(R.id.mins);
-			if(1==2){
+			if(mPrefs.getBoolean(
+					getContext()
+							.getString(R.string.pref_cyclicmins_key), true)) {
 				mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
 						59, "%02d"));
 				mins.setCyclic(true);

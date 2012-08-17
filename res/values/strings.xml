@@ -125,7 +125,10 @@
     <string name="pref_addalarmonstart_summary_on">show add timer dialog on start on</string>
     <string name="pref_addalarmonstart_summary_off">show add timer dialog on start off</string>
 
-    
+        <string name="pref_cyclicmins">Cyclic minutes wheel</string>
+    <string name="pref_cyclicmins_summary_on">cyclic minutes on</string>
+    <string name="pref_cyclicmins_summary_off">cyclic minutes off</string>
+        
     
     <string name="pref_pickstyle">Pick time style</string>
     <string name="pref_pickstyle_summary">pick time dialog type</string>

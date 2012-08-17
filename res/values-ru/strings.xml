@@ -123,4 +123,8 @@
          <string name="pref_addalarmonstart">Добавлять таймер при старте</string>
     <string name="pref_addalarmonstart_summary_on">показывать диалог добавления таймера вкл</string>
     <string name="pref_addalarmonstart_summary_off">показывать диалог добавления таймера выкл</string>
+    
+        <string name="pref_cyclicmins">Минуты по кругу</string>
+    <string name="pref_cyclicmins_summary_on">минуты по кругу вкл</string>
+    <string name="pref_cyclicmins_summary_off">минуты по кругу выкл</string>
 </resources>

@@ -37,6 +37,7 @@
     <string name="pref_autostart_key">pref_autostart_key</string>
     <string name="pref_pickstyle_key">pref_pickstyle_key</string>
     <string name="pref_addalarmonstart_key">pref_addalarmonstart_key</string>
+    <string name="pref_cyclicmins_key">pref_cyclicmins_key</string>
     
 
 </resources>
