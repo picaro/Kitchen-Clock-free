@@ -3,8 +3,11 @@ Kitchen-Clock-free
 
 Current work: AlarmClock - will be used for recipes
     - Save alarms (for refresh) - Restore?
+    
     - languges, 
+    
     - need only one thread
+    
     - show names
     - dialog numeric
     - api
