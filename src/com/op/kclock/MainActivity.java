@@ -148,8 +148,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
-      int width = getWindowManager().getDefaultDisplay().getWidth();
-      int height = getWindowManager().getDefaultDisplay().getHeight();
+      		int width = getWindowManager().getDefaultDisplay().getWidth();
+      		int height = getWindowManager().getDefaultDisplay().getHeight();
 	  for(AlarmClock alarm:alarmList){
 		 alarm.getWidget().setTextSize(width/8); 
 	  }
@@ -161,6 +161,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			  subscr.setVisibility(View.VISIBLE);
 		  }
 	  }
+	  stopAllActiveAlarms();
+	}
+	
+	public stopAllActiveAlarms(){
+           for(AlarmClock alarm:alarmList){
+		 if (alarm.getState() == AlarmClock.TimerState.ALARMING) {
+					alarm.alarmSTOP(getApplicationContext());
+				}
+	   }	
 	}
 
 	// Store the instance of an object
