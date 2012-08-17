@@ -2,14 +2,17 @@ Kitchen-Clock-free
 ==================
 
 Current work: AlarmClock - will be used for recipes
-	- Save alarms (for refresh) - Restore?
+    - Save alarms (for refresh) - Restore?
     - languges, 
     - need only one thread
-	- show names
-	- pick dialog onrotate
-	- pick dialog variants
-	- api 
-	- tests
+    - show names
+    - dialog numeric
+    - api
+    - Edit bug in mins > 60
+    - Turn off alarm on rotate
+    - digital fonts
+    -  new view for tabs
+    - tests
      
       
 
