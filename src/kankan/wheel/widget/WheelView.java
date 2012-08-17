@@ -37,6 +37,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import com.op.kclock.*;
+import com.op.kclock.ui.INumberPicker;
 
 
 /**
@@ -44,7 +45,7 @@ import com.op.kclock.*;
  * 
  * @author Yuri Kanivets
  */
-public class WheelView extends View {
+public class WheelView extends View implements INumberPicker {
 
 	/** Top and bottom shadows colors */
 	private static final int[] SHADOWS_COLORS = new int[] { 0xFF111111,

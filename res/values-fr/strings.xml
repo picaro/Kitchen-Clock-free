@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="fourzeros">00:00</string>
-<string name="sixzeros">00:00:00</string>
 <string name="hhmmss">hh:mm:ss</string>
 <string name="mmss">mm:ss</string>
 <string name="timer">Timer</string>
 <string name="start">Start</string>
 <string name="stop">Stop</string>
 <string name="changelog_title">Changelog</string>
-<string name="tip1">Pour ARRÊTER L\'ALARME appuyez sur le bouton rouge ou ouvrez la barre de notification.</string>
 <string name="name">Nom</string>
 <string name="save">Sauver</string>
 <string name="edit">Editer</string>

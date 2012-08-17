@@ -28,7 +28,6 @@
     <string name="info">Инфо</string>
     <string name="settime">Установить время</string>
     <string name="delete_all">Удалить все</string>
-    
     <string name="min">мин</string>
     <string name="hour">час</string>
     <string name="sec">сек</string>
@@ -103,5 +102,25 @@
     <string name="pref_notification_vibrate_pattern_long">Длинная</string>
     <string name="pref_notification_vibrate_pattern_multiple_short">Несколько коротких</string>
     <string name="pref_notification_vibrate_pattern_multiple_long">Несколько длинных</string>
-
+    <string name="pref_pickstyle_wheel">Прокрутка</string>
+    <string name="pref_pickstyle_picker">Кнопочный</string>
+    <string name="pref_pickstyle_number">Числовой</string>
+    <string name="pref_showsec">Выбирать секунды</string>
+    <string name="pref_showsec_summary_on">секунды при выборе вкл</string>
+    <string name="pref_showsec_summary_off">секунды при выборе выкл</string>
+    <string name="pref_showhr">Выбирать часы</string>
+    <string name="pref_showhr_summary_on">час при выборе вкл</string>
+    <string name="pref_showhr_summary_off">час при выборе выкл</string>
+    <string name="pref_simmetricpick">Симметричные поля</string>
+    <string name="pref_simmetricpick_summary_on">поля выбора времени симметричные</string>
+    <string name="pref_simmetricpick_summary_off">минуты больше при выборе времени</string>
+    <string name="pref_autostart">Автозапуск таймера</string>
+    <string name="pref_autostart_summary_on">автозапуск таймера вкл</string>
+    <string name="pref_autostart_summary_off">автозапуск таймера выкл</string>
+    <string name="pref_pickstyle">Стиль выбора</string>
+    <string name="pref_pickstyle_summary">стиль выбора времени</string>
+    <string name="pref_pickstyle_dialogtitle">Выберите стиль</string>
+         <string name="pref_addalarmonstart">Добавлять таймер при старте</string>
+    <string name="pref_addalarmonstart_summary_on">показывать диалог добавления таймера вкл</string>
+    <string name="pref_addalarmonstart_summary_off">показывать диалог добавления таймера выкл</string>
 </resources>

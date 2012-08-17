@@ -19,7 +19,6 @@
 package com.op.kclock.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -51,25 +50,67 @@ public class AlarmClock implements Parcelable {
 
     private Thread thread;
     
-	public Thread getThread() {
-		return thread;
-	}
-
-	public void setThread(Thread thread) {
-		this.thread = thread;
-	}
-
 	private int id;
 
 	private String name;
 
 	private long seconds;
 
+	private long initSeconds;
+
+	private boolean pinned;
+
+	private boolean active;
+
+	private int usageCnt;
+
+	private int dateAdd;
+
+	
+	
+	public boolean isPinned() {
+		return pinned;
+	}
+
+	public void setPinned(boolean pinned) {
+		this.pinned = pinned;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public int getUsageCnt() {
+		return usageCnt;
+	}
+
+	public void setUsageCnt(int usageCnt) {
+		this.usageCnt = usageCnt;
+	}
+
+	public int getDateAdd() {
+		return dateAdd;
+	}
+
+	public void setDateAdd(int dateAdd) {
+		this.dateAdd = dateAdd;
+	}
+
+	public long getInitSeconds() {
+		return initSeconds;
+	}
+
+	public void setInitSeconds(long initSeconds) {
+		this.initSeconds = initSeconds;
+	}
+
 	private LinearLayout element;
 	
 	NotificationManager mNotificationManager;
-
-	private CharSequence timerName;
 
 	public static enum TimerState {
 		STOPPED, PAUSED, RUNNING, ALARMING
@@ -84,7 +125,15 @@ public class AlarmClock implements Parcelable {
 	public AlarmClock(LinearLayout _element){
 		element = _element;
 	}
-	
+
+	public Thread getThread() {
+		return thread;
+	}
+
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
+
 	public void setState(Context context, TimerState state) {
 		this.state = state;
 		if (element != null) {
@@ -137,9 +186,10 @@ public class AlarmClock implements Parcelable {
 		return element;
 	}
 
-	public void setSec(long sec) {
-		this.seconds = sec;
-	}
+//	public void setSec(long sec) {
+//		this.seconds = sec;
+//		initSeconds
+//	}
 
 	public long getSec() {
 		return seconds - (getHour() * HOUR) - (getMin() * MINUTE);
@@ -227,6 +277,11 @@ public class AlarmClock implements Parcelable {
 
 	public void setTime(long i) {
 		seconds = i;
+		initSeconds = i;
+	}
+	
+	public void restart(){
+		seconds = initSeconds;
 	}
 
 	public long getTime() {

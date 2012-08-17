@@ -65,6 +65,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private Handler handler;
 
+	private TimePickDialog timePickDialog = null;
 	public final static String TAG = "AlarmaClockActivity";
 	private static NotificationManager mNotificationManager;
 	private SharedPreferences mPrefs;
@@ -101,7 +102,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (alarmList.size() > 0) {
 			drawAlarms();
 		} else {
-			addAlarmDialog();
+			if (mPrefs.getBoolean(
+					getApplicationContext()
+							.getString(R.string.pref_addalarmonstart_key), true)) {
+				addAlarmDialog();
+			}
 		}
 
 		Log.d("oo", "start");
@@ -143,9 +148,18 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
+      int width = getWindowManager().getDefaultDisplay().getWidth();
+      int height = getWindowManager().getDefaultDisplay().getHeight();
 	  for(AlarmClock alarm:alarmList){
-		 int width = getWindowManager().getDefaultDisplay().getWidth();
 		 alarm.getWidget().setTextSize(width/8); 
+	  }
+	  if (TimePickDialog.isDialogShowed && timePickDialog != null) {
+		  LinearLayout subscr = (LinearLayout) timePickDialog.findViewById(R.id.pick_text);
+		  if (height < 500){
+			  subscr.setVisibility(View.GONE);
+		  } else {
+			  subscr.setVisibility(View.VISIBLE);
+		  }
 	  }
 	}
 
@@ -172,7 +186,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onResume();
 		WakeUpLock.acquire(this);
 		if(alarmList.size() == 0){
-			addAlarmDialog();
+			if (mPrefs.getBoolean(
+					getApplicationContext()
+							.getString(R.string.pref_addalarmonstart_key), true)) {
+
+				addAlarmDialog();
+			}
 		}
 		Log.d(TAG, "MainActivity: onResume()");
 	}
@@ -267,7 +286,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		AlarmService alarmService = new AlarmServiceImpl(this, handler);
 		alarmService.setAlarmClock(alarm);
 		if (alarm.getThread() == null || alarm.getState() == AlarmClock.TimerState.STOPPED){
-			alarm.setState(getApplicationContext(), AlarmClock.TimerState.RUNNING);
+			if (mPrefs.getBoolean(
+					getApplicationContext().getString(
+							R.string.pref_autostart_key), true)){
+				if (alarm.getState() != AlarmClock.TimerState.PAUSED){
+					alarm.setState(getApplicationContext(), AlarmClock.TimerState.RUNNING);
+				}
+				
+			} else {
+				alarm.setState(getApplicationContext(), AlarmClock.TimerState.PAUSED);				
+			}
 			alarm.setThread(new Thread(alarmService));
 			alarm.getThread().start();
 		}
@@ -444,12 +472,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void setAlarmDialog(AlarmClock alarm) {
-		TimePickDialog dialog = null;
-		dialog = new TimePickDialog(MainActivity.this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setAlarm(alarm);
+		timePickDialog = new TimePickDialog(MainActivity.this);
+		timePickDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		timePickDialog.setAlarm(alarm);
 
-		dialog.setDialogResult(new TimePickDialog.OnMyDialogResult() {
+		timePickDialog.setDialogResult(new TimePickDialog.OnMyDialogResult() {
 			public void finish(AlarmClock newAlarm) {
 				addAlarm(newAlarm);
 				newAlarm.updateElement();
@@ -463,7 +490,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				}
 			}
 		});
-		dialog.show();
+		timePickDialog.show();
 	}
 
 	/*	*//**

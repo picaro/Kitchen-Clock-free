@@ -3,29 +3,13 @@
 	<string
 		name="app_name">Kitchen Timer</string>
 	<string
-		name="fourzeros">00:00</string>
-	<string
-		name="sixzeros">00:00:00</string>
-	<string
 		name="hhmmss">hh:mm:ss</string>
 	<string
 		name="mmss">mm:ss</string>
 	<string
-		name="timer">Timer</string>
-	<string
-		name="timer1">Timer 1</string>
-	<string
-		name="timer2">Timer 2</string>
-	<string
-		name="timer3">Timer 3</string>
-	<string
 		name="start">Start</string>
 	<string
 		name="stop">Stop</string>
-	<string
-		name="tip1">Per fermare il suono di notifica premi sul timer o usa la Barra
-		di Notifica.</string>
-
 	<!-- Presets -->
 	<string
 		name="name">Nome</string>
@@ -56,8 +40,6 @@
 	<string
 		name="delete_preset_message">Sei sicuro di voler cancellare tutti i preset?</string>
 	<string
-		name="sd_not_mounted">SD not mounted</string>
-	<string
 		name="preset_list_empty">La lista dei preset è vuota</string>
 	<string
 		name="presets_saved">Preset salvati in</string>
@@ -81,25 +63,13 @@
 		name="exit_message">Stai per uscire dall\'applicazione, vuoi fermare tutti i Timers?
 	</string>
 	<string
-		name="import_from_sd">Importa da SD</string>
-	<string
-		name="export_to_sd">Esporta su SD</string>
-	<string
 		name="truncate">Cancella tutto</string>
 
 	<!-- Preferences -->
 	<string
-		name="pref_donate">Supporta Kitchen Timer</string>
-	<string
-		name="pref_donate_summary">Aiutaci a mantenerla gratuita e senza pubblicità</string>
-	<string
 		name="pref_info_version">Versione</string>
 	<string
 		name="pref_info_version_error">Impossibile determinare la versione</string>
-	<string
-		name="pref_report_a_bug">Segnala un Bug</string>
-	<string
-		name="pref_report_a_bug_summary">Invia un nuovo problema sull\'Issue Tracker</string>
 	<string
 		name="pref_display_changelog_summary">Visualizza il changelog dell\'applicazione</string>
 	<string

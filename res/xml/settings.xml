@@ -25,7 +25,55 @@
         android:key="@string/pref_info_version_key"
         android:title="@string/pref_info_version" />
 
+	   <CheckBoxPreference
+        android:key="savesession"
+        android:title="@string/pref_savesession"
+        android:summary="@string/pref_savesession_sum" />
+	   
 
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_showhr_key"
+        android:summaryOff="@string/pref_showhr_summary_off"
+        android:summaryOn="@string/pref_showhr_summary_on"
+        android:title="@string/pref_showhr" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_showsec_key"
+        android:summaryOff="@string/pref_showsec_summary_off"
+        android:summaryOn="@string/pref_showsec_summary_on"
+        android:title="@string/pref_showsec" />
+        <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/pref_simmetricpick_key"
+        android:summaryOff="@string/pref_simmetricpick_summary_off"
+        android:summaryOn="@string/pref_simmetricpick_summary_on"
+        android:title="@string/pref_simmetricpick" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_autostart_key"
+        android:summaryOff="@string/pref_autostart_summary_off"
+        android:summaryOn="@string/pref_autostart_summary_on"
+        android:title="@string/pref_autostart" />
+
+      <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_addalarmonstart_key"
+        android:summaryOff="@string/pref_addalarmonstart_summary_off"
+        android:summaryOn="@string/pref_addalarmonstart_summary_on"
+        android:title="@string/pref_addalarmonstart" />
+    
+    
+    <ListPreference
+        android:defaultValue="wheel"
+        android:dialogTitle="@string/pref_pickstyle_dialogtitle"
+        android:entries="@array/pref_pickstyle_entries"
+        android:entryValues="@array/pref_pickstyle_values"
+        android:key="@string/pref_pickstyle_key"
+        android:summary="@string/pref_pickstyle_summary"
+        android:title="@string/pref_pickstyle" />
+    
     <RingtonePreference
         android:key="@string/pref_notification_ringtone_key"
         android:ringtoneType="alarm"
@@ -39,7 +87,7 @@
         android:summaryOff="@string/pref_notification_led_summary_off"
         android:summaryOn="@string/pref_notification_led_summary_on"
         android:title="@string/pref_notification_led" />
-
+    
     <ListPreference
         android:defaultValue="red"
         android:dependency="@string/pref_notification_led_key"
@@ -49,6 +97,7 @@
         android:key="@string/pref_notification_led_color_key"
         android:summary="@string/pref_notification_led_color_summary"
         android:title="@string/pref_notification_led_color" />
+    
     <ListPreference
         android:defaultValue="2"
         android:dependency="@string/pref_notification_led_key"
