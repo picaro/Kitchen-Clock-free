@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  
- */ 
+ */
 package com.op.kclock;
 
 import java.util.ArrayList;
@@ -25,7 +25,6 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -44,18 +43,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.op.kclock.alarm.AlarmService;
 import com.op.kclock.alarm.AlarmServiceImpl;
-import com.op.kclock.alarm.ClockService;
 import com.op.kclock.alarm.WakeUpLock;
 import com.op.kclock.cookconst.SettingsConst;
 import com.op.kclock.dialogs.TimePickDialog;
-import com.op.kclock.misc.Changelog;
-import com.op.kclock.misc.Eula;
 import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.ui.TextViewWithMenu;
@@ -85,8 +80,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				.getApplicationContext());
 		dbTool = new DbTool(getApplicationContext());
 
-		//Eula.show(this);
-		//Changelog.show(this);
+		// Eula.show(this);
+		// Changelog.show(this);
 
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
@@ -94,7 +89,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
 							R.string.pref_savesession_key), true)) {
-				Log.d(TAG,"db read true!!");
+				Log.d(TAG, "db read true!!");
 				alarmList = dbTool.getAlarmsList();
 			}
 		}
@@ -103,11 +98,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			drawAlarms();
 		} else {
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_addalarmonstart_key), true)) {
+					getApplicationContext().getString(
+							R.string.pref_addalarmonstart_key), true)) {
 				addAlarmDialog();
 			}
 		}
+
+		appendAddButton();
 
 		Log.d("oo", "start");
 
@@ -119,22 +116,41 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	}
 
+	public void appendAddButton() {
+		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+		LinearLayout itemView = (LinearLayout) inflater.inflate(
+				R.layout.alarm_incl, null);
+		TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
+		txtView.setText(R.string.add);
+		itemView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				addAlarmDialog();
+
+			}
+
+		});
+		mainL.addView(itemView, new TableLayout.LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+	}
+
 	public void notification() {
 		int icon = R.drawable.stat_notify_alarm;
 		CharSequence mTickerText = getString(R.string.timer_started);
 		long when = System.currentTimeMillis();
-		Notification notification = new Notification(icon, mTickerText,
-													 when);
+		Notification notification = new Notification(icon, mTickerText, when);
 		CharSequence mContentTitle = getString(R.string.app_name);
 		CharSequence mContentText = getString(R.string.click_to_open);
 		Intent clickIntent = new Intent(this, MainActivity.class);
 		clickIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-							 | Intent.FLAG_ACTIVITY_SINGLE_TOP
-							 | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				| Intent.FLAG_ACTIVITY_SINGLE_TOP
+				| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-																clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+				clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		notification.setLatestEventInfo(getApplicationContext(), mContentTitle,
-                                        mContentText, contentIntent);
+				mContentText, contentIntent);
 		notification.ledARGB = 0x00000000;
 		notification.ledOnMS = 0;
 		notification.ledOffMS = 0;
@@ -142,34 +158,40 @@ public class MainActivity extends Activity implements OnClickListener {
 		notification.flags |= Notification.FLAG_ONGOING_EVENT;
 		notification.flags |= Notification.FLAG_NO_CLEAR;
 
-		mNotificationManager.notify( SettingsConst.APP_NOTIF_ID, notification);
+		mNotificationManager.notify(SettingsConst.APP_NOTIF_ID, notification);
 	}
-	
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-	  super.onConfigurationChanged(newConfig);
-      		int width = getWindowManager().getDefaultDisplay().getWidth();
-      		int height = getWindowManager().getDefaultDisplay().getHeight();
-	  for(AlarmClock alarm:alarmList){
-		 alarm.getWidget().setTextSize(width/8); 
-	  }
-	  if (TimePickDialog.isDialogShowed && timePickDialog != null) {
-		  LinearLayout subscr = (LinearLayout) timePickDialog.findViewById(R.id.pick_text);
-		  if (height < 500){
-			  subscr.setVisibility(View.GONE);
-		  } else {
-			  subscr.setVisibility(View.VISIBLE);
-		  }
-	  }
-	  stopAllActiveAlarms();
+		super.onConfigurationChanged(newConfig);
+		int width = getWindowManager().getDefaultDisplay().getWidth();
+		int height = getWindowManager().getDefaultDisplay().getHeight();
+		for (AlarmClock alarm : alarmList) {
+			alarm.getWidget().setTextSize(width / 8);
+		}
+		if (TimePickDialog.isDialogShowed && timePickDialog != null) {
+			LinearLayout subscr = (LinearLayout) timePickDialog
+					.findViewById(R.id.pick_text);
+			if (height < 500) {
+				subscr.setVisibility(View.GONE);
+			} else {
+				subscr.setVisibility(View.VISIBLE);
+			}
+		}
+
+		stopAllActiveAlarms();
 	}
-	
-	public stopAllActiveAlarms(){
-           for(AlarmClock alarm:alarmList){
-		 if (alarm.getState() == AlarmClock.TimerState.ALARMING) {
+
+	public void stopAllActiveAlarms() {
+		if (mPrefs.getBoolean(
+				getApplicationContext()
+						.getString(R.string.pref_stoponrotate_key), true)) {
+			for (AlarmClock alarm : alarmList) {
+				if (alarm.getState() == AlarmClock.TimerState.ALARMING) {
 					alarm.alarmSTOP(getApplicationContext());
 				}
-	   }	
+			}
+		}
 	}
 
 	// Store the instance of an object
@@ -194,10 +216,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		WakeUpLock.acquire(this);
-		if(alarmList.size() == 0){
+		if (alarmList.size() == 0) {
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_addalarmonstart_key), true)) {
+					getApplicationContext().getString(
+							R.string.pref_addalarmonstart_key), true)) {
 
 				addAlarmDialog();
 			}
@@ -275,16 +297,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private LinearLayout drawAlarm(AlarmClock alarm) {
-		if (alarm.getElement() == null){ 
+		if (alarm.getElement() == null) {
 			LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 			LinearLayout itemView = (LinearLayout) inflater.inflate(
 					R.layout.alarm_incl, null);
 			alarm.setElement(itemView);
-			mainL.addView(alarm.getElement(), new TableLayout.LayoutParams(
-					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+			mainL.addView(alarm.getElement(), mainL.getChildCount() - 1,
+					new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
+							LayoutParams.WRAP_CONTENT));
 		}
-		
+
 		TextViewWithMenu textView = (TextViewWithMenu) (alarm.getWidget());
 		// textView.setOutAnimation(out);
 		textView.setAlarm(alarm);
@@ -294,16 +317,19 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		AlarmService alarmService = new AlarmServiceImpl(this, handler);
 		alarmService.setAlarmClock(alarm);
-		if (alarm.getThread() == null || alarm.getState() == AlarmClock.TimerState.STOPPED){
+		if (alarm.getThread() == null
+				|| alarm.getState() == AlarmClock.TimerState.STOPPED) {
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
-							R.string.pref_autostart_key), true)){
-				if (alarm.getState() != AlarmClock.TimerState.PAUSED){
-					alarm.setState(getApplicationContext(), AlarmClock.TimerState.RUNNING);
+							R.string.pref_autostart_key), true)) {
+				if (alarm.getState() != AlarmClock.TimerState.PAUSED) {
+					alarm.setState(getApplicationContext(),
+							AlarmClock.TimerState.RUNNING);
 				}
-				
+
 			} else {
-				alarm.setState(getApplicationContext(), AlarmClock.TimerState.PAUSED);				
+				alarm.setState(getApplicationContext(),
+						AlarmClock.TimerState.PAUSED);
 			}
 			alarm.setThread(new Thread(alarmService));
 			alarm.getThread().start();
@@ -312,9 +338,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		registerForContextMenu(alarm.getWidget());
 		// add the itemView
 		alarm.updateState(getApplicationContext());
-		
+
 		int width = getWindowManager().getDefaultDisplay().getWidth();
-		alarm.getWidget().setTextSize(width/8);
+		alarm.getWidget().setTextSize(width / 8);
 
 		return alarm.getElement();
 	}
@@ -322,16 +348,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	// ON-CLICK
 
 	public void onClick(View v) {
-		startService(new Intent(this, ClockService.class));
 
 		for (AlarmClock alarm : alarmList) {
 			TextViewWithMenu tvTimer = (TextViewWithMenu) alarm.getElement()
 					.getChildAt(1);
 			if (tvTimer == v) {
 				if (alarm.getState() == AlarmClock.TimerState.RUNNING) {
-					alarm.setState(getApplicationContext(), AlarmClock.TimerState.PAUSED);
+					alarm.setState(getApplicationContext(),
+							AlarmClock.TimerState.PAUSED);
 				} else if (alarm.getState() == AlarmClock.TimerState.PAUSED) {
-					alarm.setState(getApplicationContext(), AlarmClock.TimerState.RUNNING);
+					alarm.setState(getApplicationContext(),
+							AlarmClock.TimerState.RUNNING);
 				} else if (alarm.getState() == AlarmClock.TimerState.ALARMING) {
 					alarm.alarmSTOP(getApplicationContext());
 				}
@@ -354,8 +381,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenu.ContextMenuInfo menuInfo) {
 		MenuInflater inflater = getMenuInflater();
-		if (v.getId() == 2){
-			
+		if (v.getId() == 2) {
+
 		}
 		inflater.inflate(R.menu.alarm_context, menu);
 		super.onCreateContextMenu(menu, v, menuInfo);
@@ -378,20 +405,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.menu_delete_all: {
 			deleteAllAlarms();
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_addalarmonstart_key), true)) {
+					getApplicationContext().getString(
+							R.string.pref_addalarmonstart_key), true)) {
 				addAlarmDialog();
 			}
 			return true;
 		}
 		case R.id.menu_exit: {
-			//mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID);
+			// mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID);
 			mNotificationManager.cancelAll();
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.addCategory(Intent.CATEGORY_HOME);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
-			//onStop();
+			// onStop();
 			finish();
 		}
 
@@ -426,7 +453,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
 				alarm.alarmSTOP(getApplicationContext());
-			alarm.setState(getApplicationContext(), AlarmClock.TimerState.STOPPED);
+			alarm.setState(getApplicationContext(),
+					AlarmClock.TimerState.STOPPED);
 			alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getId() > 0) {
 				dbTool.open();
@@ -452,8 +480,9 @@ public class MainActivity extends Activity implements OnClickListener {
 								if (alarm.getState().equals(
 										AlarmClock.TimerState.ALARMING))
 									alarm.alarmSTOP(getApplicationContext());
-								alarm.setState(getApplicationContext(), AlarmClock.TimerState.STOPPED);
-							    alarm.getElement().setVisibility(View.GONE);
+								alarm.setState(getApplicationContext(),
+										AlarmClock.TimerState.STOPPED);
+								alarm.getElement().setVisibility(View.GONE);
 								if (alarm.getId() > 0) {
 									dbTool.open();
 									dbTool.delete(alarm.getId());
@@ -481,7 +510,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void addAlarmDialog() {
-		if (!TimePickDialog.isDialogShowed) setAlarmDialog(null);
+		if (!TimePickDialog.isDialogShowed)
+			setAlarmDialog(null);
 	}
 
 	private void setAlarmDialog(AlarmClock alarm) {
@@ -495,10 +525,12 @@ public class MainActivity extends Activity implements OnClickListener {
 				newAlarm.updateElement();
 				if (newAlarm.getState() == AlarmClock.TimerState.STOPPED) {
 					drawAlarm(newAlarm);
-					//newAlarm.setState(getApplicationContext(), AlarmClock.TimerState.RUNNING);
-					//AlarmService alarmService = new AlarmServiceImpl(MainActivity.this, handler);
-					//alarmService.setAlarmClock(newAlarm);
-					//new Thread(alarmService).start();
+					// newAlarm.setState(getApplicationContext(),
+					// AlarmClock.TimerState.RUNNING);
+					// AlarmService alarmService = new
+					// AlarmServiceImpl(MainActivity.this, handler);
+					// alarmService.setAlarmClock(newAlarm);
+					// new Thread(alarmService).start();
 
 				}
 			}

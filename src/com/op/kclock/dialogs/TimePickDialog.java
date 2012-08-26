@@ -30,9 +30,11 @@ import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.op.kclock.MainActivity;
@@ -53,6 +55,8 @@ public class TimePickDialog extends Dialog {
 	private WheelView hours;
 	private WheelView mins;
 	private WheelView secs;
+
+	private TextView timerName;
 
 	/**
 	 * Constructor with setup context.
@@ -85,9 +89,10 @@ public class TimePickDialog extends Dialog {
 			pickView = (LinearLayout) inflater.inflate(R.layout.picktime_stand,
 					null);
 		}
-		parentL. addView(pickView, 0,new LinearLayout.LayoutParams(
+		parentL.addView(pickView, 0,new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
+		
 		if (pickerType.equals("wheel")) {
 			hours = (WheelView) findViewById(R.id.hour);
 			if (mPrefs.getBoolean(
@@ -127,11 +132,25 @@ public class TimePickDialog extends Dialog {
 				View secslbl = (View) findViewById(R.id.secslbl);
 				secslbl.setVisibility(View.GONE);				
 			}
+			
+			if(mPrefs.getBoolean(
+					getContext()
+							.getString(R.string.pref_simmetricpick_key), true)) {
+				ViewGroup.LayoutParams lp = (LayoutParams) hours.getLayoutParams();
+				lp.width = 110;
+				//lp.height = 10;
+				hours.setLayoutParams(lp);
+				mins.setLayoutParams(lp);
+				secs.setLayoutParams(lp);
+			}
+
+			timerName = (TextView) findViewById(R.id.timepicker_input);
 
 			if (alarm != null && alarm.getTime() > 0) {
 				hours.setCurrentItem((int) alarm.getHour());
 				mins.setCurrentItem((int) alarm.getMin());
 				secs.setCurrentItem((int) alarm.getSec());
+				timerName.setText(alarm.getName());
 			}
 		} else {
 			//NumberPicker mins = (NumberPicker) findViewById(R.id.mins);
@@ -159,12 +178,14 @@ public class TimePickDialog extends Dialog {
 				alarm.setState(getContext(), AlarmClock.TimerState.RUNNING);
 			}
 
-			// final TextView buttonCancel = (TextView)
-			// findViewById(R.id.hourslbl);
 
 			long seconds = hours.getCurrentItem() * 3600
 					+ mins.getCurrentItem() * 60 + secs.getCurrentItem();
 			alarm.setTime(seconds);
+			
+			alarm.setName(timerName.getText().toString());
+
+			
 			mDialogResult.finish(alarm);
 			isDialogShowed = false;
 			dismiss();

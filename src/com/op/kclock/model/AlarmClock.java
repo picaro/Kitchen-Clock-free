@@ -168,7 +168,7 @@ public class AlarmClock implements Parcelable {
 	}
 
 	public void updateElement() {
-		if (element != null)
+		if (element != null){
 			getWidget().post(new Runnable() {
 				public void run() {
 					if (element != null) getWidget().setText(
@@ -176,6 +176,15 @@ public class AlarmClock implements Parcelable {
 									getHour(), getMin(), getSec())));
 				}
 			});
+			
+			//TODO - move to set text
+			getLabelWidget().post(new Runnable() {
+				public void run() {
+					if (element != null) getLabelWidget().setText(getName());
+				}
+			});
+			
+		}
 	}
 
 	public void setElement(LinearLayout element) {
@@ -242,6 +251,13 @@ public class AlarmClock implements Parcelable {
 		if (element == null)
 			return null;
 		final TextView widget = (TextView) element.getChildAt(1);
+		return widget;
+	}
+
+	public TextView getLabelWidget() {
+		if (element == null)
+			return null;
+		final TextView widget = (TextView) element.getChildAt(0);
 		return widget;
 	}
 

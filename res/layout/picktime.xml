@@ -42,6 +42,23 @@
                 android:text="@string/sec" />
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/timepicker_input"
+            style="?android:attr/textAppearanceLargeInverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:hint="@string/alarm_name"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="30sp" />
+        <TextView
+            android:id="@+id/namelbl"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/name" />
+
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"

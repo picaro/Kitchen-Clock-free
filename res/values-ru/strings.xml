@@ -10,6 +10,8 @@
     <string name="main_alarmclock">Таймер</string>
     <string name="changelog_title">Изменения</string>
 
+    <string name="alarm_name">введите имя</string>
+    
     <!-- Eula -->
     <string name="eula_title">Лицензия</string>
     <string name="eula_accept">Принять</string>
@@ -67,7 +69,7 @@
     <string name="pref_notification_custom_sound_summary_off">Использовать мелодию по умолчанию</string>
     <string name="pref_notification_ringtone">Выбрать звук будильника</string>
     <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе</string>
-    <string name="pref_notification_led">Свет</string>
+    <string name="pref_notification_led">Индикация</string>
     <string name="pref_notification_led_summary_on">Световая индикация включена</string>
     <string name="pref_notification_led_summary_off">Световая индикация выкл</string>
     <string name="pref_notification_led_color">Цвет света</string>
@@ -84,8 +86,8 @@
     <string name="pref_notification_led_color_orange">Оранжевый</string>
     <string name="pref_notification_led_color_light_blue">Светло-голубой</string>
     <string name="pref_notification_led_blink_rate">Частота мигания</string>
-    <string name="pref_notification_led_blink_rate_summary">Изменить частоту мигания света</string>
-    <string name="pref_notification_led_blink_rate_dialogtitle">Установить свою частоту мигания света</string>
+    <string name="pref_notification_led_blink_rate_summary">Изменить частоту мигания индикации</string>
+    <string name="pref_notification_led_blink_rate_dialogtitle">Установить свою частоту мигания индикации</string>
     <string name="pref_notification_led_blink_rate_two">2 (Быстро)</string>
     <string name="pref_notification_led_blink_rate_three">3</string>
     <string name="pref_notification_led_blink_rate_four">4 (Средне)</string>
@@ -123,7 +125,9 @@
          <string name="pref_addalarmonstart">Добавлять таймер при старте</string>
     <string name="pref_addalarmonstart_summary_on">показывать диалог добавления таймера вкл</string>
     <string name="pref_addalarmonstart_summary_off">показывать диалог добавления таймера выкл</string>
-    
+        <string name="pref_stoponrotate">Выключение при повороте</string>
+    <string name="pref_stoponrotate_summary_on">выключение таймера при повороте телефона вкл</string>
+    <string name="pref_stoponrotate_summary_off">выключение таймера при повороте телефона выкл</string>
         <string name="pref_cyclicmins">Минуты по кругу</string>
     <string name="pref_cyclicmins_summary_on">минуты по кругу вкл</string>
     <string name="pref_cyclicmins_summary_off">минуты по кругу выкл</string>

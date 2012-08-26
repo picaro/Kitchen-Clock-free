@@ -10,6 +10,9 @@
     <string name="main_addrecipe">Add Recipe</string>
     <string name="main_alarmclock">Alarm Clock</string>
     <string name="changelog_title">Changelog</string>
+    
+    <string name="alarm_name">input name</string>
+    
 
     <!-- Eula -->
     <string name="eula_title">License</string>
@@ -105,7 +108,8 @@
     <string name="pref_notification_vibrate_pattern_medium">Medium Vibrate</string>
     <string name="pref_notification_vibrate_pattern_long">Long Vibrate</string>
     <string name="pref_notification_vibrate_pattern_multiple_short">Multiple Short</string>
-    <string name="pref_notification_vibrate_pattern_multiple_long">Multiple Long</string><string name="pref_pickstyle_wheel">Wheel</string>
+    <string name="pref_notification_vibrate_pattern_multiple_long">Multiple Long</string>
+    <string name="pref_pickstyle_wheel">Wheel</string>
     <string name="pref_pickstyle_picker">Picker</string>
     <string name="pref_pickstyle_number">Number</string>
     <string name="pref_showsec">Show seconds in picker</string>
@@ -120,17 +124,17 @@
     <string name="pref_autostart">Autostart timers</string>
     <string name="pref_autostart_summary_on">autostart on</string>
     <string name="pref_autostart_summary_off">autostart off</string>
-    
-        <string name="pref_addalarmonstart">Add timer on start</string>
+    <string name="pref_addalarmonstart">Add timer on start</string>
     <string name="pref_addalarmonstart_summary_on">show add timer dialog on start on</string>
     <string name="pref_addalarmonstart_summary_off">show add timer dialog on start off</string>
-
-        <string name="pref_cyclicmins">Cyclic minutes wheel</string>
+    <string name="pref_cyclicmins">Cyclic minutes wheel</string>
     <string name="pref_cyclicmins_summary_on">cyclic minutes on</string>
     <string name="pref_cyclicmins_summary_off">cyclic minutes off</string>
-        
-    
-    <string name="pref_pickstyle">Pick time style</string>
+    <string name="pref_stoponrotate">Stop on rotate</string>
+    <string name="pref_stoponrotate_summary_on">stop alarming on rotate phone on</string>
+    <string name="pref_stoponrotate_summary_off">stop alarming on rotate phone off</string>
+    <string name="pref_pickstyle">Pick time dialof</string>
     <string name="pref_pickstyle_summary">pick time dialog type</string>
     <string name="pref_pickstyle_dialogtitle">Picker style</string>
+
 </resources>
