@@ -411,19 +411,17 @@ public class NumberPicker extends LinearLayout implements INumberPicker, OnClick
 
 	@Override
 	public int getCurrentItem() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getCurrent();
 	}
 
 	@Override
 	public void setCurrentItem(int index, boolean animated) {
-		// TODO Auto-generated method stub
-		
+		setCurrent(index);
+
 	}
 
 	@Override
 	public void setCurrentItem(int index) {
-		// TODO Auto-generated method stub
-		
+		setCurrent(index);
 	}
 }
