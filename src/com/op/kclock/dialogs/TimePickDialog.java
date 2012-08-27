@@ -52,9 +52,9 @@ public class TimePickDialog extends Dialog {
 
 	private SharedPreferences mPrefs;
 
-	private WheelView hours;
-	private WheelView mins;
-	private WheelView secs;
+	private INumberPicker hours;
+	private INumberPicker mins;
+	private INumberPicker secs;
 
 	private TextView timerName;
 
@@ -82,12 +82,20 @@ public class TimePickDialog extends Dialog {
 				getContext().getString(
 						R.string.pref_pickstyle_key), "wheel");
 						
-		if (pickerType.equals("wheel")) {
+  
+ 		if (pickerType.equals("wheel")) { 
 			pickView = (LinearLayout) inflater.inflate(R.layout.picktime_wheel,
-					null);
-		} else {
+					null); 			
+ 		} else {
 			pickView = (LinearLayout) inflater.inflate(R.layout.picktime_stand,
-					null);
+					null); 			
+ 		}
+		parentL.addView(pickView, 0, new LinearLayout.LayoutParams(
+ 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+		
+		//init dialogs
+ 		if (pickerType.equals("wheel")) { 
+			/*		} else {
 		}
 		parentL.addView(pickView, 0,new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -144,25 +152,30 @@ public class TimePickDialog extends Dialog {
 				secs.setLayoutParams(lp);
 			}
 
-			timerName = (TextView) findViewById(R.id.timepicker_input);
-			if (!mPrefs.getBoolean(
-					getContext().getString(
-							R.string.pref_shownames_key), false)){
-				LinearLayout timerNameLt = (LinearLayout) findViewById(R.id.label_lt);
-				timerNameLt.setVisibility(View.GONE);				
-			}
+
 				
-			if (alarm != null && alarm.getTime() > 0) {
-				hours.setCurrentItem((int) alarm.getHour());
-				mins.setCurrentItem((int) alarm.getMin());
-				secs.setCurrentItem((int) alarm.getSec());
-				timerName.setText(alarm.getName());
-			}
-		} else {
+*/		
+ 			setupWheel(); 	
+ 		} else {
 			//NumberPicker mins = (NumberPicker) findViewById(R.id.mins);
-			
+ 			setupNumeric();
 		}
-		// hours.setCurrentItem(16, true);
+
+
+		timerName = (TextView) findViewById(R.id.timepicker_input);
+		if (!mPrefs.getBoolean(
+				getContext().getString(
+						R.string.pref_shownames_key), false)){
+			LinearLayout timerNameLt = (LinearLayout) findViewById(R.id.label_lt);
+			timerNameLt.setVisibility(View.GONE);				
+		}
+
+		if (alarm != null && alarm.getTime() > 0) {
+			hours.setCurrentItem((int) alarm.getHour());
+			mins.setCurrentItem((int) alarm.getMin());
+			secs.setCurrentItem((int) alarm.getSec());
+			timerName.setText(alarm.getName());
+		}
 
 		Button buttonCancel = (Button) findViewById(R.id.cancelsettimer);
 		buttonCancel.setOnClickListener(cancelHandler);
@@ -183,13 +196,12 @@ public class TimePickDialog extends Dialog {
 				alarm = new AlarmClock();
 				alarm.setState(getContext(), AlarmClock.TimerState.RUNNING);
 			}
-
+			alarm.setName(timerName.getText().toString());
 
 			long seconds = hours.getCurrentItem() * 3600
 					+ mins.getCurrentItem() * 60 + secs.getCurrentItem();
 			alarm.setTime(seconds);
 			
-			alarm.setName(timerName.getText().toString());
 
 			
 			mDialogResult.finish(alarm);
@@ -203,6 +215,80 @@ public class TimePickDialog extends Dialog {
 		}
 	};
 
+		public void setupWheel() {
+				hours = (WheelView) findViewById(R.id.hour);
+				if (mPrefs.getBoolean(
+						getContext().getString(R.string.pref_showhr_key), true)) {
+					((WheelView) hours).setViewAdapter(new NumericWheelAdapter(this
+							.getContext(), 0, 23));
+				} else {
+					hours.setVisibility(View.GONE);
+					View hourslbl = (View) findViewById(R.id.hourslbl);
+					hourslbl.setVisibility(View.GONE);
+				}
+		
+				mins = (WheelView) findViewById(R.id.mins);
+				if (mPrefs.getBoolean(
+						getContext().getString(R.string.pref_cyclicmins_key), true)) {
+					((WheelView) mins).setViewAdapter(new NumericWheelAdapter(this
+							.getContext(), 0, 59, "%02d"));
+					((WheelView) mins).setCyclic(true);
+				} else {
+					((WheelView) mins).setViewAdapter(new NumericWheelAdapter(this
+							.getContext(), 0, 120, "%02d"));
+					((WheelView) mins).setCyclic(false);
+				}
+		
+				secs = (WheelView) findViewById(R.id.secs);
+		
+				if (mPrefs.getBoolean(
+						getContext().getString(R.string.pref_showsec_key), true)) {
+					((WheelView) secs).setViewAdapter(new NumericWheelAdapter(this
+							.getContext(), 0, 59, "%02d"));
+					((WheelView) secs).setCyclic(true);
+				} else {
+					secs.setVisibility(View.GONE);
+					View secslbl = (View) findViewById(R.id.secslbl);
+					secslbl.setVisibility(View.GONE);
+				}
+		
+				if (mPrefs.getBoolean(
+						getContext().getString(R.string.pref_simmetricpick_key),
+						true)) {
+					ViewGroup.LayoutParams lp = (LayoutParams) hours
+							.getLayoutParams();
+					lp.width = 110;
+					// lp.height = 10;
+					hours.setLayoutParams(lp);
+					mins.setLayoutParams(lp);
+					secs.setLayoutParams(lp);
+				}
+		
+			}
+		
+			public void setupNumeric() {
+				hours = (NumberPicker) findViewById(R.id.hour);
+				mins = (NumberPicker) findViewById(R.id.mins);
+				secs = (NumberPicker) findViewById(R.id.secs);
+		
+				((NumberPicker) hours)
+						.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
+				((NumberPicker) mins)
+						.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
+				((NumberPicker) secs)
+						.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
+		
+				((NumberPicker) hours).setRange(0, 23);
+				((NumberPicker) mins).setRange(0, 59);
+				((NumberPicker) secs).setRange(0, 59);
+		
+				((NumberPicker) hours).setSpeed(50);
+				((NumberPicker) mins).setSpeed(50);
+				((NumberPicker) secs).setSpeed(50);
+		
+			}
+		 
+		
 	public static String formatTime(final Calendar c) {
 		String M24 = "HH:mm:ss";
 		final String format = M24;
