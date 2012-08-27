@@ -95,69 +95,8 @@ public class TimePickDialog extends Dialog {
 		
 		//init dialogs
  		if (pickerType.equals("wheel")) { 
-			/*		} else {
-		}
-		parentL.addView(pickView, 0,new LinearLayout.LayoutParams(
-				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
-		
-		if (pickerType.equals("wheel")) {
-			hours = (WheelView) findViewById(R.id.hour);
-			if (mPrefs.getBoolean(
-					getContext()
-							.getString(R.string.pref_showhr_key), true)) {
-				hours.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
-					23));
-			} else {
-				hours.setVisibility(View.GONE);
-				View hourslbl = (View) findViewById(R.id.hourslbl);
-				hourslbl.setVisibility(View.GONE);				
-			}
-			
-			mins = (WheelView) findViewById(R.id.mins);
-			if(mPrefs.getBoolean(
-					getContext()
-							.getString(R.string.pref_cyclicmins_key), true)) {
-				mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
-						59, "%02d"));
-				mins.setCyclic(true);
-			} else {
-				mins.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
-						120, "%02d"));
-				mins.setCyclic(false);				
-			}
-			
-			secs = (WheelView) findViewById(R.id.secs);
-
-			if (mPrefs.getBoolean(
-					getContext()
-							.getString(R.string.pref_showsec_key), true)) {
-				secs.setViewAdapter(new NumericWheelAdapter(this.getContext(), 0,
-						59, "%02d"));
-				secs.setCyclic(true);
-			} else {
-				secs.setVisibility(View.GONE);
-				View secslbl = (View) findViewById(R.id.secslbl);
-				secslbl.setVisibility(View.GONE);				
-			}
-			
-			if(mPrefs.getBoolean(
-					getContext()
-							.getString(R.string.pref_simmetricpick_key), true)) {
-				ViewGroup.LayoutParams lp = (LayoutParams) hours.getLayoutParams();
-				lp.width = 110;
-				//lp.height = 10;
-				hours.setLayoutParams(lp);
-				mins.setLayoutParams(lp);
-				secs.setLayoutParams(lp);
-			}
-
-
-				
-*/		
  			setupWheel(); 	
  		} else {
-			//NumberPicker mins = (NumberPicker) findViewById(R.id.mins);
  			setupNumeric();
 		}
 
