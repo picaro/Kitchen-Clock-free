@@ -27,6 +27,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -56,7 +58,7 @@ import com.op.kclock.model.AlarmClock;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DbTool;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener, OnSharedPreferenceChangeListener{
 
 	private Handler handler;
 
@@ -78,6 +80,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
 				.getApplicationContext());
+		mPrefs.registerOnSharedPreferenceChangeListener(this);
+		
 		dbTool = new DbTool(getApplicationContext());
 
 		// Eula.show(this);
@@ -309,12 +313,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 		TextViewWithMenu textView = (TextViewWithMenu) (alarm.getWidget());
-		// textView.setOutAnimation(out);
 		textView.setAlarm(alarm);
 
 		alarm.updateElement();
 		alarm.getElement().setOnClickListener(this);
 
+		if (!mPrefs.getBoolean(
+				getApplicationContext().getString(
+						R.string.pref_shownames_key), false)) {			
+			final TextView widgetLbl = (TextView) alarm.getElement().getChildAt(0);
+			widgetLbl.setVisibility(View.INVISIBLE);
+		} 
+		
 		AlarmService alarmService = new AlarmServiceImpl(this, handler);
 		alarmService.setAlarmClock(alarm);
 		if (alarm.getThread() == null
@@ -515,6 +525,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void setAlarmDialog(AlarmClock alarm) {
+		
+		
 		timePickDialog = new TimePickDialog(MainActivity.this);
 		timePickDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		timePickDialog.setAlarm(alarm);
@@ -553,6 +565,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * }
 	 */
 
+	
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+	    //if (PREFKEY_OF_INTEREST.equals(key))
+	        //updateSomethingInMainView();
+		//setContentView(R.layout.alarmclock);
+		//onStart();
+		//drawAlarms();
+	}
+	
+	
 	/**
 	 * Finishes the activity, also closes the various things started by
 	 * onCreate.

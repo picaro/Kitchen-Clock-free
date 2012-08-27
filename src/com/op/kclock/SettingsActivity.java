@@ -32,7 +32,8 @@ public class SettingsActivity extends PreferenceActivity
 		}		findPreference(getString(R.string.pref_info_version_key)).setSummary(version);
 			
 			findPreference(getString(R.string.pref_info_version_key)).setSummary(version);
-	
+
+
 //		prefs = getSharedPreferences(SettingsConst.SETTINGS, 0);
 //		
 //		isSessSavePref = (CheckBoxPreference) findPreference( SettingsConst.SAVE_SESSION);

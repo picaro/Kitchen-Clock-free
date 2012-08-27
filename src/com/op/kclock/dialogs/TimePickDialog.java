@@ -145,7 +145,13 @@ public class TimePickDialog extends Dialog {
 			}
 
 			timerName = (TextView) findViewById(R.id.timepicker_input);
-
+			if (!mPrefs.getBoolean(
+					getContext().getString(
+							R.string.pref_shownames_key), false)){
+				LinearLayout timerNameLt = (LinearLayout) findViewById(R.id.label_lt);
+				timerNameLt.setVisibility(View.GONE);				
+			}
+				
 			if (alarm != null && alarm.getTime() > 0) {
 				hours.setCurrentItem((int) alarm.getHour());
 				mins.setCurrentItem((int) alarm.getMin());

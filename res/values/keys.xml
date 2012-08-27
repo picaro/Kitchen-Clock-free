@@ -39,6 +39,7 @@
     <string name="pref_addalarmonstart_key">pref_addalarmonstart_key</string>
     <string name="pref_cyclicmins_key">pref_cyclicmins_key</string>
     <string name="pref_stoponrotate_key">pref_stoponrotate_key</string>
+    <string name="pref_shownames_key">pref_shownames_key</string>
     
 
 </resources>

@@ -52,6 +52,11 @@
         android:summaryOn="@string/pref_cyclicmins_summary_on"
         android:title="@string/pref_cyclicmins" />
     <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/pref_shownames_key"
+        android:summary="@string/pref_shownames_summary"
+        android:title="@string/pref_shownames" />
+    <CheckBoxPreference
         android:defaultValue="true"
         android:key="@string/pref_autostart_key"
         android:summaryOff="@string/pref_autostart_summary_off"

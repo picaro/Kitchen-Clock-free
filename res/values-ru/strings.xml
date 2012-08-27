@@ -9,9 +9,8 @@
     <string name="pref_musicon_sum">звук по таймеру</string>
     <string name="main_alarmclock">Таймер</string>
     <string name="changelog_title">Изменения</string>
-
     <string name="alarm_name">введите имя</string>
-    
+
     <!-- Eula -->
     <string name="eula_title">Лицензия</string>
     <string name="eula_accept">Принять</string>
@@ -67,7 +66,7 @@
     <string name="pref_notification_custom_sound">Своя мелодия</string>
     <string name="pref_notification_custom_sound_summary_on">Использовать свою мелодию</string>
     <string name="pref_notification_custom_sound_summary_off">Использовать мелодию по умолчанию</string>
-    <string name="pref_notification_ringtone">Выбрать звук будильника</string>
+    <string name="pref_notification_ringtone">Звук будильника</string>
     <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе</string>
     <string name="pref_notification_led">Индикация</string>
     <string name="pref_notification_led_summary_on">Световая индикация включена</string>
@@ -98,7 +97,7 @@
     <string name="pref_notification_vibrate_summary_off">Вибрация выключена</string>
     <string name="pref_notification_vibrate_pattern">Шаблон вибрации</string>
     <string name="pref_notification_vibrate_pattern_summary">Изменить шаблон вибрации</string>
-    <string name="pref_notification_vibrate_pattern_dialogtitle">Выбрать шаблон вибрации</string>
+    <string name="pref_notification_vibrate_pattern_dialogtitle">Шаблон вибрации</string>
     <string name="pref_notification_vibrate_pattern_normal">Нормальная</string>
     <string name="pref_notification_vibrate_pattern_medium">Средняя</string>
     <string name="pref_notification_vibrate_pattern_long">Длинная</string>
@@ -122,13 +121,15 @@
     <string name="pref_pickstyle">Окно установки времени</string>
     <string name="pref_pickstyle_summary">тип окна</string>
     <string name="pref_pickstyle_dialogtitle">Выберите тип</string>
-         <string name="pref_addalarmonstart">Добавлять таймер при старте</string>
+    <string name="pref_addalarmonstart">Новый таймер если пусто</string>
     <string name="pref_addalarmonstart_summary_on">показывать диалог добавления таймера вкл</string>
     <string name="pref_addalarmonstart_summary_off">показывать диалог добавления таймера выкл</string>
-        <string name="pref_stoponrotate">Выключение при повороте</string>
+    <string name="pref_stoponrotate">Выключение при повороте</string>
     <string name="pref_stoponrotate_summary_on">выключение таймера при повороте телефона вкл</string>
     <string name="pref_stoponrotate_summary_off">выключение таймера при повороте телефона выкл</string>
-        <string name="pref_cyclicmins">Минуты по кругу</string>
+    <string name="pref_cyclicmins">Минуты по кругу</string>
     <string name="pref_cyclicmins_summary_on">минуты по кругу вкл</string>
     <string name="pref_cyclicmins_summary_off">минуты по кругу выкл</string>
+    <string name="pref_shownames">Названия таймеров</string>
+    <string name="pref_shownames_summary">показывать названия таймеров</string>
 </resources>
