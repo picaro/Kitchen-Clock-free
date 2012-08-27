@@ -162,7 +162,7 @@ public class TimePickDialog extends Dialog {
 		}
 
 
-		timerName = (TextView) findViewById(R.id.timepicker_input);
+		timerName = (TextView) findViewById(R.id.timepicker_input_name);
 		if (!mPrefs.getBoolean(
 				getContext().getString(
 						R.string.pref_shownames_key), false)){

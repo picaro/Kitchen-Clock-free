@@ -52,7 +52,7 @@
             android:paddingTop="20dp" >
 
             <EditText
-                android:id="@+id/timepicker_input"
+                android:id="@+id/timepicker_input_name"
                 style="?android:attr/textAppearanceLargeInverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
