@@ -69,7 +69,6 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
 
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
 
-	TextView tvOut;
 	private DbTool dbTool;
 
 	/** Called when the activity is first created. */
@@ -212,7 +211,6 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
 	@Override
 	protected void onStart() {
 		super.onStart();
-		tvOut = (TextView) findViewById(R.id.tvOut);
 		Log.d(TAG, "MainActivity: onStart()");
 	}
 
@@ -247,12 +245,13 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
 						.getString(R.string.pref_savesession_key), true)) {
 			dbTool.open();
 			// select min alarm and make caller
+			dbTool.truncate();
 			for (AlarmClock alarm : alarmList) {
-				if (alarm.getId() == 0) {
+				//if (alarm.getId() == 0) {
 					dbTool.insert(alarm);
-				} else {
-					dbTool.update(alarm);
-				}
+				//} else {
+				//	dbTool.update(alarm);
+				//}
 			}
 			dbTool.close();
 		}
@@ -568,11 +567,18 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
 	
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-	    //if (PREFKEY_OF_INTEREST.equals(key))
-	        //updateSomethingInMainView();
-		//setContentView(R.layout.alarmclock);
-		//onStart();
-		//drawAlarms();
+	    if (key.equals("pref_shownames_key")){
+			for(AlarmClock alarm: alarmList){
+				final TextView widgetLbl = (TextView) alarm.getElement().getChildAt(0);
+				if (!mPrefs.getBoolean(
+						getApplicationContext().getString(
+								R.string.pref_shownames_key), false)) {			
+					widgetLbl.setVisibility(View.INVISIBLE);
+				}  else {
+					widgetLbl.setVisibility(View.VISIBLE);				
+				}
+			}
+	    }
 	}
 	
 	
