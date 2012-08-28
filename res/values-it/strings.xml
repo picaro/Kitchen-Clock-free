@@ -1,217 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string
-		name="app_name">Kitchen Timer</string>
-	<string
-		name="hhmmss">hh:mm:ss</string>
-	<string
-		name="mmss">mm:ss</string>
-	<string
-		name="start">Start</string>
-	<string
-		name="stop">Stop</string>
-	<!-- Presets -->
-	<string
-		name="name">Nome</string>
-	<string
-		name="save">Salva</string>
-	<string
-		name="edit">Modifica</string>
-	<string
-		name="delete">Cancella</string>
-	<string
-		name="cancel">Annulla</string>
-	<string
-		name="yes">Sì</string>
-	<string
-		name="no">No</string>
-	<string
-		name="back">Indietro</string>
-	<string
-		name="timer_name">Nome Timer</string>
-	<string
-		name="edit_timer_name">Modifica nome Timer</string>
-	<string
-		name="error_time">Devi selezionare un tempo</string>
-	<string
-		name="error_name">Devi selezionare un nome</string>
-	<string
-		name="delete_preset_title">Cancellare tutti i preset?</string>
-	<string
-		name="delete_preset_message">Sei sicuro di voler cancellare tutti i preset?</string>
-	<string
-		name="preset_list_empty">La lista dei preset è vuota</string>
-	<string
-		name="presets_saved">Preset salvati in</string>
-	<string
-		name="unable_to_read_file">Impossibile leggere il file</string>
+	<string name="app_name">Kitchen Clock</string>
+	<string name="menu_settings">Settings</string>
+    <string name="main_alarmclock">Alarm Clock</string>
+
+	<string name="start">Start</string>
+	<string name="stop">Stop</string>
+    <string name="changelog_title">Changelog</string>
+    
+    <string name="alarm_name">input name</string>
+
+	
+		<!-- Eula -->
+	<string name="eula_title">Licenza</string>
+	<string name="eula_accept">Accetta</string>
+	<string name="eula_refuse">Rifiuta</string>
+	<string name="name">Nome</string>
+	<string name="save">Salva</string>
+	<string name="edit">Modifica</string>
+	<string name="delete">Cancella</string>
+	    <string name="ok">OK</string>
+	<string name="cancel">Annulla</string>
+	<string name="yes">Sì</string>
+
+
+	
+	<string name="no">No</string>
+	<string name="back">Indietro</string>
 
 	<!-- Menu -->
-	<string
-		name="info">Info</string>
-	<string
-		name="presets">Preset</string>
-	<string
-		name="preferences">Impostazioni</string>
-	<string
-		name="donate">Dona</string>
-	<string
-		name="exit">Esci</string>
-	<string
-		name="exit_title">Fermare i Timers?</string>
-	<string
-		name="exit_message">Stai per uscire dall\'applicazione, vuoi fermare tutti i Timers?
-	</string>
-	<string
-		name="truncate">Cancella tutto</string>
+	    <string name="add">Add</string>
+	<string name="exit">Esci</string>	
+	    <string name="info">Info</string>
+    <string name="settime">Set time</string>
+	<string name="delete_all">Cancella tutto</string>
+    <string name="min">min</string>
+    <string name="hour">hour</string>
+    <string name="sec">sec</string>
+    <string name="set">Set</string>
+
+
+		<!-- Notifications -->
+	<string name="timer_started">Timer Avviato</string>
+	<string name="click_to_open">Clicca qui per aprire l\'applicazione</string>
+	<string name="countdown_ended">Conto alla rovescia terminato</string>
+    <string name="toast_time_invalid">Time should be not zero</string>
 
 	<!-- Preferences -->
-	<string
-		name="pref_info_version">Versione</string>
-	<string
-		name="pref_info_version_error">Impossibile determinare la versione</string>
-	<string
-		name="pref_display_changelog_summary">Visualizza il changelog dell\'applicazione</string>
-	<string
-		name="pref_display_eula_summary">Visualizza la licenza dell\'applicazione</string>
-	<string
-		name="pref_show_tips">Mostra consigli all\'avvio</string>
-	<string
-		name="pref_display_settings">Impostazioni Schermo</string>
-	<string
-		name="pref_keep_screen_on">Mantieni schermo acceso</string>
-	<string
-		name="pref_keep_screen_on_summary_on">Lo schermo è mantenuto attivo durante l\'esecuzione del programma
-	</string>
-	<string
-		name="pref_keep_screen_on_summary_off">Lo spegnimento dello schermo segue le impostazioni di sistema
-	</string>
-	<string
-		name="pref_clear_timer_label">Ripristina nome Timer</string>
-	<string
-		name="pref_clear_timer_label_summary_on">Il nome del Timer ritorna al valore di default quando il relativo
+	<string name="pref_info_version">Versione</string>
+	<string name="pref_info_version_error">Impossibile determinare la versione</string>
+	    <string name="pref_report_a_bug">Report a Bug</string>
+    <string name="pref_report_a_bug_summary">Submit a new issue to the issue tracker</string>
+	<string name="pref_display_changelog_summary">Visualizza il changelog dell\'applicazione</string>
+	<string name="pref_display_eula_summary">Visualizza la licenza dell\'applicazione</string>
+	<string name="pref_show_tips">Mostra consigli all\'avvio</string>
+	<string name="pref_display_settings">Impostazioni Schermo</string>
+	<string name="pref_keep_screen_on">Mantieni schermo acceso</string>
+	<string name="pref_keep_screen_on_summary_on">Lo schermo è mantenuto attivo durante l\'esecuzione del programma</string>
+	<string name="pref_keep_screen_on_summary_off">Lo spegnimento dello schermo segue le impostazioni di sistema</string>
+	<string name="pref_clear_timer_label">Ripristina nome Timer</string>
+	<string name="pref_clear_timer_label_summary_on">Il nome del Timer ritorna al valore di default quando il relativo
 		countdown termina </string>
-	<string
-		name="pref_clear_timer_label_summary_off">Il nome del Timer rimane quello dell\'ultimo preset utilizzato
-	</string>
-	<string
-		name="pref_set_timers_names">Imposta nomi Timers</string>
-	<string
-		name="pref_notification_settings">Impostazioni Notifiche</string>
-	<string
-		name="pref_notification_sound">Suono</string>
-	<string
-		name="pref_notification_sound_summary_on">Notifica sonora abilitata</string>
-	<string
-		name="pref_notification_sound_summary_off">Notifica sonora disabilitata</string>
-	<string
-		name="pref_notification_insistent">Insistente</string>
-	<string
-		name="pref_notification_insistent_summary_on">Modalità insistente attiva</string>
-	<string
-		name="pref_notification_insistent_summary_off">Modalità insistente disattiva</string>
-	<string
-		name="pref_notification_custom_sound">Suono personalizzato</string>
-	<string
-		name="pref_notification_custom_sound_summary_on">Utilizza un suono personalizzato</string>
-	<string
-		name="pref_notification_custom_sound_summary_off">Utilizza il suono predefinito</string>
-	<string
-		name="pref_notification_ringtone">Seleziona il suono d\'allarme</string>
-	<string
-		name="pref_notification_ringtone_summary">Seleziona il suono personalizzato tra i suoni d\'allarme presenti
+	<string name="pref_clear_timer_label_summary_off">Il nome del Timer rimane quello dell\'ultimo preset utilizzato</string>
+	<string name="pref_set_timers_names">Imposta nomi Timers</string>
+	<string name="pref_notification_settings">Impostazioni Notifiche</string>
+	<string name="pref_notification_sound">Suono</string>
+	<string name="pref_notification_sound_summary_on">Notifica sonora abilitata</string>
+	<string name="pref_notification_sound_summary_off">Notifica sonora disabilitata</string>
+	<string name="pref_notification_insistent">Insistente</string>
+	<string name="pref_notification_insistent_summary_on">Modalità insistente attiva</string>
+	<string name="pref_notification_insistent_summary_off">Modalità insistente disattiva</string>
+	<string name="pref_notification_custom_sound">Suono personalizzato</string>
+	<string name="pref_notification_custom_sound_summary_on">Utilizza un suono personalizzato</string>
+	<string name="pref_notification_custom_sound_summary_off">Utilizza il suono predefinito</string>
+	<string name="pref_notification_ringtone">Seleziona il suono d\'allarme</string>
+	<string name="pref_notification_ringtone_summary">Seleziona il suono personalizzato tra i suoni d\'allarme presenti
 		sul sistema</string>
-	<string
-		name="pref_notification_led">LED</string>
-	<string
-		name="pref_notification_led_summary_on">Notifica LED abilitata</string>
-	<string
-		name="pref_notification_led_summary_off">Notifica LED disabilitata</string>
+	<string name="pref_notification_led">LED</string>
+	<string name="pref_notification_led_summary_on">Notifica LED abilitata</string>
+	<string name="pref_notification_led_summary_off">Notifica LED disabilitata</string>
 
-	<string
-		name="pref_notification_led_color">Colore LED</string>
-	<string
-		name="pref_notification_led_color_summary">Cambia colore LED</string>
-	<string
-		name="pref_notification_led_color_dialogtitle">Seleziona il colore del LED</string>
+	<string name="pref_notification_led_color">Colore LED</string>
+	<string name="pref_notification_led_color_summary">Cambia colore LED</string>
+	<string name="pref_notification_led_color_dialogtitle">Seleziona il colore del LED</string>
 
-	<string
-		name="pref_notification_led_color_green">Verde</string>
-	<string
-		name="pref_notification_led_color_white">Bianco</string>
-	<string
-		name="pref_notification_led_color_red">Rosso/Default</string>
-	<string
-		name="pref_notification_led_color_blue">Blu</string>
-	<string
-		name="pref_notification_led_color_yellow">Giallo</string>
-	<string
-		name="pref_notification_led_color_cyan">Ciano</string>
-	<string
-		name="pref_notification_led_color_magenta">Magenta</string>
-	<string
-		name="pref_notification_led_color_pink">Rosa</string>
-	<string
-		name="pref_notification_led_color_orange">Arancione</string>
-	<string
-		name="pref_notification_led_color_light_blue">Azzurro</string>
+	<string name="pref_notification_led_color_green">Verde</string>
+	<string name="pref_notification_led_color_white">Bianco</string>
+	<string name="pref_notification_led_color_red">Rosso/Default</string>
+	<string name="pref_notification_led_color_blue">Blu</string>
+	<string name="pref_notification_led_color_yellow">Giallo</string>
+	<string name="pref_notification_led_color_cyan">Ciano</string>
+	<string name="pref_notification_led_color_magenta">Magenta</string>
+	<string name="pref_notification_led_color_pink">Rosa</string>
+	<string name="pref_notification_led_color_orange">Arancione</string>
+	<string name="pref_notification_led_color_light_blue">Azzurro</string>
+	<string name="pref_notification_led_blink_rate">Frequenza lampeggio LED</string>
+	<string name="pref_notification_led_blink_rate_summary">Cambia frequenza lampeggio LED</string>
+	<string name="pref_notification_led_blink_rate_dialogtitle">Seleziona la frequenza lampeggio LED</string>
+	<string name="pref_notification_led_blink_rate_two">2 (Veloce)</string>
+	<string name="pref_notification_led_blink_rate_three">3</string>
+	<string name="pref_notification_led_blink_rate_four">4 (Media)</string>
+	<string name="pref_notification_led_blink_rate_five">5</string>
+	<string name="pref_notification_led_blink_rate_six">6 (Lenta)</string>
+	<string name="pref_notification_vibrate">Vibrazione</string>
+	<string name="pref_notification_vibrate_summary_on">Notifica vibrazione abilitata</string>
+	<string name="pref_notification_vibrate_summary_off">Notifica vibrazione disabilitata</string>
+	<string name="pref_notification_vibrate_pattern">Pattern vibrazione</string>
+	<string name="pref_notification_vibrate_pattern_summary">Cambia il pattern della vibrazione</string>
+	<string name="pref_notification_vibrate_pattern_dialogtitle">Seleziona il pattern della vibrazione</string>
+	<string name="pref_notification_vibrate_pattern_normal">Normale</string>
+	<string name="pref_notification_vibrate_pattern_medium">Vibrazione Media</string>
+	<string name="pref_notification_vibrate_pattern_long">Vibrazione Lunga</string>
+	<string name="pref_notification_vibrate_pattern_multiple_short">Multipla Breve</string>
+	<string name="pref_notification_vibrate_pattern_multiple_long">Multipla Lunga</string>
 
-	<string
-		name="pref_notification_led_blink_rate">Frequenza lampeggio LED</string>
-	<string
-		name="pref_notification_led_blink_rate_summary">Cambia frequenza lampeggio LED</string>
-	<string
-		name="pref_notification_led_blink_rate_dialogtitle">Seleziona la frequenza lampeggio LED</string>
-	<string
-		name="pref_notification_led_blink_rate_two">2 (Veloce)</string>
-	<string
-		name="pref_notification_led_blink_rate_three">3</string>
-	<string
-		name="pref_notification_led_blink_rate_four">4 (Media)</string>
-	<string
-		name="pref_notification_led_blink_rate_five">5</string>
-	<string
-		name="pref_notification_led_blink_rate_six">6 (Lenta)</string>
-
-	<string
-		name="pref_notification_vibrate">Vibrazione</string>
-	<string
-		name="pref_notification_vibrate_summary_on">Notifica vibrazione abilitata</string>
-	<string
-		name="pref_notification_vibrate_summary_off">Notifica vibrazione disabilitata</string>
-
-	<string
-		name="pref_notification_vibrate_pattern">Pattern vibrazione</string>
-	<string
-		name="pref_notification_vibrate_pattern_summary">Cambia il pattern della vibrazione</string>
-	<string
-		name="pref_notification_vibrate_pattern_dialogtitle">Seleziona il pattern della vibrazione</string>
-	<string
-		name="pref_notification_vibrate_pattern_normal">Normale</string>
-	<string
-		name="pref_notification_vibrate_pattern_medium">Vibrazione Media</string>
-	<string
-		name="pref_notification_vibrate_pattern_long">Vibrazione Lunga</string>
-	<string
-		name="pref_notification_vibrate_pattern_multiple_short">Multipla Breve</string>
-	<string
-		name="pref_notification_vibrate_pattern_multiple_long">Multipla Lunga</string>
-
-	<!-- Notifications -->
-	<string
-		name="timer_started">Timer Avviato</string>
-	<string
-		name="click_to_open">Clicca qui per aprire l\'applicazione</string>
-	<string
-		name="countdown_ended">Conto alla rovescia terminato</string>
-
-
-	<!-- Eula -->
-	<string
-		name="eula_title">Licenza</string>
-	<string
-		name="eula_accept">Accetta</string>
-	<string
-		name="eula_refuse">Rifiuta</string>
-
+	
+	    <string name="pref_pickstyle_wheel">Wheel</string>
+    <string name="pref_pickstyle_picker">Picker</string>
+    <string name="pref_pickstyle_number">Number</string>
+    <string name="pref_showsec">Show seconds in picker</string>
+    <string name="pref_showsec_summary_on">Seconds in picker on</string>
+    <string name="pref_showsec_summary_off">Seconds in picker off</string>
+    <string name="pref_showhr">Show hours in picker</string>
+    <string name="pref_showhr_summary_on">Hours in picker on</string>
+    <string name="pref_showhr_summary_off">Hours in picker off</string>
+    <string name="pref_simmetricpick">Simmetrical pickers</string>
+    <string name="pref_simmetricpick_summary_on">simmetrical</string>
+    <string name="pref_simmetricpick_summary_off">minutes bigger</string>
+    <string name="pref_autostart">Autostart timers</string>
+    <string name="pref_autostart_summary_on">autostart on</string>
+    <string name="pref_autostart_summary_off">autostart off</string>
+    <string name="pref_addalarmonstart">Add timer on start</string>
+    <string name="pref_addalarmonstart_summary_on">show add timer dialog on start on</string>
+    <string name="pref_addalarmonstart_summary_off">show add timer dialog on start off</string>
+    <string name="pref_cyclicmins">Cyclic minutes wheel</string>
+    <string name="pref_cyclicmins_summary_on">cyclic minutes on</string>
+    <string name="pref_cyclicmins_summary_off">cyclic minutes off</string>
+    <string name="pref_stoponrotate">Stop on rotate</string>
+    <string name="pref_stoponrotate_summary_on">stop alarming on rotate phone on</string>
+    <string name="pref_stoponrotate_summary_off">stop alarming on rotate phone off</string>
+    <string name="pref_pickstyle">Pick time dialog</string>
+    <string name="pref_pickstyle_summary">pick time dialog type</string>
+    <string name="pref_pickstyle_dialogtitle">Picker style</string>
+    <string name="pref_shownames">Show names</string>
+    <string name="pref_shownames_summary">show alarm names</string>
+    <string name="pref_savesession">Save alarms</string>
+    <string name="pref_musicon">Sound</string>
+    <string name="pref_savesession_sum">restore alarms on start</string>
+    <string name="pref_musicon_sum">alarm sound</string>
+    
+	
 </resources>
+
