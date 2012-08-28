@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Kitchen Clock</string>
     <string name="menu_settings">Settings</string>
-    <string name="pref_savesession">Save alarms</string>
-    <string name="pref_musicon">Sound</string>
-    <string name="pref_savesession_sum">restore alarms on start</string>
-    <string name="pref_musicon_sum">alarm sound</string>
-    <string name="main_addrecipe">Add Recipe</string>
     <string name="main_alarmclock">Alarm Clock</string>
+	
+	<string name="start">start</string>
+    <string name="stop">stop</string>
     <string name="changelog_title">Changelog</string>
     
     <string name="alarm_name">input name</string>
@@ -46,8 +43,6 @@
     <!-- Preferences -->
     <string name="pref_info_version">Version</string>
     <string name="pref_info_version_error">Unable to determine version</string>
-    <string name="pref_donate">Support Kitchen Timer</string>
-    <string name="pref_donate_summary">Help us to keep it free and without ads</string>
     <string name="pref_report_a_bug">Report a Bug</string>
     <string name="pref_report_a_bug_summary">Submit a new issue to the issue tracker</string>
     <string name="pref_display_changelog_summary">Display application changelog</string>
@@ -55,8 +50,8 @@
     <string name="pref_show_tips">Show Tips at Startup</string>
     <string name="pref_display_settings">Display settings</string>
     <string name="pref_keep_screen_on">Keep Screen On</string>
-    <string name="pref_keep_screen_on_summary_on">The screen will remain active while the program is running</string>
-    <string name="pref_keep_screen_on_summary_off">The screen goes into standby according to system settings</string>
+    <string name="pref_keep_screen_on_summary_on">The screen will remain active while the program is running</string>
+    <string name="pref_keep_screen_on_summary_off">The screen goes into standby according to system settings</string>
     <string name="pref_clear_timer_label">Clear Timer label</string>
     <string name="pref_clear_timer_label_summary_on">The Timer label returns to the default value after a preset time
 		reaches its alarm.</string>
@@ -133,10 +128,15 @@
     <string name="pref_stoponrotate">Stop on rotate</string>
     <string name="pref_stoponrotate_summary_on">stop alarming on rotate phone on</string>
     <string name="pref_stoponrotate_summary_off">stop alarming on rotate phone off</string>
-    <string name="pref_pickstyle">Pick time dialof</string>
+    <string name="pref_pickstyle">Pick time dialog</string>
     <string name="pref_pickstyle_summary">pick time dialog type</string>
     <string name="pref_pickstyle_dialogtitle">Picker style</string>
     <string name="pref_shownames">Show names</string>
     <string name="pref_shownames_summary">show alarm names</string>
+    <string name="pref_savesession">Save alarms</string>
+    <string name="pref_musicon">Sound</string>
+    <string name="pref_savesession_sum">restore alarms on start</string>
+    <string name="pref_musicon_sum">alarm sound</string>
     
+	
 </resources>

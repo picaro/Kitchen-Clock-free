@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="hhmmss">hh:mm:ss</string>
-<string name="mmss">mm:ss</string>
+<string name="app_name">Cocina temporizador</string>
+<string name="menu_settings">Preferencias</string>
+<string name="main_alarmclock">Alarm Clock</string>
+
 <string name="start">Empezar</string>
 <string name="stop">Parar</string>
 <string name="changelog_title">Cambios</string>
-<string name="tip1">Para APAGAR LA ALARMA pulsa el contador rojo o abre la Barra de Notificaciones.</string>
+
+<string name="alarm_name">introducción del nombre</string>
+
+    <!-- Eula -->
+<string name="eula_title">Licencia</string>
+<string name="eula_accept">Aceptar</string>
+<string name="eula_refuse">Rechazar</string>
 <string name="name">Nombre</string>
 <string name="save">Guardar</string>
 <string name="edit">Editar</string>
 <string name="delete">Borrar</string>
+
 <string name="ok">OK</string>
 <string name="cancel">Cancelar</string>
 <string name="yes">Si</string>
 <string name="no">No</string>
 <string name="back">Atrás</string>
-<string name="default_text">Predeterminado</string>
-<string name="timer_name">Nombre del contador</string>
-<string name="edit_timer_name">Editar nombre del contador</string>
-<string name="error_time">Debes seleccionar un tiempo</string>
-<string name="error_name">Debes seleccionar un nombre</string>
-<string name="delete_preset_title">¿Borrar todos los datos?</string>
-<string name="delete_preset_message">¿Estás seguro de borrar todos los datos?</string>
-<string name="sd_not_mounted">No hay tarjeta SD</string>
-<string name="preset_list_empty">La lista de datos está vacía</string>
-<string name="presets_saved">Los datos se han guardado</string>
-<string name="presets_export_error">Ha ocurrido un error guardando los datos, revisar el logcat para más detalles.</string>
-<string name="unable_to_read_file">No es posible leer el fichero</string>
-<string name="info">Info</string>
-<string name="presets">Datos</string>
-<string name="preferences">Preferencias</string>
+<string name="add">Añadir</string>
 <string name="exit">Salir</string>
-<string name="exit_message">Estás a punto de salir de la aplicación, ¿quieres parar todos los contadores?</string>
-<string name="exit_title">¿Parar todos los contadores?</string>
-<string name="truncate">Borrar todo</string>
+
+<string name="info">Info</string>
+    <string name="settime">Establecer</string>
+    <string name="delete_all">Eliminar todos</string>
+    <string name="min">min</string>
+    <string name="hour">hora</string>
+    <string name="sec">seg</string>
+    <string name="set">Fijar</string>
+
+    <!-- Notifications -->
+<string name="timer_started">Contador iniciado</string>
+<string name="click_to_open">Pulsa aquí para abrir la aplicación</string>
+<string name="countdown_ended">Contador finalizado</string>
+    <string name="toast_time_invalid">Temporizador no debe ser cero</string>
+
+	    <!-- Preferences -->
 <string name="pref_info_version">Versión</string>
 <string name="pref_info_version_error">Imposible determinar la versión</string>
+    <string name="pref_report_a_bug">Report a Bug</string>
+    <string name="pref_report_a_bug_summary">Submit a new issue to the issue tracker</string>
 <string name="pref_display_changelog_summary">Mostrar los cambios de las actualizaciones</string>
 <string name="pref_display_eula_summary">Mostrar la licencia de la aplicación</string>
 <string name="pref_show_tips">Mostrar consejos al inicio</string>
@@ -94,10 +104,40 @@
 <string name="pref_notification_vibrate_pattern_long">Vibración larga</string>
 <string name="pref_notification_vibrate_pattern_multiple_short">Multiple corto</string>
 <string name="pref_notification_vibrate_pattern_multiple_long">Multiple largo</string>
-<string name="timer_started">Contador iniciado</string>
-<string name="click_to_open">Pulsa aquí para abrir la aplicación</string>
-<string name="countdown_ended">Contador finalizado</string>
-<string name="eula_title">Licencia</string>
-<string name="eula_accept">Aceptar</string>
-<string name="eula_refuse">Rechazar</string>
+
+    <string name="pref_pickstyle_wheel">Wheel</string>
+    <string name="pref_pickstyle_picker">Picker</string>
+    <string name="pref_pickstyle_number">Number</string>
+    <string name="pref_showsec">Show seconds in picker</string>
+    <string name="pref_showsec_summary_on">Seconds in picker on</string>
+    <string name="pref_showsec_summary_off">Seconds in picker off</string>
+    <string name="pref_showhr">Show hours in picker</string>
+    <string name="pref_showhr_summary_on">Hours in picker on</string>
+    <string name="pref_showhr_summary_off">Hours in picker off</string>
+    <string name="pref_simmetricpick">Simmetrical pickers</string>
+    <string name="pref_simmetricpick_summary_on">simmetrical</string>
+    <string name="pref_simmetricpick_summary_off">minutes bigger</string>
+    <string name="pref_autostart">Autostart timers</string>
+    <string name="pref_autostart_summary_on">autostart on</string>
+    <string name="pref_autostart_summary_off">autostart off</string>
+    <string name="pref_addalarmonstart">Add timer on start</string>
+    <string name="pref_addalarmonstart_summary_on">show add timer dialog on start on</string>
+    <string name="pref_addalarmonstart_summary_off">show add timer dialog on start off</string>
+    <string name="pref_cyclicmins">Cyclic minutes wheel</string>
+    <string name="pref_cyclicmins_summary_on">cyclic minutes on</string>
+    <string name="pref_cyclicmins_summary_off">cyclic minutes off</string>
+    <string name="pref_stoponrotate">Stop on rotate</string>
+    <string name="pref_stoponrotate_summary_on">stop alarming on rotate phone on</string>
+    <string name="pref_stoponrotate_summary_off">stop alarming on rotate phone off</string>
+    <string name="pref_pickstyle">Pick time dialog</string>
+    <string name="pref_pickstyle_summary">pick time dialog type</string>
+    <string name="pref_pickstyle_dialogtitle">Picker style</string>
+    <string name="pref_shownames">Mostrar los nombres</string>
+    <string name="pref_shownames_summary">mostrar los nombres de alarmas</string>
+    <string name="pref_savesession">Guardar alarmas</string>
+    <string name="pref_musicon">Sonido</string>
+    <string name="pref_savesession_sum">restore alarms on start</string>
+    <string name="pref_musicon_sum">sonido de alarma</string>
+    
+
 </resources>

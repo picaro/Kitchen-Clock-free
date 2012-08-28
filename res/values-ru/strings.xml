@@ -36,7 +36,7 @@
 
     <!-- Notifications -->
     <string name="timer_started">Таймер запущен</string>
-    <string name="click_to_open">Click here to open the application</string>
+    <string name="click_to_open">Нажмите для открытия приложение</string>
     <string name="countdown_ended">Таймер завершен</string>
     <string name="toast_time_invalid">Время должно быть больше нуля</string>
 
@@ -132,4 +132,9 @@
     <string name="pref_cyclicmins_summary_off">минуты по кругу выкл</string>
     <string name="pref_shownames">Названия таймеров</string>
     <string name="pref_shownames_summary">показывать названия таймеров</string>
+
+
+
 </resources>
+
+
