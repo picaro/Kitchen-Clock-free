@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Кухонный Таймер</string>
     <string name="menu_settings">Настройки</string>
-    <string name="pref_savesession">Сохранять таймеры</string>
-    <string name="pref_musicon">Звук</string>
-    <string name="pref_savesession_sum">восстановить таймеры при запуске</string>
-    <string name="pref_musicon_sum">звук по таймеру</string>
     <string name="main_alarmclock">Таймер</string>
-    <string name="changelog_title">Изменения</string>
+	
+		<string name="start">start</string>
+    <string name="stop">stop</string>
+    <string name="changelog_title">Changelog</string>
+
     <string name="alarm_name">введите имя</string>
 
     <!-- Eula -->
@@ -50,8 +49,8 @@
     <string name="pref_show_tips">Показывать подсказки при загрузке</string>
     <string name="pref_display_settings">Настройки экрана</string>
     <string name="pref_keep_screen_on">Держать экран включенным</string>
-    <string name="pref_keep_screen_on_summary_on">The screen will remain active while the program is running</string>
-    <string name="pref_keep_screen_on_summary_off">The screen goes into standby according to system settings</string>
+    <string name="pref_keep_screen_on_summary_on">The screen will remain active while the program is running</string>
+    <string name="pref_keep_screen_on_summary_off">The screen goes into standby according to system settings</string>
     <string name="pref_clear_timer_label_summary_on">The Timer label returns to the default value after a preset time
 		reaches its alarm.</string>
     <string name="pref_clear_timer_label_summary_off">The Timer label keeps the name of the last used preset</string>
@@ -132,6 +131,10 @@
     <string name="pref_cyclicmins_summary_off">минуты по кругу выкл</string>
     <string name="pref_shownames">Названия таймеров</string>
     <string name="pref_shownames_summary">показывать названия таймеров</string>
+    <string name="pref_savesession">Сохранять таймеры</string>
+    <string name="pref_musicon">Звук</string>
+    <string name="pref_savesession_sum">восстановить таймеры при запуске</string>
+    <string name="pref_musicon_sum">звук по таймеру</string>
 
 
 
