@@ -1,39 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
 
-    <!--com.op.kclock.ui.ActionBar
+    <com.markupartist.android.widget.ActionBar
         android:id="@+id/actionbar"
-        stylet="style/ActionBar"
-        /-->
+        style="@style/ActionBar" />
 
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:gravity="center_horizontal"
-		android:orientation="vertical" 
-		android:id="@+id/alarm_layout_main"	>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/alarm_layout_main"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
+            <LinearLayout
+                android:id="@+id/alarm_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+            </LinearLayout>
 
-		<LinearLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:gravity="center_horizontal"
-			android:id="@+id/alarm_layout">
+            <TextView
+                android:id="@+id/tvOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="50dp"
+                android:text="" >
+            </TextView>
+        </LinearLayout>
+    </ScrollView>
 
-		</LinearLayout>
-
-		<TextView 
-			android:layout_width="wrap_content" 
-			android:text="" 
-			android:layout_height="wrap_content" 
-			android:id="@+id/tvOut" 
-			android:layout_gravity="center_horizontal" 
-			android:layout_marginBottom="50dp"> 
-		</TextView> 
-
-	</LinearLayout>
-</ScrollView>
-
+</LinearLayout>
