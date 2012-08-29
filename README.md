@@ -4,7 +4,7 @@ Kitchen-Clock-free
 Current work: AlarmClock - will be used for recipes
     - Save alarms (for refresh) - Restore?
     
-    - languges, 
+    - languages, 
     
     - need only one thread  
     - show names

@@ -138,7 +138,5 @@
     <string name="pref_savesession_sum">restore alarms on start</string>
     <string name="pref_musicon_sum">alarm sound</string>
     
-    <string name="pref_showaddbtn">Show add button</string>
-    <string name="pref_showaddbtn_summary">show add button</string>
-    	
+	
 </resources>

@@ -126,6 +126,14 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
 				R.layout.alarm_incl, null);
 		TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
 		txtView.setText(R.string.add);
+		itemView.setId(121212);
+		
+		if (!mPrefs.getBoolean(
+				getApplicationContext()
+						.getString(R.string.pref_showaddbtn_key), false)) {
+			itemView.setVisibility(View.GONE);
+		} 
+
 		itemView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -577,6 +585,15 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
 				}  else {
 					widgetLbl.setVisibility(View.VISIBLE);				
 				}
+			}
+	    } else if (key.equals("pref_showaddbtn_key")){
+			LinearLayout itemView = (LinearLayout) findViewById(121212);
+			if (!mPrefs.getBoolean(
+					getApplicationContext().getString(
+							R.string.pref_showaddbtn_key), false)) {			
+				itemView.setVisibility(View.GONE);
+			} else {
+				itemView.setVisibility(View.VISIBLE);				
 			}
 	    }
 	}
