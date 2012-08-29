@@ -48,6 +48,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.markupartist.android.widget.ActionBar;
 import com.op.kclock.alarm.AlarmService;
 import com.op.kclock.alarm.AlarmServiceImpl;
 import com.op.kclock.alarm.WakeUpLock;
@@ -76,6 +77,11 @@ public class MainActivity extends Activity implements OnClickListener, OnSharedP
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmclock);
+		
+        final ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+        //actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_demo));
+        actionBar.setTitle("Home");
+
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
 				.getApplicationContext());
