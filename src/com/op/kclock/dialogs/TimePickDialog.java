@@ -45,8 +45,12 @@ import com.op.kclock.ui.NumberPicker;
 
 public class TimePickDialog extends Dialog {
 
-	AlarmClock alarm = null;
-	OnMyDialogResult mDialogResult; // the callback
+	private static final int MAX_HOUR = 23;
+	private static final int SCROLL_SPEED = 50;
+	private static final int SECONDS_IN_HOUR = 3600;
+	private static final int MAX_MINUTE_OR_SECOND = 59;
+	private AlarmClock alarm = null;
+	private OnMyDialogResult mDialogResult; // the callback
 
 	public static boolean isDialogShowed = false;
 
@@ -137,7 +141,7 @@ public class TimePickDialog extends Dialog {
 			}
 			alarm.setName(timerName.getText().toString());
 
-			long seconds = hours.getCurrentItem() * 3600
+			long seconds = hours.getCurrentItem() * SECONDS_IN_HOUR
 					+ mins.getCurrentItem() * 60 + secs.getCurrentItem();
 			alarm.setTime(seconds);
 			
@@ -159,7 +163,7 @@ public class TimePickDialog extends Dialog {
 				if (mPrefs.getBoolean(
 						getContext().getString(R.string.pref_showhr_key), true)) {
 					((WheelView) hours).setViewAdapter(new NumericWheelAdapter(this
-							.getContext(), 0, 23));
+							.getContext(), 0, MAX_HOUR));
 				} else {
 					hours.setVisibility(View.GONE);
 					View hourslbl = (View) findViewById(R.id.hourslbl);
@@ -170,7 +174,7 @@ public class TimePickDialog extends Dialog {
 				if (mPrefs.getBoolean(
 						getContext().getString(R.string.pref_cyclicmins_key), true)) {
 					((WheelView) mins).setViewAdapter(new NumericWheelAdapter(this
-							.getContext(), 0, 59, "%02d"));
+							.getContext(), 0, MAX_MINUTE_OR_SECOND, "%02d"));
 					((WheelView) mins).setCyclic(true);
 				} else {
 					((WheelView) mins).setViewAdapter(new NumericWheelAdapter(this
@@ -183,7 +187,7 @@ public class TimePickDialog extends Dialog {
 				if (mPrefs.getBoolean(
 						getContext().getString(R.string.pref_showsec_key), true)) {
 					((WheelView) secs).setViewAdapter(new NumericWheelAdapter(this
-							.getContext(), 0, 59, "%02d"));
+							.getContext(), 0, MAX_MINUTE_OR_SECOND, "%02d"));
 					((WheelView) secs).setCyclic(true);
 				} else {
 					secs.setVisibility(View.GONE);
@@ -217,13 +221,13 @@ public class TimePickDialog extends Dialog {
 				((NumberPicker) secs)
 						.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
 		
-				((NumberPicker) hours).setRange(0, 23);
-				((NumberPicker) mins).setRange(0, 59);
-				((NumberPicker) secs).setRange(0, 59);
+				((NumberPicker) hours).setRange(0, MAX_HOUR);
+				((NumberPicker) mins).setRange(0, MAX_MINUTE_OR_SECOND);
+				((NumberPicker) secs).setRange(0, MAX_MINUTE_OR_SECOND);
 		
-				((NumberPicker) hours).setSpeed(50);
-				((NumberPicker) mins).setSpeed(50);
-				((NumberPicker) secs).setSpeed(50);
+				((NumberPicker) hours).setSpeed(SCROLL_SPEED);
+				((NumberPicker) mins).setSpeed(SCROLL_SPEED);
+				((NumberPicker) secs).setSpeed(SCROLL_SPEED);
 		
 			}
 		 

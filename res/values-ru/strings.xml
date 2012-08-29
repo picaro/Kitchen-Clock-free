@@ -137,7 +137,8 @@
     <string name="pref_musicon_sum">звук по таймеру</string>
 
 
-
+    <string name="pref_showaddbtn">Кнопка добавления</string>
+    <string name="pref_showaddbtn_summary">показывать кнопку добавления</string>
 </resources>
 
 
