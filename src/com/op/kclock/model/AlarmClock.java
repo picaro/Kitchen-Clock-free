@@ -449,7 +449,7 @@ public class AlarmClock implements Parcelable {
 						defaultNotification);
 				//if (!customNotification.equals(defaultNotification)) {
 					notification.sound = Uri.parse(customNotification);
-					
+				notification.defaults |= Notification.DEFAULT_SOUND;	
 				//}
 			} else {
 				notification.sound = Uri.parse(defaultNotification);
