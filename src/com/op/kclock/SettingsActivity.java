@@ -46,13 +46,14 @@ public class SettingsActivity extends PreferenceActivity
 		{ 
 			customPref.setOnPreferenceClickListener(new OnPreferenceClickListener()
 				{
+
+					private static final int REQUEST_PICK_FILE = 4;
 					public boolean onPreferenceClick(Preference preference)
 					{                                       
 						// spawn the file chooser
-						Intent fileChooserI = new Intent(this, FileChooserActivity.class); 
-						//startActivityForResult(intent, REQUEST_PICK_FILE);
-						startActivity(fileChooserI);
-
+						Intent fileChooserI = new Intent(SettingsActivity.this, FileChooserActivity.class); 
+						startActivityForResult(fileChooserI, REQUEST_PICK_FILE);
+						//startActivity(fileChooserI);
 						return true;
 					}
 				});

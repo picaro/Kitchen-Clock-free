@@ -171,10 +171,10 @@ public class FileChooserActivity extends ListActivity {
 			textView.setText(object.getName());
 			if(object.isFile()) {
 				// Show the file icon
-				imageView.setImageResource(R.drawable.ic_btn_next);
+				imageView.setImageResource(R.drawable.icon);
 			} else {
 				// Show the folder icon
-				imageView.setImageResource(R.drawable.ic_dialog_alert);
+				imageView.setImageResource(R.drawable.ic_menu_archive);
 			}
 
 			return row;
@@ -202,7 +202,7 @@ public class FileChooserActivity extends ListActivity {
 	}
 
 	private class ExtensionFilenameFilter implements FilenameFilter {
-		private String[] mExtensions;
+		private String[] mExtensions = {"mp3"};
 
 		public ExtensionFilenameFilter(String[] extensions) {
 			super();
