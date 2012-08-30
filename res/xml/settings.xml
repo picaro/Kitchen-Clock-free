@@ -87,6 +87,13 @@
         android:showSilent="true"
         android:summary="@string/pref_notification_ringtone_summary"
         android:title="@string/pref_notification_ringtone" />
+        <Preference
+                        android:key="pref_data_file_key"
+                        android:title="pref_data_file_location"
+                        android:summary="no_data_file">
+                        <intent
+                                android:action="com.op.kclock.settings.FileChooserActivity" />
+                </Preference>
     <VolumePreference
     android:name="Volume Preference"
     android:summary="@string/pref_volume_summary"
