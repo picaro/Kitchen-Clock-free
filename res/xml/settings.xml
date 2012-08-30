@@ -84,7 +84,12 @@
         android:showSilent="true"
         android:summary="@string/pref_notification_ringtone_summary"
         android:title="@string/pref_notification_ringtone" />
-
+    <VolumePreference
+    android:name="Volume Preference"
+    android:summary="Ringtone Volume"
+    android:title="Ringtone Volume"
+    android:key="ringVolPref"/>
+    
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="@string/pref_notification_led_key"
