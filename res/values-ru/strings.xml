@@ -142,6 +142,12 @@
     <string name="pref_showsettbtn_summary">показывать кнопку настроек</string>
     <string name="pref_volume">Громкость</string>
     <string name="pref_volume_summary">установить громкость</string>
-</resources>
+    <string name="pref_showdelall">Удалить Все кнопка</string>
+    <string name="pref_showdelall_summary">показывать кнопку Удалить Все</string>
+    <string name="pref_soundfile">Своя мелодия</string>
+    <string name="pref_soundfile_summary">выбрать свою мелодию</string>
+ 
+		
+		</resources>
 
 

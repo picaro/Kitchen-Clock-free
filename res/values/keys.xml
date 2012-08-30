@@ -42,5 +42,7 @@
     <string name="pref_shownames_key">pref_shownames_key</string>
     <string name="pref_showsettbtn_key">pref_showsettbtn_key</string>
     <string name="pref_volume_key">pref_volume_key</string>
-    
+    <string name="pref_showdelall_key">pref_showdellall_key</string>
+    <string name="pref_soundfile_key">pref_soundfile_key</string>
+	
 </resources>

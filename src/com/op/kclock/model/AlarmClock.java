@@ -443,13 +443,13 @@ public class AlarmClock implements Parcelable {
 	//	if (mPrefs.getBoolean(
 	//			context.getString(R.string.pref_notification_sound_key), true)) {
 	//		if (mPrefs.getBoolean(context
-	//				.getString(R.string.pref_notification_custom_sound_key),
-	//				false)|| true) {
+//					.getString(R.string.pref_notification_custom_sound_key),
+	//				false)) {
 				String customNotification = mPrefs.getString(context
 						.getString(R.string.pref_notification_ringtone_key),
 						defaultNotification);
 				//if (!customNotification.equals(defaultNotification)) {
-					notification.sound = Uri.parse(customNotification);
+		if(customNotification != null)	notification.sound = Uri.parse(customNotification);
 			//	notification.sound = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "6");	
 			//	notification.defaults |= Notification.DEFAULT_SOUND;	
 				//}

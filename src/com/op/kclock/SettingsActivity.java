@@ -14,7 +14,8 @@ public class SettingsActivity extends PreferenceActivity
 {
 
     private SharedPreferences prefs;
-
+	public static final String CUSTOM_SOUNDFILE_KEY = "pref_soundfile_key";
+	
 	private CheckBoxPreference isSessSavePref;
 
     /** Called when the activity is first created. */
@@ -41,7 +42,7 @@ public class SettingsActivity extends PreferenceActivity
 
 
 		// add onclick for select shader
-		Preference customPref = findPreference("pref_data_file_key");
+		Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
 		if (customPref != null)
 		{ 
 			customPref.setOnPreferenceClickListener(new OnPreferenceClickListener()

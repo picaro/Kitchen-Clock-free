@@ -143,5 +143,9 @@
     <string name="pref_showsettbtn_summary">show settings button in actionbar</string>
     <string name="pref_volume">Alarm Volume</string>
     <string name="pref_volume_summary">set alarm volume</string>
-    	
+    <string name="pref_showdelall">Show del button</string>
+    <string name="pref_showdelall_summary">show delete All button in actionbar</string>
+    <string name="pref_soundfile">Custom Sound</string>
+    <string name="pref_soundfile_summary">select custom sound</string>
+   	
 </resources>
