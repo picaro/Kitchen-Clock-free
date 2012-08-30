@@ -36,7 +36,8 @@ public class SettingsActivity extends PreferenceActivity
 
 
           // add onclick for select shader
-          customPref = (Preference) findPreference("selectShaderPref");
+          Preference customPref = (Preference) findPreference("selectShaderPref");
+          if (customPref != null){ 
           customPref.setOnPreferenceClickListener(new OnPreferenceClickListener()
           {
                public boolean onPreferenceClick(Preference preference)
@@ -49,6 +50,7 @@ public class SettingsActivity extends PreferenceActivity
                    return true;
               }
           });
+          }
 
     }
 }
