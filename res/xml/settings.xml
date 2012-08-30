@@ -86,9 +86,9 @@
         android:title="@string/pref_notification_ringtone" />
     <VolumePreference
     android:name="Volume Preference"
-    android:summary="Ringtone Volume"
-    android:title="Ringtone Volume"
-    android:key="ringVolPref"/>
+    android:summary="@string/pref_volume_summary"
+    android:title="@string/pref_volume"
+    android:key="@string/pref_volume_key"/>
     
     <CheckBoxPreference
         android:defaultValue="true"
