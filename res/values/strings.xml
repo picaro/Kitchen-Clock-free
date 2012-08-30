@@ -141,5 +141,7 @@
     
     <string name="pref_showsettbtn">Show settings button</string>
     <string name="pref_showsettbtn_summary">show settings button in actionbar</string>
+    <string name="pref_volume">Alarm Volume</string>
+    <string name="pref_volume_summary">set alarm volume</string>
     	
 </resources>

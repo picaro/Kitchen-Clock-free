@@ -19,7 +19,7 @@ public class SettingsActivity extends PreferenceActivity
     public void onCreate(Bundle savedInstanceState)
 	{
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.settings);
+        setVolumeControlStream(AudioManager.STREAM_NOTIFICATION);
 		addPreferencesFromResource(R.xml.settings);
 
 		String version;
