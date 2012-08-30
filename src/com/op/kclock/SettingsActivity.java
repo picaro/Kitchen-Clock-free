@@ -36,7 +36,7 @@ public class SettingsActivity extends PreferenceActivity
 
 
           // add onclick for select shader
-          Preference customPref = (Preference) findPreference("selectShaderPref");
+          Preference customPref = (Preference) findPreference("pref_data_file_key");
           if (customPref != null){ 
           customPref.setOnPreferenceClickListener(new OnPreferenceClickListener()
           {
