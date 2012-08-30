@@ -6,6 +6,7 @@ import android.os.*;
 import android.preference.*;
 import android.content.pm.*;
 import com.op.kclock.misc.*;
+import android.media.*;
 
 public class SettingsActivity extends PreferenceActivity
 {
