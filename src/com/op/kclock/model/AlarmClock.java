@@ -441,19 +441,20 @@ public class AlarmClock implements Parcelable {
 												// + R.raw.mynotification;
 	//	if (mPrefs.getBoolean(
 	//			context.getString(R.string.pref_notification_sound_key), true)) {
-			if (mPrefs.getBoolean(context
-					.getString(R.string.pref_notification_custom_sound_key),
-					false)|| true) {
+	//		if (mPrefs.getBoolean(context
+	//				.getString(R.string.pref_notification_custom_sound_key),
+	//				false)|| true) {
 				String customNotification = mPrefs.getString(context
 						.getString(R.string.pref_notification_ringtone_key),
 						defaultNotification);
 				//if (!customNotification.equals(defaultNotification)) {
-					notification.sound = Uri.parse(customNotification);
-				notification.defaults |= Notification.DEFAULT_SOUND;	
+				//	notification.sound = Uri.parse(customNotification);
+				notification.sound = Uri.withAppendedPath(Audio.Media.INTERNAL_CONTENT_URI, "6");	
+			//	notification.defaults |= Notification.DEFAULT_SOUND;	
 				//}
-			} else {
-				notification.sound = Uri.parse(defaultNotification);
-			}
+		//	} else {
+		//		notification.sound = Uri.parse(defaultNotification);
+	//		}
 	//	}
 		if (mPrefs.getBoolean(
 				context.getString(R.string.pref_notification_insistent_key),
