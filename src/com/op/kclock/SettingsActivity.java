@@ -42,14 +42,9 @@ public class SettingsActivity extends PreferenceActivity
                public boolean onPreferenceClick(Preference preference)
               {                                       
                    // spawn the file chooser
-                   Intent myIntent = new Intent(SettingsActivity.this,
-                             FileChooser.class);
-                   myIntent.putExtra(FileChooser.EXTRA_START_DIR, 
-                                     PreferenceFacade.getShaderDir(getApplicationContext()));
-                   myIntent.putExtra(FileChooser.EXTRA_EXTENSIONS,
-                             PreferenceFacade.DEFAULT_SHADER_EXTENSIONS);
-                   final int result = PreferenceFacade.MENU_SHADER_SELECT;
-                   startActivityForResult(myIntent, result);
+                   Intent fileChooserI = new Intent(this, FileChooserActivity.class); 
+		   //startActivityForResult(intent, REQUEST_PICK_FILE);
+		   startActivity(fileChooserI);
 
                    return true;
               }
