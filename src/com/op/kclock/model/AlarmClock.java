@@ -30,6 +30,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -39,6 +40,7 @@ import android.widget.TextView;
 
 import com.op.kclock.MainActivity;
 import com.op.kclock.R;
+import com.op.kclock.SettingsActivity;
 import com.op.kclock.alarm.WakeUpLock;
 import com.op.kclock.cookconst.SettingsConst;
 import android.provider.*;
@@ -449,7 +451,13 @@ public class AlarmClock implements Parcelable {
 						.getString(R.string.pref_notification_ringtone_key),
 						defaultNotification);
 				//if (!customNotification.equals(defaultNotification)) {
-		if(customNotification != null)	notification.sound = Uri.parse(customNotification);
+		//if(customNotification != null)	notification.sound = Uri.parse(customNotification);
+				String customSound = mPrefs.getString(context
+						.getString(R.string.pref_soundfile_key),
+						defaultNotification);
+				notification.sound = Uri.parse(customSound);
+		if(1==1){
+		}
 			//	notification.sound = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "6");	
 			//	notification.defaults |= Notification.DEFAULT_SOUND;	
 				//}
