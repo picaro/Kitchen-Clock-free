@@ -140,6 +140,8 @@
 
     <string name="pref_showsettbtn">Настройки в меню</string>
     <string name="pref_showsettbtn_summary">показывать кнопку настроек</string>
+    <string name="pref_volume">Громкость</string>
+    <string name="pref_volume_summary">установить громкость</string>
 </resources>
 
 
