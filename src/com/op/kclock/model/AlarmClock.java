@@ -41,6 +41,7 @@ import com.op.kclock.MainActivity;
 import com.op.kclock.R;
 import com.op.kclock.alarm.WakeUpLock;
 import com.op.kclock.cookconst.SettingsConst;
+import android.provider.*;
 
 public class AlarmClock implements Parcelable {
 
@@ -448,8 +449,8 @@ public class AlarmClock implements Parcelable {
 						.getString(R.string.pref_notification_ringtone_key),
 						defaultNotification);
 				//if (!customNotification.equals(defaultNotification)) {
-				//	notification.sound = Uri.parse(customNotification);
-				notification.sound = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "6");	
+					notification.sound = Uri.parse(customNotification);
+			//	notification.sound = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "6");	
 			//	notification.defaults |= Notification.DEFAULT_SOUND;	
 				//}
 		//	} else {
