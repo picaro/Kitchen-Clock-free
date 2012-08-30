@@ -35,8 +35,25 @@ public class SettingsActivity extends PreferenceActivity
 			findPreference(getString(R.string.pref_info_version_key)).setSummary(version);
 
 
-//		prefs = getSharedPreferences(SettingsConst.SETTINGS, 0);
-//		
-//		isSessSavePref = (CheckBoxPreference) findPreference( SettingsConst.SAVE_SESSION);
+          // add onclick for select shader
+          customPref = (Preference) findPreference("selectShaderPref");
+          customPref.setOnPreferenceClickListener(new OnPreferenceClickListener()
+          {
+               public boolean onPreferenceClick(Preference preference)
+              {                                       
+                   // spawn the file chooser
+                   Intent myIntent = new Intent(SettingsActivity.this,
+                             FileChooser.class);
+                   myIntent.putExtra(FileChooser.EXTRA_START_DIR, 
+                                     PreferenceFacade.getShaderDir(getApplicationContext()));
+                   myIntent.putExtra(FileChooser.EXTRA_EXTENSIONS,
+                             PreferenceFacade.DEFAULT_SHADER_EXTENSIONS);
+                   final int result = PreferenceFacade.MENU_SHADER_SELECT;
+                   startActivityForResult(myIntent, result);
+
+                   return true;
+              }
+          });
+
     }
 }
