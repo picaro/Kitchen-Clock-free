@@ -439,21 +439,22 @@ public class AlarmClock implements Parcelable {
 
 		String defaultNotification = "select";// "android.resource://com.leinardi.kitchentimer/"
 												// + R.raw.mynotification;
-		if (mPrefs.getBoolean(
-				context.getString(R.string.pref_notification_sound_key), true)) {
+	//	if (mPrefs.getBoolean(
+	//			context.getString(R.string.pref_notification_sound_key), true)) {
 			if (mPrefs.getBoolean(context
 					.getString(R.string.pref_notification_custom_sound_key),
-					false)) {
+					false)|| true) {
 				String customNotification = mPrefs.getString(context
 						.getString(R.string.pref_notification_ringtone_key),
 						defaultNotification);
-				if (!customNotification.equals(defaultNotification)) {
+				//if (!customNotification.equals(defaultNotification)) {
 					notification.sound = Uri.parse(customNotification);
-				}
+					
+				//}
 			} else {
 				notification.sound = Uri.parse(defaultNotification);
 			}
-		}
+	//	}
 		if (mPrefs.getBoolean(
 				context.getString(R.string.pref_notification_insistent_key),
 				true))

@@ -137,9 +137,9 @@
    
     <CheckBoxPreference
         android:defaultValue="false"
-        android:key="@string/pref_showaddbtn_key"
-        android:summaryOff="@string/pref_showaddbtn_summary"
-        android:summaryOn="@string/pref_showaddbtn_summary"
-        android:title="@string/pref_showaddbtn" />
+        android:key="@string/pref_showsettbtn_key"
+        android:summaryOff="@string/pref_showsettbtn_summary"
+        android:summaryOn="@string/pref_showsettbtn_summary"
+        android:title="@string/pref_showsettbtn" />
 
 </PreferenceScreen>

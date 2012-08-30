@@ -66,7 +66,8 @@
     <string name="pref_notification_custom_sound_summary_on">Использовать свою мелодию</string>
     <string name="pref_notification_custom_sound_summary_off">Использовать мелодию по умолчанию</string>
     <string name="pref_notification_ringtone">Звук будильника</string>
-    <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе</string>
+    <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе
+</string>
     <string name="pref_notification_led">Индикация</string>
     <string name="pref_notification_led_summary_on">Световая индикация включена</string>
     <string name="pref_notification_led_summary_off">Световая индикация выкл</string>
@@ -137,8 +138,8 @@
     <string name="pref_musicon_sum">звук по таймеру</string>
 
 
-    <string name="pref_showaddbtn">Кнопка добавления</string>
-    <string name="pref_showaddbtn_summary">показывать кнопку добавления</string>
+    <string name="pref_showsettbtn">Настройки в меню</string>
+    <string name="pref_showsettbtn_summary">показывать кнопку настроек</string>
 </resources>
 
 

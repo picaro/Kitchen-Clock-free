@@ -68,7 +68,8 @@
     <string name="pref_notification_custom_sound_summary_on">Use custom sound</string>
     <string name="pref_notification_custom_sound_summary_off">Use default sound</string>
     <string name="pref_notification_ringtone">Select alarm sound</string>
-    <string name="pref_notification_ringtone_summary">Select a custom sound from available system alarm sounds</string>
+    <string name="pref_notification_ringtone_summary">Select a custom sound from available system alarm sounds
+</string>
     <string name="pref_notification_led">LED</string>
     <string name="pref_notification_led_summary_on">LED notification enabled</string>
     <string name="pref_notification_led_summary_off">LED notification disabled</string>
@@ -138,7 +139,7 @@
     <string name="pref_savesession_sum">restore alarms on start</string>
     <string name="pref_musicon_sum">alarm sound</string>
     
-    <string name="pref_showaddbtn">Show add button</string>
-    <string name="pref_showaddbtn_summary">show add button</string>
+    <string name="pref_showsettbtn">Show settings button</string>
+    <string name="pref_showsettbtn_summary">show settings button in actionbar</string>
     	
 </resources>
