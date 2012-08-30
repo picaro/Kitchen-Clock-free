@@ -77,7 +77,10 @@
         android:key="@string/pref_pickstyle_key"
         android:summary="@string/pref_pickstyle_summary"
         android:title="@string/pref_pickstyle" />
-
+        
+        <PreferenceCategory
+                android:title="Alarming">
+                
     <RingtonePreference
         android:key="@string/pref_notification_ringtone_key"
         android:ringtoneType="alarm"
@@ -139,6 +142,8 @@
         android:summaryOff="@string/pref_stoponrotate_summary_off"
         android:summaryOn="@string/pref_stoponrotate_summary_on"
         android:title="@string/pref_stoponrotate" />
+   </PreferenceCategory>
+   
    
     <CheckBoxPreference
         android:defaultValue="false"
