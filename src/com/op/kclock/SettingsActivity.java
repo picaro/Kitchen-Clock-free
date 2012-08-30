@@ -4,6 +4,7 @@ import com.op.kclock.cookconst.*;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.content.pm.*;
 import com.op.kclock.misc.*;
 import android.media.*;
