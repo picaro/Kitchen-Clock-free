@@ -12,7 +12,7 @@ import com.op.kclock.settings.*;
 
 public class SettingsActivity extends PreferenceActivity {
 
-	private SharedPreferences mPrefs;
+	//private SharedPreferences mPrefs;
 	public static final String CUSTOM_SOUNDFILE_KEY = "pref_soundfile_key";
 	private static final int REQUEST_PICK_FILE = 4;
 		public static final String v = "soundfile";
@@ -26,8 +26,11 @@ public class SettingsActivity extends PreferenceActivity {
 		setVolumeControlStream(AudioManager.STREAM_NOTIFICATION);
 		addPreferencesFromResource(R.xml.settings);
 
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
-															   .getApplicationContext());
+//		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
+//															   .getApplicationContext());
+
+//mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
 //		mPrefs.registerOnSharedPreferenceChangeListener(this);
 		
 		
@@ -46,11 +49,11 @@ public class SettingsActivity extends PreferenceActivity {
 		findPreference(getString(R.string.pref_info_version_key)).setSummary(
 				version);
 
+		EditTextPreference customPref2 = (EditTextPreference)findPreference(getString(R.string.pref_soundfile_path_key));
+		//if (customPref2.getText().toCharArray()[0] == '/') customPref2.setTitle(customPref2.getText());
+
 		// add onclick for select shader
 		Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
-	String soundfile = mPrefs.getString(v,v);
-	//if(soundfile.length() > 0)
-		customPref.setTitle(soundfile);
 		if (customPref != null) {
 			customPref
 					.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -79,15 +82,17 @@ public class SettingsActivity extends PreferenceActivity {
 					if(data.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
 						findViewById(R.string.pref_soundfile_key);
 						
-						Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
-						customPref.setTitle(mPrefs.getString(v,v));
+						//Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
+				//		customPref.setTitle(mPrefs.getString(v,v));
+						
+						
+						//customPref2.set
 						
 						
 						String filePath = data.getStringExtra(FileChooserActivity.EXTRA_FILE_PATH);
-						mPrefs.edit().putInt( v,5);
-						mPrefs.edit().apply();
-						mPrefs.edit().commit();
-						Log.e("op",""+mPrefs.contains(v));
+						EditTextPreference customPref2 = (EditTextPreference)findPreference(getString(R.string.pref_soundfile_path_key));
+						customPref2.setText(filePath);
+					 	customPref2.setTitle(filePath);
 						
 						//this.getApplicationContext().gets
 					//	customPref.setText(filePath);

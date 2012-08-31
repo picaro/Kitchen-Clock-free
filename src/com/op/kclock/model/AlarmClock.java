@@ -453,10 +453,12 @@ public class AlarmClock implements Parcelable {
 				//if (!customNotification.equals(defaultNotification)) {
 		//if(customNotification != null)	notification.sound = Uri.parse(customNotification);
 				String customSound = mPrefs.getString(context
-						.getString(R.string.pref_soundfile_key),
+						.getString(R.string.pref_soundfile_path_key),
 						defaultNotification);
-				notification.sound = Uri.parse(customSound);
+				//notification.sound = Uri.parse(customSound);
+		
 		if(1==1){
+			notification.sound =Uri.parse("file://" + customSound);
 		}
 			//	notification.sound = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "6");	
 			//	notification.defaults |= Notification.DEFAULT_SOUND;	

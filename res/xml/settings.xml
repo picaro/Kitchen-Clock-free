@@ -109,12 +109,15 @@ limitations under the License.
 			android:showSilent="true"
 			android:summary="@string/pref_notification_ringtone_summary"
 			android:title="@string/pref_notification_ringtone" />
-        <Preference
+		 <EditTextPreference
+                android:title="Soun path"
+                android:key="@string/pref_soundfile_path_key" />
+		<Preference
 			android:key="@string/pref_soundfile_key"
 			android:title="@string/pref_soundfile"
 			android:summary="@string/pref_soundfile_summary">
-
 		</Preference>
+        
 		<VolumePreference
 			android:name="Volume Preference"
 			android:summary="@string/pref_volume_summary"
@@ -170,6 +173,9 @@ limitations under the License.
 			android:summaryOff="@string/pref_stoponrotate_summary_off"
 			android:summaryOn="@string/pref_stoponrotate_summary_on"
 			android:title="@string/pref_stoponrotate" />
+		
+		
+		
 	</PreferenceCategory>
 
 
