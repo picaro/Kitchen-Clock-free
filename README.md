@@ -7,13 +7,13 @@ Android Market: http://goo.gl/EWvy2
 ![Kitchen-Clock-Lite](https://lh5.ggpht.com/bH00u94QQSH6TWs8fGtY_5uYbymehEyzdr0wU_ZmdFf3OxLmAtaHiThGd21Uzuju8g=h230 "Kitchen-Clock-Lite")
 
 Current work: AlarmClock - will be used for Recipes App
-    - select custom sound
-    - need only one thread  
-    - api
-    - Edit bug in mins > 60
-    - Turn off alarm on rotate
-    - digital fonts
-    - tests
+  ###  - select custom sound
+  ###  - need only one thread  
+###    - api
+###    - Edit bug in mins > 60
+###    - Turn off alarm on rotate
+###    - digital fonts
+###    - tests
      
       
 
