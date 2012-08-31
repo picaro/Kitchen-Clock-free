@@ -1,8 +1,7 @@
 #Kitchen-Clock-Lite
 ==================
 
-![Kitchen-Clock-Lite](https://lh6.ggpht.com/uscyas_4S02CMbDXS3o-m3artevGh1p4GGBjjpaUsa_k0G5n0tPb__66Lt0DMSN-fx4=h230 "Kitchen-Clock-Lite")
-
+![Kitchen-Clock-Lite](https://lh6.ggpht.com/uscyas_4S02CMbDXS3o-m3artevGh1p4GGBjjpaUsa_k0G5n0tPb__66Lt0DMSN-fx4=h230 "Kitchen-Clock-Lite")  
 ![Kitchen-Clock-Lite](https://lh5.ggpht.com/bH00u94QQSH6TWs8fGtY_5uYbymehEyzdr0wU_ZmdFf3OxLmAtaHiThGd21Uzuju8g=h230 "Kitchen-Clock-Lite")
 
 Current work: AlarmClock - will be used for recipes
