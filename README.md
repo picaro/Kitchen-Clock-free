@@ -1,25 +1,24 @@
-Kitchen-Clock-free
+#Kitchen-Clock-Lite
 ==================
 
-Current work: AlarmClock - will be used for recipes
-    - Save alarms (for refresh) - Restore?
-    
-    - languages, 
-    
-    - need only one thread  
-    - show names
-    - dialog numeric
-    - api
-    - Edit bug in mins > 60
-    - Turn off alarm on rotate
-    - digital fonts
-    -  new view for tabs
-    - tests
+Android Market: http://goo.gl/EWvy2
+
+![Kitchen-Clock-Lite](https://lh6.ggpht.com/uscyas_4S02CMbDXS3o-m3artevGh1p4GGBjjpaUsa_k0G5n0tPb__66Lt0DMSN-fx4=h230 "Kitchen-Clock-Lite")  
+![Kitchen-Clock-Lite](https://lh5.ggpht.com/bH00u94QQSH6TWs8fGtY_5uYbymehEyzdr0wU_ZmdFf3OxLmAtaHiThGd21Uzuju8g=h230 "Kitchen-Clock-Lite")
+
+Current work: AlarmClock - will be used for Recipes App
+####    - select custom sound
+####    - need only one thread  
+####    - api
+####    - Edit bug in mins > 60
+####    - Turn off alarm on rotate
+####    - digital fonts
+####    - tests
      
       
 
 
-Kitchen Clock free
+Kitchen Clock Lite
 
 
 
