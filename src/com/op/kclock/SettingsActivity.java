@@ -12,7 +12,7 @@ import com.op.kclock.settings.*;
 
 public class SettingsActivity extends PreferenceActivity {
 
-	private SharedPreferences prefs;
+	private SharedPreferences mPrefs;
 	public static final String CUSTOM_SOUNDFILE_KEY = "pref_soundfile_key";
 	private static final int REQUEST_PICK_FILE = 4;
 
@@ -25,6 +25,11 @@ public class SettingsActivity extends PreferenceActivity {
 		setVolumeControlStream(AudioManager.STREAM_NOTIFICATION);
 		addPreferencesFromResource(R.xml.settings);
 
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
+															   .getApplicationContext());
+//		mPrefs.registerOnSharedPreferenceChangeListener(this);
+		
+		
 		String version;
 		try {
 			PackageInfo pi = getPackageManager().getPackageInfo(
@@ -42,6 +47,9 @@ public class SettingsActivity extends PreferenceActivity {
 
 		// add onclick for select shader
 		Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
+	String soundfile = mPrefs.getString("soundfile","");
+	//if(soundfile.length() > 0)
+		customPref.setTitle(soundfile);
 		if (customPref != null) {
 			customPref
 					.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -70,11 +78,13 @@ public class SettingsActivity extends PreferenceActivity {
 					if(data.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
 						findViewById(R.string.pref_soundfile_key);
 						String filePath = data.getStringExtra(FileChooserActivity.EXTRA_FILE_PATH);
-						
+						mPrefs.edit().putString( "soundfile",filePath);
+						mPrefs.edit().commit();
 						//this.getApplicationContext().gets
-						Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
-						customPref.setTitle(filePath);
-						customPref.setDefaultValue("123");
+				Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
+					//	customPref.setTitle(filePath);
+					//	customPref.setText(filePath);
+					//	setDefaultValue("123");
 					}
 			}
 		}
