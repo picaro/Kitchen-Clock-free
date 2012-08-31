@@ -15,7 +15,8 @@ public class SettingsActivity extends PreferenceActivity {
 	private SharedPreferences mPrefs;
 	public static final String CUSTOM_SOUNDFILE_KEY = "pref_soundfile_key";
 	private static final int REQUEST_PICK_FILE = 4;
-
+		public static final String v = "soundfile";
+				
 	private CheckBoxPreference isSessSavePref;
 
 	/** Called when the activity is first created. */
@@ -47,7 +48,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 		// add onclick for select shader
 		Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
-	String soundfile = mPrefs.getString("soundfile","");
+	String soundfile = mPrefs.getString(v,v);
 	//if(soundfile.length() > 0)
 		customPref.setTitle(soundfile);
 		if (customPref != null) {
@@ -77,12 +78,18 @@ public class SettingsActivity extends PreferenceActivity {
 				case REQUEST_PICK_FILE:
 					if(data.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
 						findViewById(R.string.pref_soundfile_key);
+						
+						Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
+						customPref.setTitle(mPrefs.getString(v,v));
+						
+						
 						String filePath = data.getStringExtra(FileChooserActivity.EXTRA_FILE_PATH);
-						mPrefs.edit().putString( "soundfile",filePath);
+						mPrefs.edit().putInt( v,5);
+						mPrefs.edit().apply();
 						mPrefs.edit().commit();
+						Log.e("op",""+mPrefs.contains(v));
+						
 						//this.getApplicationContext().gets
-				Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
-					//	customPref.setTitle(filePath);
 					//	customPref.setText(filePath);
 					//	setDefaultValue("123");
 					}
