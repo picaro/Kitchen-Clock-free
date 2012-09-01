@@ -42,12 +42,20 @@
     
 	<string-array name="pref_pickstyle_values" translatable="false">
         <item>wheel</item>
-    
         <item>number</item>
-    </string-array>
+    </string-array>	
 	<string-array name="pref_pickstyle_entries" translatable="false">
         <item>@string/pref_pickstyle_wheel</item>
         <item>@string/pref_pickstyle_number</item>
+    </string-array>
+
+	<string-array name="pref_soundsource_values" translatable="false">
+        <item>system</item>
+        <item>custom</item>
+    </string-array>	
+	<string-array name="pref_soundsource_entries" translatable="false">
+        <item>@string/pref_soundsource_system</item>
+        <item>@string/pref_soundsource_custom</item>
     </string-array>
 	
 	<string-array name="pref_notification_led_blink_rate_entries">
@@ -57,7 +65,6 @@
         <item>@string/pref_notification_led_blink_rate_five</item>
         <item>@string/pref_notification_led_blink_rate_six</item>
     </string-array>
-
     <string-array name="pref_notification_led_blink_rate_values" translatable="false">
         <item>2</item>
         <item>3</item>
@@ -73,7 +80,6 @@
       <item>@string/pref_notification_vibrate_pattern_multiple_short</item>
       <item>@string/pref_notification_vibrate_pattern_multiple_long</item>
    </string-array>
-   
     <string-array name="pref_notification_vibrate_pattern_values">
       <item></item>
       <item>500,1200</item>

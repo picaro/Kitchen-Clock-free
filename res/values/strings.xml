@@ -148,4 +148,8 @@
     <string name="pref_soundfile">Custom Sound</string>
     <string name="pref_soundfile_summary">select custom sound</string>
    	
+	
+	<string name="pref_soundsource_system">system</string>
+    <string name="pref_soundsource_custom">custom</string>
+	
 </resources>
