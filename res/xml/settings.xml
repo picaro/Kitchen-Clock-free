@@ -12,172 +12,168 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.
+limitations under the License.
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/menu_settings" >
-	<PreferenceCategory
-		android:title="main">
 
+    <PreferenceCategory android:title="@string/main_settings" >
+        <Preference
+            style="?android:preferenceInformationStyle"
+            android:key="@string/pref_info_version_key"
+            android:title="@string/pref_info_version" />
 
-		<Preference
-			style="?android:preferenceInformationStyle"
-			android:key="@string/pref_info_version_key"
-			android:title="@string/pref_info_version" />
+        <CheckBoxPreference
+            android:key="savesession"
+            android:summary="@string/pref_savesession_sum"
+            android:title="@string/pref_savesession" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/interface_settings" >
+        <ListPreference
+            android:defaultValue="wheel"
+            android:dialogTitle="@string/pref_pickstyle_dialogtitle"
+            android:entries="@array/pref_pickstyle_entries"
+            android:entryValues="@array/pref_pickstyle_values"
+            android:key="@string/pref_pickstyle_key"
+            android:summary="@string/pref_pickstyle_summary"
+            android:title="@string/pref_pickstyle" />
 
-		<CheckBoxPreference
-			android:key="savesession"
-			android:summary="@string/pref_savesession_sum"
-			android:title="@string/pref_savesession" />
-	</PreferenceCategory>
-	<PreferenceCategory
-		android:title="Alarming">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_showhr_key"
+            android:summaryOff="@string/pref_showhr_summary_off"
+            android:summaryOn="@string/pref_showhr_summary_on"
+            android:title="@string/pref_showhr" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_showsec_key"
+            android:summaryOff="@string/pref_showsec_summary_off"
+            android:summaryOn="@string/pref_showsec_summary_on"
+            android:title="@string/pref_showsec" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_simmetricpick_key"
+            android:summaryOff="@string/pref_simmetricpick_summary_off"
+            android:summaryOn="@string/pref_simmetricpick_summary_on"
+            android:title="@string/pref_simmetricpick" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_cyclicmins_key"
+            android:summaryOff="@string/pref_cyclicmins_summary_off"
+            android:summaryOn="@string/pref_cyclicmins_summary_on"
+            android:title="@string/pref_cyclicmins" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_shownames_key"
+            android:summary="@string/pref_shownames_summary"
+            android:title="@string/pref_shownames" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_autostart_key"
+            android:summaryOff="@string/pref_autostart_summary_off"
+            android:summaryOn="@string/pref_autostart_summary_on"
+            android:title="@string/pref_autostart" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_addalarmonstart_key"
+            android:summaryOff="@string/pref_addalarmonstart_summary_off"
+            android:summaryOn="@string/pref_addalarmonstart_summary_on"
+            android:title="@string/pref_addalarmonstart" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_showsettbtn_key"
+            android:summaryOff="@string/pref_showsettbtn_summary"
+            android:summaryOn="@string/pref_showsettbtn_summary"
+            android:title="@string/pref_showsettbtn" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_showdelall_key"
+            android:summary="@string/pref_showdelall_summary"
+            android:title="@string/pref_showdelall" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/alarm_settings" >
+        <ListPreference
+            android:defaultValue="system"
+            android:dialogTitle="@string/pref_soundsource_dialogtitle"
+            android:entries="@array/pref_soundsource_entries"
+            android:entryValues="@array/pref_soundsource_values"
+            android:key="@string/pref_soundsource_key"
+            android:summary="@string/pref_soundsource_summary"
+            android:title="@string/pref_soundsource_dialogtitle" />
 
-
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="@string/pref_showhr_key"
-			android:summaryOff="@string/pref_showhr_summary_off"
-			android:summaryOn="@string/pref_showhr_summary_on"
-			android:title="@string/pref_showhr" />
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="@string/pref_showsec_key"
-			android:summaryOff="@string/pref_showsec_summary_off"
-			android:summaryOn="@string/pref_showsec_summary_on"
-			android:title="@string/pref_showsec" />
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="@string/pref_simmetricpick_key"
-			android:summaryOff="@string/pref_simmetricpick_summary_off"
-			android:summaryOn="@string/pref_simmetricpick_summary_on"
-			android:title="@string/pref_simmetricpick" />
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="@string/pref_cyclicmins_key"
-			android:summaryOff="@string/pref_cyclicmins_summary_off"
-			android:summaryOn="@string/pref_cyclicmins_summary_on"
-			android:title="@string/pref_cyclicmins" />
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="@string/pref_shownames_key"
-			android:summary="@string/pref_shownames_summary"
-			android:title="@string/pref_shownames" />
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="@string/pref_autostart_key"
-			android:summaryOff="@string/pref_autostart_summary_off"
-			android:summaryOn="@string/pref_autostart_summary_on"
-			android:title="@string/pref_autostart" />
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="@string/pref_addalarmonstart_key"
-			android:summaryOff="@string/pref_addalarmonstart_summary_off"
-			android:summaryOn="@string/pref_addalarmonstart_summary_on"
-			android:title="@string/pref_addalarmonstart" />
-
-		<ListPreference
-			android:defaultValue="wheel"
-			android:dialogTitle="@string/pref_pickstyle_dialogtitle"
-			android:entries="@array/pref_pickstyle_entries"
-			android:entryValues="@array/pref_pickstyle_values"
-			android:key="@string/pref_pickstyle_key"
-			android:summary="@string/pref_pickstyle_summary"
-			android:title="@string/pref_pickstyle" />
-
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="@string/pref_showsettbtn_key"
-			android:summaryOff="@string/pref_showsettbtn_summary"
-			android:summaryOn="@string/pref_showsettbtn_summary"
-			android:title="@string/pref_showsettbtn" />
-
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="@string/pref_showdelall_key"
-			android:summary="@string/pref_showdelall_summary"
-			android:title="@string/pref_showdelall" />
-
-	</PreferenceCategory>  
-	<PreferenceCategory
-		android:title="Alarming">
-
-		<RingtonePreference
+        	<RingtonePreference
 			android:key="@string/pref_notification_ringtone_key"
 			android:ringtoneType="alarm"
 			android:showSilent="true"
 			android:summary="@string/pref_notification_ringtone_summary"
 			android:title="@string/pref_notification_ringtone" />
-		 <EditTextPreference
-                android:title="Soun path"
-                android:key="@string/pref_soundfile_path_key" />
-		<Preference
-			android:key="@string/pref_soundfile_key"
-			android:title="@string/pref_soundfile"
-			android:summary="@string/pref_soundfile_summary">
-		</Preference>
-        
-		<VolumePreference
-			android:name="Volume Preference"
-			android:summary="@string/pref_volume_summary"
-			android:title="@string/pref_volume"
-			android:key="@string/pref_volume_key"/>
 
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="@string/pref_notification_led_key"
-			android:summaryOff="@string/pref_notification_led_summary_off"
-			android:summaryOn="@string/pref_notification_led_summary_on"
-			android:title="@string/pref_notification_led" />
+        <EditTextPreference
+            android:key="@string/pref_soundfile_path_key"
+            android:title="" />
 
-		<ListPreference
-			android:defaultValue="red"
-			android:dependency="@string/pref_notification_led_key"
-			android:dialogTitle="@string/pref_notification_led_color_dialogtitle"
-			android:entries="@array/pref_notification_led_color_entries"
-			android:entryValues="@array/pref_notification_led_color_values"
-			android:key="@string/pref_notification_led_color_key"
-			android:summary="@string/pref_notification_led_color_summary"
-			android:title="@string/pref_notification_led_color" />
-		<ListPreference
-			android:defaultValue="2"
-			android:dependency="@string/pref_notification_led_key"
-			android:dialogTitle="@string/pref_notification_led_blink_rate_dialogtitle"
-			android:entries="@array/pref_notification_led_blink_rate_entries"
-			android:entryValues="@array/pref_notification_led_blink_rate_values"
-			android:key="@string/pref_notification_led_blink_rate_key"
-			android:summary="@string/pref_notification_led_blink_rate_summary"
-			android:title="@string/pref_notification_led_blink_rate" />
+        <Preference
+            android:key="@string/pref_soundfile_key"
+            android:summary="@string/pref_soundfile_summary"
+            android:title="@string/pref_soundfile" >
+        </Preference>
 
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="@string/pref_notification_vibrate_key"
-			android:summaryOff="@string/pref_notification_vibrate_summary_off"
-			android:summaryOn="@string/pref_notification_vibrate_summary_on"
-			android:title="@string/pref_notification_vibrate" />
+        <VolumePreference
+            android:name="Volume Preference"
+            android:key="@string/pref_volume_key"
+            android:summary="@string/pref_volume_summary"
+            android:title="@string/pref_volume" />
 
-		<ListPreference
-			android:defaultValue=""
-			android:dependency="@string/pref_notification_vibrate_key"
-			android:dialogTitle="@string/pref_notification_vibrate_pattern_dialogtitle"
-			android:entries="@array/pref_notification_vibrate_pattern_entries"
-			android:entryValues="@array/pref_notification_vibrate_pattern_values"
-			android:key="@string/pref_notification_vibrate_pattern_key"
-			android:summary="@string/pref_notification_vibrate_pattern_summary"
-			android:title="@string/pref_notification_vibrate_pattern" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_notification_led_key"
+            android:summaryOff="@string/pref_notification_led_summary_off"
+            android:summaryOn="@string/pref_notification_led_summary_on"
+            android:title="@string/pref_notification_led" />
 
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="@string/pref_stoponrotate_key"
-			android:summaryOff="@string/pref_stoponrotate_summary_off"
-			android:summaryOn="@string/pref_stoponrotate_summary_on"
-			android:title="@string/pref_stoponrotate" />
-		
-		
-		
-	</PreferenceCategory>
+        <ListPreference
+            android:defaultValue="red"
+            android:dependency="@string/pref_notification_led_key"
+            android:dialogTitle="@string/pref_notification_led_color_dialogtitle"
+            android:entries="@array/pref_notification_led_color_entries"
+            android:entryValues="@array/pref_notification_led_color_values"
+            android:key="@string/pref_notification_led_color_key"
+            android:summary="@string/pref_notification_led_color_summary"
+            android:title="@string/pref_notification_led_color" />
+        <ListPreference
+            android:defaultValue="2"
+            android:dependency="@string/pref_notification_led_key"
+            android:dialogTitle="@string/pref_notification_led_blink_rate_dialogtitle"
+            android:entries="@array/pref_notification_led_blink_rate_entries"
+            android:entryValues="@array/pref_notification_led_blink_rate_values"
+            android:key="@string/pref_notification_led_blink_rate_key"
+            android:summary="@string/pref_notification_led_blink_rate_summary"
+            android:title="@string/pref_notification_led_blink_rate" />
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_notification_vibrate_key"
+            android:summaryOff="@string/pref_notification_vibrate_summary_off"
+            android:summaryOn="@string/pref_notification_vibrate_summary_on"
+            android:title="@string/pref_notification_vibrate" />
 
+        <ListPreference
+            android:defaultValue=""
+            android:dependency="@string/pref_notification_vibrate_key"
+            android:dialogTitle="@string/pref_notification_vibrate_pattern_dialogtitle"
+            android:entries="@array/pref_notification_vibrate_pattern_entries"
+            android:entryValues="@array/pref_notification_vibrate_pattern_values"
+            android:key="@string/pref_notification_vibrate_pattern_key"
+            android:summary="@string/pref_notification_vibrate_pattern_summary"
+            android:title="@string/pref_notification_vibrate_pattern" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_stoponrotate_key"
+            android:summaryOff="@string/pref_stoponrotate_summary_off"
+            android:summaryOn="@string/pref_stoponrotate_summary_on"
+            android:title="@string/pref_stoponrotate" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

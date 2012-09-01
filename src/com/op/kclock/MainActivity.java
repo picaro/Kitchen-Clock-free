@@ -31,6 +31,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.EditTextPreference;
 import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -666,7 +667,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				actionBar.removeAction(delallAction);				
 			}
 
-		}
+		} 
 	}
 
 	/**

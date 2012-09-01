@@ -1,23 +1,32 @@
 package com.op.kclock;
 
-import com.op.kclock.cookconst.*;
-import android.content.*;
-import android.os.*;
-import android.preference.*;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.content.pm.*;
-import com.op.kclock.misc.*;
-import android.media.*;
-import com.op.kclock.settings.*;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 
-public class SettingsActivity extends PreferenceActivity {
+import com.op.kclock.misc.Log;
+import com.op.kclock.settings.FileChooserActivity;
 
-	// private SharedPreferences mPrefs;
+public class SettingsActivity extends PreferenceActivity implements
+		OnPreferenceChangeListener {
+
+	public static final String SYSTEM_SOUND_VALUE = "system";
+	private static final String WHEEL_DIALOG_VALUE = "wheel";
+	private SharedPreferences mPrefs;
 	public static final String CUSTOM_SOUNDFILE_KEY = "pref_soundfile_key";
 	private static final int REQUEST_PICK_FILE = 4;
 	public static final String v = "soundfile";
 
-	private CheckBoxPreference isSessSavePref;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -26,13 +35,10 @@ public class SettingsActivity extends PreferenceActivity {
 		setVolumeControlStream(AudioManager.STREAM_NOTIFICATION);
 		addPreferencesFromResource(R.xml.settings);
 
-		// mPrefs = PreferenceManager.getDefaultSharedPreferences(this
-		// .getApplicationContext());
-
-		// mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-		// mPrefs.registerOnSharedPreferenceChangeListener(this);
-
+		//mPrefs =
+		// PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+		
+		
 		String version;
 		try {
 			PackageInfo pi = getPackageManager().getPackageInfo(
@@ -42,15 +48,25 @@ public class SettingsActivity extends PreferenceActivity {
 			Log.e(MainActivity.TAG, "Package name not found", e);
 			version = getString(R.string.pref_info_version_error);
 		}
-		findPreference(getString(R.string.pref_info_version_key)).setSummary(
-				version);
 
 		findPreference(getString(R.string.pref_info_version_key)).setSummary(
 				version);
+
+		ListPreference soundSource = (ListPreference) findPreference(getString(R.string.pref_soundsource_key));
+		soundSource.setOnPreferenceChangeListener(this);
+		soundSourceChanged(soundSource.getValue());
+
+		ListPreference pickstyle = (ListPreference) findPreference(getString(R.string.pref_pickstyle_key));
+		pickstyle.setOnPreferenceChangeListener(this);
+		dialogTypeChanged(pickstyle.getValue());
+
+		Preference syssoundPref = findPreference(getString(R.string.pref_notification_ringtone_key));
+		syssoundPref.setOnPreferenceChangeListener(this);
 
 		EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
-		if (customPref2.getText().length() > 0
-				&& customPref2.getText().toCharArray()[0] == '/'){
+		if (customPref2 != null && customPref2.getText() != null
+				&& customPref2.getText().length() > 0
+				&& customPref2.getText().toCharArray()[0] == '/') {
 			customPref2.setTitle(customPref2.getText());
 		}
 
@@ -82,24 +98,59 @@ public class SettingsActivity extends PreferenceActivity {
 			case REQUEST_PICK_FILE:
 				if (data.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
 					findViewById(R.string.pref_soundfile_key);
-
-					// Preference customPref =
-					// findPreference(CUSTOM_SOUNDFILE_KEY);
-					// customPref.setTitle(mPrefs.getString(v,v));
-
-					// customPref2.set
-
 					String filePath = data
 							.getStringExtra(FileChooserActivity.EXTRA_FILE_PATH);
 					EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
 					customPref2.setText(filePath);
 					customPref2.setTitle(filePath);
-
-					// this.getApplicationContext().gets
-					// customPref.setText(filePath);
-					// setDefaultValue("123");
 				}
 			}
 		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
+
+	@Override
+	public boolean onPreferenceChange(Preference pref, Object value) {
+		if (pref.getKey().equals(getString(R.string.pref_soundsource_key)))
+			soundSourceChanged(value);
+		if (pref.getKey().equals(getString(R.string.pref_pickstyle_key)))
+			dialogTypeChanged(value);
+		if (pref.getKey().equals(
+				getString(R.string.pref_notification_ringtone_key))) {
+			//dialogTypeChanged(value);
+		}
+
+		return true;
+	}
+
+	private void dialogTypeChanged(Object value) {
+		Preference simmetricpick = findPreference(getString(R.string.pref_simmetricpick_key));
+		Preference cyclmins = findPreference(getString(R.string.pref_cyclicmins_key));
+		if (((String) value).equals(WHEEL_DIALOG_VALUE)) {
+			simmetricpick.setEnabled(true);
+			cyclmins.setEnabled(true);
+		} else {
+			simmetricpick.setEnabled(false);
+			cyclmins.setEnabled(false);
+		}
+
+	}
+
+	public void soundSourceChanged(Object value) {
+		Preference customPref = findPreference(getString(R.string.pref_soundfile_path_key));
+		Preference customPrefBtn = findPreference(getString(R.string.pref_soundfile_key));
+		 Preference syssoundPref =
+		 findPreference(getString(R.string.pref_notification_ringtone_key));
+		customPref.setEnabled(false);
+		if (((String) value).equals(SYSTEM_SOUND_VALUE)) {
+			customPrefBtn.setEnabled(false);
+			syssoundPref.setEnabled(true);
+		} else {
+			// customPref.setEnabled(true);
+			customPrefBtn.setEnabled(true);
+			syssoundPref.setEnabled(false);
+		}
+	}
+
+
 }

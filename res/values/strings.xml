@@ -151,5 +151,11 @@
 	
 	<string name="pref_soundsource_system">system</string>
     <string name="pref_soundsource_custom">custom</string>
+    <string name="pref_soundsource_summary">select sound source</string>	
+    <string name="pref_soundsource_dialogtitle">Sound source</string>
+
+    <string name="alarm_settings">Alarm Settings</string>
+    <string name="main_settings">Main Settings</string>
+    <string name="interface_settings">Interface Settings</string>
 	
 </resources>

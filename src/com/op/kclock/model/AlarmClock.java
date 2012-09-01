@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  
- */ 
+ */
 package com.op.kclock.model;
 
 import java.util.ArrayList;
@@ -51,8 +51,8 @@ public class AlarmClock implements Parcelable {
 
 	private static final int HOUR = 3600;
 
-    private Thread thread;
-    
+	private Thread thread;
+
 	private int id;
 
 	private String name;
@@ -69,8 +69,6 @@ public class AlarmClock implements Parcelable {
 
 	private int dateAdd;
 
-	
-	
 	public boolean isPinned() {
 		return pinned;
 	}
@@ -112,7 +110,7 @@ public class AlarmClock implements Parcelable {
 	}
 
 	private LinearLayout element;
-	
+
 	NotificationManager mNotificationManager;
 
 	public static enum TimerState {
@@ -125,7 +123,7 @@ public class AlarmClock implements Parcelable {
 		return state;
 	}
 
-	public AlarmClock(LinearLayout _element){
+	public AlarmClock(LinearLayout _element) {
 		element = _element;
 	}
 
@@ -140,10 +138,10 @@ public class AlarmClock implements Parcelable {
 	public void setState(Context context, TimerState state) {
 		this.state = state;
 		if (element != null) {
-			Animation in = AnimationUtils.loadAnimation(
-					context, R.anim.fade_in);
-			Animation out = AnimationUtils.loadAnimation(
-					context, R.anim.fade_out);
+			Animation in = AnimationUtils
+					.loadAnimation(context, R.anim.fade_in);
+			Animation out = AnimationUtils.loadAnimation(context,
+					R.anim.fade_out);
 
 			if (state == AlarmClock.TimerState.RUNNING) {
 				getWidget().startAnimation(in);
@@ -161,7 +159,6 @@ public class AlarmClock implements Parcelable {
 		}
 	}
 
-
 	public AlarmClock(String _name, int _id) {
 		name = _name;
 		id = _id;
@@ -171,22 +168,24 @@ public class AlarmClock implements Parcelable {
 	}
 
 	public void updateElement() {
-		if (element != null){
+		if (element != null) {
 			getWidget().post(new Runnable() {
 				public void run() {
-					if (element != null) getWidget().setText(
-							(CharSequence) (String.format("%02d:%02d:%02d",
-									getHour(), getMin(), getSec())));
+					if (element != null)
+						getWidget().setText(
+								(CharSequence) (String.format("%02d:%02d:%02d",
+										getHour(), getMin(), getSec())));
 				}
 			});
-			
-			//TODO - move to set text
+
+			// TODO - move to set text
 			getLabelWidget().post(new Runnable() {
 				public void run() {
-					if (element != null) getLabelWidget().setText(getName());
+					if (element != null)
+						getLabelWidget().setText(getName());
 				}
 			});
-			
+
 		}
 	}
 
@@ -198,10 +197,10 @@ public class AlarmClock implements Parcelable {
 		return element;
 	}
 
-//	public void setSec(long sec) {
-//		this.seconds = sec;
-//		initSeconds
-//	}
+	// public void setSec(long sec) {
+	// this.seconds = sec;
+	// initSeconds
+	// }
 
 	public long getSec() {
 		return seconds - (getHour() * HOUR) - (getMin() * MINUTE);
@@ -298,8 +297,8 @@ public class AlarmClock implements Parcelable {
 		seconds = i;
 		initSeconds = i;
 	}
-	
-	public void restart(){
+
+	public void restart() {
 		seconds = initSeconds;
 	}
 
@@ -319,13 +318,12 @@ public class AlarmClock implements Parcelable {
 
 		getWidget().post(new Runnable() {
 			public void run() {
-				getWidget()
-				.setTextColor(context.getResources().getColor(R.color.indian_red_1));
-	
+				getWidget().setTextColor(
+						context.getResources().getColor(R.color.indian_red_1));
+
 			}
 		});
-		
-		
+
 		if (getWidget() != null)
 			getWidget().post(new Runnable() {
 				public void run() {
@@ -356,7 +354,7 @@ public class AlarmClock implements Parcelable {
 	}
 
 	public void alarmSTOP(Context context) {
-		mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID+1);
+		mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID + 1);
 
 		if (this.state == TimerState.ALARMING) {
 			element.clearAnimation();
@@ -440,27 +438,32 @@ public class AlarmClock implements Parcelable {
 		notification.setLatestEventInfo(context, mContentTitle, mContentText,
 				contentIntent);
 
-				String customNotification = mPrefs.getString(context
-						.getString(R.string.pref_notification_ringtone_key),
-						null);
-				//if (!customNotification.equals(defaultNotification)) {
-				String customSound = mPrefs.getString(context
-						.getString(R.string.pref_soundfile_path_key),
-						null);
-		
-		if(customSound != null && customSound.length() > 0 ){
-			notification.sound =Uri.parse("file://" + customSound);
+		String customNotification = mPrefs.getString(
+				context.getString(R.string.pref_notification_ringtone_key),
+				null);
+		String customSound = mPrefs.getString(
+				context.getString(R.string.pref_soundfile_path_key), null);
+		String soundSRC = mPrefs.getString(
+				context.getString(R.string.pref_soundsource_key),
+				SettingsActivity.SYSTEM_SOUND_VALUE);
+
+		if (!soundSRC.equals("system")
+				&& customSound != null && customSound.length() > 0) {
+			notification.sound = Uri.parse("file://" + customSound);
 		} else {
-			if(customNotification != null)	notification.sound = Uri.parse(customNotification);
+			if (customNotification != null)
+				notification.sound = Uri.parse(customNotification);
 		}
 
-		//	notification.sound = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "6");	
-			//	notification.defaults |= Notification.DEFAULT_SOUND;	
-				//}
-		//	} else {
-		//		notification.sound = Uri.parse(defaultNotification);
-	//		}
-	//	}
+		// notification.sound =
+		// Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
+		// "6");
+		// notification.defaults |= Notification.DEFAULT_SOUND;
+		// }
+		// } else {
+		// notification.sound = Uri.parse(defaultNotification);
+		// }
+		// }
 		if (mPrefs.getBoolean(
 				context.getString(R.string.pref_notification_insistent_key),
 				true))
@@ -495,12 +498,13 @@ public class AlarmClock implements Parcelable {
 
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-		mNotificationManager.notify(SettingsConst.APP_NOTIF_ID+1, notification);
+		mNotificationManager.notify(SettingsConst.APP_NOTIF_ID + 1,
+				notification);
 	}
 
 	public void updateState(Context context) {
 		this.setState(context, state);
-		
+
 	}
 
 }

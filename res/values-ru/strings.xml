@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Кухонный Таймер</string>
     <string name="menu_settings">Настройки</string>
     <string name="main_alarmclock">Таймер</string>
-	
-		<string name="start">start</string>
+    <string name="start">start</string>
     <string name="stop">stop</string>
     <string name="changelog_title">Changelog</string>
-
     <string name="alarm_name">введите имя</string>
 
     <!-- Eula -->
@@ -66,8 +65,7 @@
     <string name="pref_notification_custom_sound_summary_on">Использовать свою мелодию</string>
     <string name="pref_notification_custom_sound_summary_off">Использовать мелодию по умолчанию</string>
     <string name="pref_notification_ringtone">Звук будильника</string>
-    <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе
-</string>
+    <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе</string>
     <string name="pref_notification_led">Индикация</string>
     <string name="pref_notification_led_summary_on">Световая индикация включена</string>
     <string name="pref_notification_led_summary_off">Световая индикация выкл</string>
@@ -136,18 +134,23 @@
     <string name="pref_musicon">Звук</string>
     <string name="pref_savesession_sum">восстановить таймеры при запуске</string>
     <string name="pref_musicon_sum">звук по таймеру</string>
-
-
-    <string name="pref_showsettbtn">Настройки в меню</string>
+    <string name="pref_showsettbtn">Кнопка "Настройки"</string>
     <string name="pref_showsettbtn_summary">показывать кнопку настроек</string>
     <string name="pref_volume">Громкость</string>
     <string name="pref_volume_summary">установить громкость</string>
-    <string name="pref_showdelall">Удалить Все кнопка</string>
+    <string name="pref_showdelall">Кнопка "Удалить Все"</string>
     <string name="pref_showdelall_summary">показывать кнопку Удалить Все</string>
     <string name="pref_soundfile">Своя мелодия</string>
     <string name="pref_soundfile_summary">выбрать свою мелодию</string>
- 
-		
-		</resources>
 
-
+    
+	<string name="pref_soundsource_system">системный</string>
+    <string name="pref_soundsource_custom">свой</string>
+    <string name="pref_soundsource_summary">выберите источник звука</string>	
+    <string name="pref_soundsource_dialogtitle">Источник звука</string>
+    
+    <string name="alarm_settings">оповещение</string>
+    <string name="main_settings">главные</string>
+    <string name="interface_settings">интерфейс</string>
+    
+</resources>
