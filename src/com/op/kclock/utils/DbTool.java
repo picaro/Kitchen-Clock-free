@@ -51,7 +51,7 @@ public class DbTool {
 	
 	public static String[] COLUMNS = new String[] { ID, NAME, SECONDS,INITSECONDS,STATE,PINNED,ACTIVE,DATEADD, USAGECNT };
 
-	static final int DB_VERSION=2;
+	static final int DB_VERSION=3;
 
 	public DbTool(Context context) {
 		this.context=context;
@@ -90,21 +90,11 @@ public class DbTool {
 						TABLE + "("+ 
 						NAME +", " +
 						STATE +", " +
-						SECONDS +", " +
-						PINNED +", " +
-						ACTIVE +", " +
-						DATEADD +", " +
-						USAGECNT +", " +
-						INITSECONDS +") " +
+						SECONDS  +") " +
 						"SELECT " + 
 						NAME+", " +
 						STATE +", " +
 						SECONDS + " " +
-						PINNED + " " +
-						ACTIVE + " " +
-						DATEADD + " " +
-						USAGECNT + " " +
-						INITSECONDS + " " +
 						"FROM tmp_" + TABLE
 				);
 				db.execSQL("DROP TABLE IF EXISTS tmp_"+TABLE);
