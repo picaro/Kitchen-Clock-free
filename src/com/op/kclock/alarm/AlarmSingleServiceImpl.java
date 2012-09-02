@@ -38,7 +38,6 @@ public class AlarmSingleServiceImpl implements Runnable {
 	private final Context context;
 	private static boolean running = false;
 	private List<AlarmClock> alarmList;
-	// private static AlarmSingleServiceImpl instance;
 
 	Handler handler;
 
@@ -71,10 +70,6 @@ public class AlarmSingleServiceImpl implements Runnable {
 				e.printStackTrace();
 			}
 		} while (running);
-		// widget.updateElement();
-		// if (widget.getState() == AlarmClock.TimerState.ALARMING)
-		// widget.alarmNOW(context);
-
 	}
 
 }

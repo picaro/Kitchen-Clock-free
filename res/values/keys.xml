@@ -49,6 +49,8 @@
     <string name="pref_showaddbtn_key">pref_showaddbtn_key</string>
     <string name="pref_showrefreshbtn_key">pref_showrefreshbtn_key</string>
     
+    <string name="pref_showpresetsbtn_key">pref_showpresetsbtn_key</string>
+    <string name="pref_showplaybtn_key">pref_showplaybtn_key</string>
     
     	
 </resources>

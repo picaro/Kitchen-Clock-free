@@ -60,6 +60,7 @@ import com.op.kclock.cookconst.SettingsConst;
 import com.op.kclock.dialogs.TimePickDialog;
 import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
+import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DbTool;
 
@@ -82,6 +83,9 @@ public class MainActivity extends Activity implements OnClickListener,
 	private Action delallAction;
 	private Action addButtonAction;
 	private Action refreshButtonAction;
+	private Action presetsButtonAction;
+	private Action runAllButtonAction;
+
 	Thread thread;
 	
 	/** Called when the activity is first created. */
@@ -121,8 +125,6 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		}
 
-		// appendAddButton();
-
 		Log.d("oo", "start");
 
 		WakeUpLock.acquire(this);
@@ -136,8 +138,6 @@ public class MainActivity extends Activity implements OnClickListener,
 			thread = new Thread(alarmService);
 			thread.start();
 		}
-		//alarm.getThread().start();
-
 
 	}
 
@@ -148,6 +148,9 @@ public class MainActivity extends Activity implements OnClickListener,
 		settingsButtonAction = new IntentAction(this, new Intent(
 				this, SettingsActivity.class),
 				R.drawable.ic_menu_preferences);
+		presetsButtonAction = new IntentAction(this, new Intent(
+				this, PresetsActivity.class),
+				R.drawable.ic_menu_list);
 		delallAction = new Action() {
 			@Override
 			public void performAction(View view) {
@@ -175,13 +178,22 @@ public class MainActivity extends Activity implements OnClickListener,
 				refreshAllAlarms();
 			}
 
-
 			@Override
 			public int getDrawable() {
 				return R.drawable.ic_menu_refresh;
 			}
 		};
+		runAllButtonAction = new Action() {
+			@Override
+			public void performAction(View view) {
+				runAllTimers();
+			}
 
+			@Override
+			public int getDrawable() {
+				return R.drawable.ic_menu_play;
+			}
+		};
 				
 		
 		
@@ -206,7 +218,19 @@ public class MainActivity extends Activity implements OnClickListener,
 						.getString(R.string.pref_showrefreshbtn_key), false)) {
 			actionBar.addAction(refreshButtonAction);
 		}
+	    if (mPrefs.getBoolean(
+				getApplicationContext()
+						.getString(R.string.pref_showpresetsbtn_key), true)) {
+			actionBar.addAction(presetsButtonAction);
+		}
+	    if (mPrefs.getBoolean(
+				getApplicationContext()
+						.getString(R.string.pref_showplaybtn_key), true)) {
+			actionBar.addAction(runAllButtonAction);
+		}
+	    
 	}
+
 
 	public void appendAddButton() {
 		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
@@ -264,10 +288,9 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		int width = getWindowManager().getDefaultDisplay().getWidth();
 		int height = getWindowManager().getDefaultDisplay().getHeight();
 		for (AlarmClock alarm : alarmList) {
-			alarm.getWidget().setTextSize(width / 8);
+			updateAlarmSize(alarm);
 		}
 		if (TimePickDialog.isDialogShowed && timePickDialog != null) {
 			LinearLayout subscr = (LinearLayout) timePickDialog
@@ -292,6 +315,15 @@ public class MainActivity extends Activity implements OnClickListener,
 				}
 			}
 		}
+	}
+	
+
+	protected void runAllTimers() {
+		for (AlarmClock alarm : alarmList) {
+			if (alarm.getState() != AlarmClock.TimerState.ALARMING) {
+				alarm.setState(TimerState.RUNNING);
+			}
+		}		
 	}
 
 	// Store the instance of an object
@@ -442,10 +474,16 @@ public class MainActivity extends Activity implements OnClickListener,
 		// add the itemView
 		alarm.updateState();
 
-		int width = getWindowManager().getDefaultDisplay().getWidth();
-		alarm.getWidget().setTextSize(width / 8);
+		updateAlarmSize(alarm);
+
 
 		return alarm.getElement();
+	}
+
+	private void updateAlarmSize(AlarmClock alarm) {
+		int width = getWindowManager().getDefaultDisplay().getWidth();
+		alarm.getWidget().setTextSize(width / 8);
+		((TextView)alarm.getElement().getChildAt(0)).setTextSize(width / 24);
 	}
 
 	// ON-CLICK
@@ -720,7 +758,23 @@ public class MainActivity extends Activity implements OnClickListener,
 			} else {
 				actionBar.removeAction(refreshButtonAction);				
 			}
-		}  
+		}  else if (key.equals("pref_showpresetsbtn_key")) {
+			if (mPrefs.getBoolean(
+					getApplicationContext()
+							.getString(R.string.pref_showpresetsbtn_key), false)) {
+				actionBar.addAction(presetsButtonAction);
+			} else {
+				actionBar.removeAction(presetsButtonAction);				
+			}
+		}  else if (key.equals("pref_showplaybtn_key")) {
+			if (mPrefs.getBoolean(
+					getApplicationContext()
+							.getString(R.string.pref_showplaybtn_key), false)) {
+				actionBar.addAction(runAllButtonAction);
+			} else {
+				actionBar.removeAction(runAllButtonAction);				
+			}
+		}
 	}
 
 	/**
