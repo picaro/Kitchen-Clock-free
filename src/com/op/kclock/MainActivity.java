@@ -77,8 +77,10 @@ public class MainActivity extends Activity implements OnClickListener,
 	private DbTool dbTool;
 
 	//ACTIONBAR actions
-	private Action addAction;
+	private Action settingsButtonAction;
 	private Action delallAction;
+	private Action addButtonAction;
+	private Action refreshButtonAction;
 
 	
 	/** Called when the activity is first created. */
@@ -132,9 +134,22 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void initActionBar() {
 		actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar
-				.setTitle(getApplicationContext().getString(R.string.app_name));
-		actionBar.addAction(new Action() {
+		actionBar.setTitle(getApplicationContext().getString(R.string.app_name));
+
+		settingsButtonAction = new IntentAction(this, new Intent(
+				this, SettingsActivity.class),
+				R.drawable.ic_menu_preferences);
+		delallAction = new Action() {
+			@Override
+			public void performAction(View view) {
+				deleteAllAlarms();
+			}
+			@Override
+			public int getDrawable() {
+				return R.drawable.ic_menu_delete;
+			}
+		};
+		addButtonAction = new Action() {
 			@Override
 			public void performAction(View view) {
 				addAlarmDialog();
@@ -144,34 +159,43 @@ public class MainActivity extends Activity implements OnClickListener,
 			public int getDrawable() {
 				return R.drawable.ic_menu_add;
 			}
-		});
-
-		addAction = new IntentAction(this, new Intent(
-				this, SettingsActivity.class),
-				R.drawable.ic_menu_preferences);
-		delallAction = new Action() {
+		};
+		refreshButtonAction = new Action() {
 			@Override
 			public void performAction(View view) {
-				deleteAllAlarms();
+				refreshAllAlarms();
 			}
+
 
 			@Override
 			public int getDrawable() {
-				return R.drawable.ic_menu_delete;
+				return R.drawable.ic_menu_refresh;
 			}
 		};
+
 				
+		
 		
 		
 		if (mPrefs.getBoolean(
 				getApplicationContext()
+						.getString(R.string.pref_showaddbtn_key), true)) {
+			actionBar.addAction(addButtonAction);
+		}	
+		if (mPrefs.getBoolean(
+				getApplicationContext()
 						.getString(R.string.pref_showsettbtn_key), false)) {
-			actionBar.addAction(addAction);
+			actionBar.addAction(settingsButtonAction);
 		}
 		if (mPrefs.getBoolean(
 				getApplicationContext()
 						.getString(R.string.pref_showdelall_key), false)) {
 			actionBar.addAction(delallAction);
+		}
+	    if (mPrefs.getBoolean(
+				getApplicationContext()
+						.getString(R.string.pref_showrefreshbtn_key), false)) {
+			actionBar.addAction(refreshButtonAction);
 		}
 	}
 
@@ -545,6 +569,19 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 
 	}
+	
+	private void refreshAllAlarms() {
+		for (final AlarmClock alarm : alarmList) {
+			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)){
+				alarm.alarmSTOP(getApplicationContext());			
+			}
+//			alarm.setState(getApplicationContext(),
+//				AlarmClock.TimerState.PAUSED);
+			alarm.restart();
+			alarm.updateElement();
+		}
+		
+	}
 
 	private void deleteAlarm(final TextViewWithMenu text) {
 		for (final AlarmClock alarm : alarmList) {
@@ -652,12 +689,10 @@ public class MainActivity extends Activity implements OnClickListener,
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
 							R.string.pref_showsettbtn_key), false)) {
-				actionBar.addAction(addAction);
+				actionBar.addAction(settingsButtonAction);
 			} else {
-				actionBar.removeAction(addAction);
-
+				actionBar.removeAction(settingsButtonAction);
 			}
-
 		} else if (key.equals("pref_showdelall_key")) {
 			if (mPrefs.getBoolean(
 					getApplicationContext()
@@ -666,8 +701,23 @@ public class MainActivity extends Activity implements OnClickListener,
 			} else {
 				actionBar.removeAction(delallAction);				
 			}
-
-		} 
+		} else if (key.equals("pref_showaddbtn_key")) {
+			if (mPrefs.getBoolean(
+					getApplicationContext()
+							.getString(R.string.pref_showaddbtn_key), false)) {
+				actionBar.addAction(addButtonAction);
+			} else {
+				actionBar.removeAction(addButtonAction);				
+			}
+		}  else if (key.equals("pref_showrefreshbtn_key")) {
+			if (mPrefs.getBoolean(
+					getApplicationContext()
+							.getString(R.string.pref_showrefreshbtn_key), false)) {
+				actionBar.addAction(refreshButtonAction);
+			} else {
+				actionBar.removeAction(refreshButtonAction);				
+			}
+		}  
 	}
 
 	/**

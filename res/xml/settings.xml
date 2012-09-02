@@ -12,7 +12,7 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.
+limitations under the License.
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
@@ -81,10 +81,19 @@ limitations under the License.
             android:summaryOn="@string/pref_addalarmonstart_summary_on"
             android:title="@string/pref_addalarmonstart" />
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_showaddbtn_key"
+            android:summary="@string/pref_showaddbtn_summary"
+            android:title="@string/pref_showaddbtn" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_showrefreshbtn_key"
+            android:summary="@string/pref_showrefreshbtn_summary"
+            android:title="@string/pref_showrefreshbtn" />
+        <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/pref_showsettbtn_key"
-            android:summaryOff="@string/pref_showsettbtn_summary"
-            android:summaryOn="@string/pref_showsettbtn_summary"
+            android:summary="@string/pref_showsettbtn_summary"
             android:title="@string/pref_showsettbtn" />
         <CheckBoxPreference
             android:defaultValue="false"
@@ -102,12 +111,12 @@ limitations under the License.
             android:summary="@string/pref_soundsource_summary"
             android:title="@string/pref_soundsource_dialogtitle" />
 
-        	<RingtonePreference
-			android:key="@string/pref_notification_ringtone_key"
-			android:ringtoneType="alarm"
-			android:showSilent="true"
-			android:summary="@string/pref_notification_ringtone_summary"
-			android:title="@string/pref_notification_ringtone" />
+        <RingtonePreference
+            android:key="@string/pref_notification_ringtone_key"
+            android:ringtoneType="alarm"
+            android:showSilent="true"
+            android:summary="@string/pref_notification_ringtone_summary"
+            android:title="@string/pref_notification_ringtone" />
 
         <EditTextPreference
             android:key="@string/pref_soundfile_path_key"
