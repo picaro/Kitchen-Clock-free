@@ -58,7 +58,7 @@ limitations under the License.
             android:summaryOn="@string/pref_simmetricpick_summary_on"
             android:title="@string/pref_simmetricpick" />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="@string/pref_cyclicmins_key"
             android:summaryOff="@string/pref_cyclicmins_summary_off"
             android:summaryOn="@string/pref_cyclicmins_summary_on"
