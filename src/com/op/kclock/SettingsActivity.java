@@ -63,7 +63,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		Preference syssoundPref = findPreference(getString(R.string.pref_notification_ringtone_key));
 		syssoundPref.setOnPreferenceChangeListener(this);
 
-		EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
+		final EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
 		if (customPref2 != null && customPref2.getText() != null
 				&& customPref2.getText().length() > 0
 				&& customPref2.getText().toCharArray()[0] == '/') {
@@ -81,9 +81,15 @@ public class SettingsActivity extends PreferenceActivity implements
 							Intent fileChooserI = new Intent(
 									SettingsActivity.this,
 									FileChooserActivity.class);
+							//EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
+							if (customPref2 != null && customPref2.getText() != null
+									&& customPref2.getText().length() > 0
+									&& customPref2.getText().toCharArray()[0] == '/') {
+								fileChooserI.putExtra(FileChooserActivity.EXTRA_FILE_PATH, 
+										customPref2.getText().substring(0, customPref2.getText().lastIndexOf("/")));
+							}
 							startActivityForResult(fileChooserI,
 									REQUEST_PICK_FILE);
-							// startActivity(fileChooserI);
 							return true;
 						}
 					});

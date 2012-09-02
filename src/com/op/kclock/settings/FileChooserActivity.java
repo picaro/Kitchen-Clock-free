@@ -59,7 +59,7 @@ public class FileChooserActivity extends ListActivity {
 		setListAdapter(mAdapter);
 
 		// Initialize the extensions array to allow any file extensions
-		acceptedFileExtensions = new String[] {};
+		acceptedFileExtensions = new String[] {"mp3","wav","ogg"};
 
 		// Get intent extras
 		if(getIntent().hasExtra(EXTRA_FILE_PATH)) {
