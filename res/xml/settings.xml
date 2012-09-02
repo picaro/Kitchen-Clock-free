@@ -30,6 +30,14 @@ limitations under the License.
             android:title="@string/pref_savesession" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/interface_settings" >
+	     <ListPreference
+            android:defaultValue="unsorted"
+            android:entries="@array/pref_sorttype_entries"
+            android:entryValues="@array/pref_sorttype_values"
+            android:key="@string/pref_sortlist_key"
+            android:summary="@string/pref_sortlist_summary"
+            android:dialogTitle="@string/pref_sortlist"
+            android:title="@string/pref_sortlist" />
         <ListPreference
             android:defaultValue="wheel"
             android:dialogTitle="@string/pref_pickstyle_dialogtitle"
@@ -52,7 +60,7 @@ limitations under the License.
             android:summaryOn="@string/pref_showsec_summary_on"
             android:title="@string/pref_showsec" />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="@string/pref_simmetricpick_key"
             android:summaryOff="@string/pref_simmetricpick_summary_off"
             android:summaryOn="@string/pref_simmetricpick_summary_on"

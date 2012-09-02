@@ -48,6 +48,17 @@
         <item>@string/pref_pickstyle_wheel</item>
         <item>@string/pref_pickstyle_number</item>
     </string-array>
+    
+	<string-array name="pref_sorttype_values" translatable="false">
+        <item>unsorted</item>
+        <item>runnedfirst</item>
+        <item>smallfirst</item>
+        </string-array>	
+	<string-array name="pref_sorttype_entries" translatable="false">
+        <item>@string/pref_sorttype_unsorted</item>
+        <item>@string/pref_sorttype_runnedfirst</item>
+        <item>@string/pref_sorttype_smallfirst</item>
+        </string-array>
 
 	<string-array name="pref_soundsource_values" translatable="false">
         <item>system</item>

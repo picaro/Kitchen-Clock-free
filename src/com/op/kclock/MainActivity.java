@@ -19,6 +19,7 @@
 package com.op.kclock;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -320,7 +321,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	protected void runAllTimers() {
 		for (AlarmClock alarm : alarmList) {
-			if (alarm.getState() != AlarmClock.TimerState.ALARMING) {
+			if (alarm.getState() != AlarmClock.TimerState.ALARMING && alarm.getTime() > 0) {
 				alarm.setState(TimerState.RUNNING);
 			}
 		}		
@@ -361,8 +362,17 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onPause() {
 		super.onPause();
-		WakeUpLock.release();
+		if (isTimerActive()) WakeUpLock.release();
 		Log.d(TAG, "MainActivity: onPause()");
+	}
+
+	private boolean isTimerActive() {
+		for (AlarmClock alarm : alarmList) {
+			if (alarm.getState() != AlarmClock.TimerState.RUNNING) {
+				return true;
+			}
+		}		
+		return false;
 	}
 
 	@Override
@@ -416,10 +426,21 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private void drawAlarms() {
+		//sort
+		String sortType = mPrefs.getString(getApplicationContext()
+				.getString(R.string.pref_sortlist_key), "unsorted");
+		if(sortType.equals("runnedfirst")) {
+			AlarmClock.ActiveFirstComparator comparator = new AlarmClock.ActiveFirstComparator();			
+			Collections.sort(alarmList, comparator);
+		} else if (sortType.equals("smallfirst")){
+			AlarmClock.NearestActiveFirstComparator comparator = new AlarmClock.NearestActiveFirstComparator();			
+			Collections.sort(alarmList, comparator);
+		}
 		for (AlarmClock alarm : alarmList) {
 			drawAlarm(alarm);
 		}
 	}
+
 
 	private void addAlarm(AlarmClock newAlarm) {
 		if (newAlarm.getElement() == null) {
@@ -429,19 +450,26 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private LinearLayout drawAlarm(AlarmClock alarm) {
+		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+		boolean isnew = false;
 		if (alarm.getElement() == null) {
-			LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+			isnew = true;
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 			LinearLayout itemView = (LinearLayout) inflater.inflate(
 					R.layout.alarm_incl, null);
 			alarm.setElement(itemView);
-			mainL.addView(alarm.getElement(), mainL.getChildCount() - 1,
+			mainL.addView(alarm.getElement(),//mainL.getChildCount() - 1
 					new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
 							LayoutParams.WRAP_CONTENT));
+			TextViewWithMenu textView = (TextViewWithMenu) (alarm.getWidget());
+			textView.setAlarm(alarm);
+		} else {
+			if(alarm.getElement().getParent() == null) {
+				mainL.addView(alarm.getElement(),
+						new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
+								LayoutParams.WRAP_CONTENT));
+			}
 		}
-
-		TextViewWithMenu textView = (TextViewWithMenu) (alarm.getWidget());
-		textView.setAlarm(alarm);
 
 		alarm.updateElement();
 		alarm.getElement().setOnClickListener(this);
@@ -459,7 +487,7 @@ public class MainActivity extends Activity implements OnClickListener,
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
 							R.string.pref_autostart_key), true)) {
-				if (alarm.getState() != AlarmClock.TimerState.PAUSED) {
+				if (alarm.getState() != AlarmClock.TimerState.PAUSED && alarm.getTime() > 0) {
 					alarm.setState(
 							AlarmClock.TimerState.RUNNING);
 				}
@@ -506,6 +534,11 @@ public class MainActivity extends Activity implements OnClickListener,
 				break;
 			}
 		}
+		
+		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+		mainL.removeAllViews();
+		//this.deleteAllAlarms();
+		this.drawAlarms();
 	}
 
 	// ============================================================
@@ -640,7 +673,7 @@ public class MainActivity extends Activity implements OnClickListener,
 										AlarmClock.TimerState.ALARMING))
 									alarm.alarmSTOP();
 								alarm.setState(	AlarmClock.TimerState.STOPPED);
-								alarm.getElement().setVisibility(View.GONE);
+								if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
 								if (alarm.getId() > 0) {
 									dbTool.open();
 									dbTool.delete(alarm.getId());

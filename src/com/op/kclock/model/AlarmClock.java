@@ -19,6 +19,7 @@
 package com.op.kclock.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -511,6 +512,24 @@ public class AlarmClock implements Parcelable {
 	public void updateState() {
 		this.setState( state);
 
+	}
+	
+	public static class ActiveFirstComparator implements Comparator<AlarmClock>{
+		@Override
+		public int compare(AlarmClock arg0, AlarmClock arg1) {
+			if (arg0.state == TimerState.RUNNING && arg1.state != TimerState.RUNNING) return -1;
+			if (arg1.state == TimerState.RUNNING && arg0.state != TimerState.RUNNING) return 1;
+			return 0;
+		}
+	}
+	
+	public static class NearestActiveFirstComparator implements Comparator<AlarmClock>{
+		@Override
+		public int compare(AlarmClock arg0, AlarmClock arg1) {
+			if (arg0.state == TimerState.RUNNING && arg1.state != TimerState.RUNNING) return -1;
+			if (arg1.state == TimerState.RUNNING && arg0.state != TimerState.RUNNING) return 1;
+			return (int)(arg0.getTime() - arg1.getTime());
+		}
 	}
 
 }
