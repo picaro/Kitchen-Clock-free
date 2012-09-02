@@ -169,7 +169,7 @@ public class DbTool {
 			int dateadd = cursor.getColumnIndex(DbTool.DATEADD);
 			int usagecnt = cursor.getColumnIndex(DbTool.USAGECNT);
 			//int state = cursor.getColumnIndex(DbTool.STATE);
-			AlarmClock alarm = new AlarmClock();
+			AlarmClock alarm = new AlarmClock(context);
 			alarm.setId(cursor.getInt(idColIndex));
 			alarm.setTime(cursor.getInt(seconds));
 			alarm.setInitSeconds(cursor.getInt(initSeconds));
@@ -181,7 +181,7 @@ public class DbTool {
 //			alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
 //					.getString(state)));
 			alarm.setName(cursor.getString(nameColIndex));
-			alarm.setState(context, AlarmClock.TimerState.PAUSED);
+			alarm.setState(AlarmClock.TimerState.PAUSED);
 			alarmList.add(alarm);
 				Log.d(MainActivity.TAG,
 						"ID = " + cursor.getInt(idColIndex) + ", "

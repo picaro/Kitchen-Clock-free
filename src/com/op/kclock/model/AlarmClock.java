@@ -51,16 +51,20 @@ public class AlarmClock implements Parcelable {
 
 	private static final int HOUR = 3600;
 
-	private Thread thread;
+//	private Thread thread;
 
 	private int id;
 
 	private String name;
+	
+	private String ns = Context.NOTIFICATION_SERVICE;
 
 	private long seconds;
 
 	private long initSeconds;
-
+	
+	private Context context;
+	
 	private boolean pinned;
 
 	private boolean active;
@@ -111,7 +115,7 @@ public class AlarmClock implements Parcelable {
 
 	private LinearLayout element;
 
-	NotificationManager mNotificationManager;
+	private NotificationManager mNotificationManager;
 
 	public static enum TimerState {
 		STOPPED, PAUSED, RUNNING, ALARMING
@@ -127,15 +131,15 @@ public class AlarmClock implements Parcelable {
 		element = _element;
 	}
 
-	public Thread getThread() {
-		return thread;
-	}
+//	public Thread getThread() {
+//		return thread;
+//	}
+//
+//	public void setThread(Thread thread) {
+//		this.thread = thread;
+//	}
 
-	public void setThread(Thread thread) {
-		this.thread = thread;
-	}
-
-	public void setState(Context context, TimerState state) {
+	public void setState( TimerState state) {
 		this.state = state;
 		if (element != null) {
 			Animation in = AnimationUtils
@@ -159,12 +163,16 @@ public class AlarmClock implements Parcelable {
 		}
 	}
 
-	public AlarmClock(String _name, int _id) {
+	public AlarmClock(String _name, int _id, Context _context) {
+		this(_context);
 		name = _name;
 		id = _id;
 	}
 
-	public AlarmClock() {
+	public AlarmClock(Context _context) {
+		context = _context;
+		mNotificationManager = (NotificationManager) context
+				.getSystemService(ns);
 	}
 
 	public void updateElement() {
@@ -306,7 +314,7 @@ public class AlarmClock implements Parcelable {
 		return seconds;
 	}
 
-	public void alarmNOW(final Context context) {
+	public void alarmNOW() {
 		// vibratePhone(context);
 		sendTimeIsOverNotification(0, context);
 
@@ -353,14 +361,14 @@ public class AlarmClock implements Parcelable {
 		WakeUpLock.acquire(context);
 	}
 
-	public void alarmSTOP(Context context) {
+	public void alarmSTOP() {
 		mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID + 1);
 
 		if (this.state == TimerState.ALARMING) {
 			element.clearAnimation();
 			WakeUpLock.release();
 		}
-		setState(context, AlarmClock.TimerState.STOPPED);
+		setState( AlarmClock.TimerState.STOPPED);
 	}
 
 	/**
@@ -411,9 +419,7 @@ public class AlarmClock implements Parcelable {
 		SharedPreferences mPrefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
-		String ns = Context.NOTIFICATION_SERVICE;
-		mNotificationManager = (NotificationManager) context
-				.getSystemService(ns);
+
 
 		icon = R.drawable.stat_notify_alarm;
 		CharSequence mTickerText = " - "
@@ -502,8 +508,8 @@ public class AlarmClock implements Parcelable {
 				notification);
 	}
 
-	public void updateState(Context context) {
-		this.setState(context, state);
+	public void updateState() {
+		this.setState( state);
 
 	}
 

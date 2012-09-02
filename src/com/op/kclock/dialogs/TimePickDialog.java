@@ -136,8 +136,8 @@ public class TimePickDialog extends Dialog {
 			}
 
 			if (alarm == null) {
-				alarm = new AlarmClock();
-				alarm.setState(getContext(), AlarmClock.TimerState.RUNNING);
+				alarm = new AlarmClock(getContext());
+				alarm.setState(AlarmClock.TimerState.RUNNING);
 			}
 			alarm.setName(timerName.getText().toString());
 
