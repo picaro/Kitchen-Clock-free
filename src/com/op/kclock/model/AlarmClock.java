@@ -141,8 +141,9 @@ public class AlarmClock implements Parcelable {
 //	}
 
 	public void setState( TimerState state) {
-		this.state = state;
-		if (element != null) {
+
+		if (element != null && this.state != state) {
+			this.state = state;
 			Animation in = AnimationUtils
 					.loadAnimation(context, R.anim.fade_in);
 			Animation out = AnimationUtils.loadAnimation(context,

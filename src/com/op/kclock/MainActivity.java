@@ -68,7 +68,6 @@ import com.op.kclock.utils.DbTool;
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
 
-	private Handler handler;
 
 	private TimePickDialog timePickDialog = null;
 	public final static String TAG = "AlarmaClockActivity";
@@ -87,7 +86,8 @@ public class MainActivity extends Activity implements OnClickListener,
 	private Action presetsButtonAction;
 	private Action runAllButtonAction;
 
-	Thread thread;
+	private Handler handler;
+	private Thread thread;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -535,10 +535,13 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		}
 		
-		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
-		mainL.removeAllViews();
-		//this.deleteAllAlarms();
-		this.drawAlarms();
+		String sortType = mPrefs.getString(getApplicationContext()
+										   .getString(R.string.pref_sortlist_key), "unsorted");
+		if(sortType != "unsorted"){
+			LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+			mainL.removeAllViews();
+			this.drawAlarms();
+		}
 	}
 
 	// ============================================================
