@@ -154,5 +154,11 @@
     <string name="pref_showaddbtn">Кнопка "Добавить"</string>
     <string name="pref_showaddbtn_summary">показывать кнопку Добавить Таймер</string>	
     <string name="pref_showrefreshbtn">Кнопка "Обновить"</string>
-    <string name="pref_showrefreshbtn_summary">показывать кнопку Обновить</string>	
+    <string name="pref_showrefreshbtn_summary">показывать кнопку Обновить</string>
+    
+    <string name="pref_sorttype_unsorted">без сортировки</string>
+    <string name="pref_sorttype_runnedfirst">активные первыми</string>
+    <string name="pref_sorttype_smallfirst">ближайшие первыми</string>
+    <string name="pref_sortlist">Сортировка</string>
+    <string name="pref_sortlist_summary">сортировка списка таймеров</string>	
 </resources>
