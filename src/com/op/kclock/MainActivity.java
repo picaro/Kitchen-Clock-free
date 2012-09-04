@@ -76,8 +76,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	private ActionBar actionBar;
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
 
-	private AlarmClockDAO dbTool;
-
+	
 	//ACTIONBAR actions
 	private Action settingsButtonAction;
 	private Action delallAction;
@@ -99,7 +98,6 @@ public class MainActivity extends Activity implements OnClickListener,
 				.getApplicationContext());
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
 
-		dbTool = new AlarmClockDAO(getApplicationContext());
 
 		// Eula.show(this);
 		// Changelog.show(this);
@@ -112,7 +110,9 @@ public class MainActivity extends Activity implements OnClickListener,
 					getApplicationContext().getString(
 							R.string.pref_savesession_key), true)) {
 				Log.d(TAG, "db read true!!");
-				alarmList = dbTool.getAlarmsList();
+				AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+				alarmList = alarmClockDAO.getAlarmsList();
+				alarmClockDAO.close();
 			}
 		}
 
@@ -382,18 +382,14 @@ public class MainActivity extends Activity implements OnClickListener,
 		if (mPrefs.getBoolean(
 				getApplicationContext()
 						.getString(R.string.pref_savesession_key), true)) {
-			dbTool.open();
+			AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+			alarmClockDAO.open();
 			// select min alarm and make caller
-			dbTool.truncate();
+			alarmClockDAO.truncate();
 			for (AlarmClock alarm : alarmList) {
-				// if (alarm.getId() == 0) {
-				dbTool.insert(alarm);
-				// } else {
-				// dbTool.update(alarm);
-				// }
+				alarmClockDAO.insert(alarm);
 			}
-			dbTool.close();
-			alarmList.clear();
+			alarmClockDAO.close();
 		}
 		Log.d(TAG, "MainActivity: onStop()");
 	}
@@ -407,7 +403,6 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		dbTool.close();
 		Log.d(TAG, "MainActivity: onDestroy()");
 	}
 
@@ -634,9 +629,10 @@ public class MainActivity extends Activity implements OnClickListener,
 			alarm.setState(	AlarmClock.TimerState.STOPPED);
 			alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getId() > 0) {
-				dbTool.open();
-				dbTool.delete(alarm.getId());
-				dbTool.close();
+				AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+				alarmClockDAO.open();
+				alarmClockDAO.delete(alarm.getId());
+				alarmClockDAO.close();
 			}
 			alarm.setElement(null); // TODO clean!
 		}
@@ -679,9 +675,10 @@ public class MainActivity extends Activity implements OnClickListener,
 								alarm.setState(	AlarmClock.TimerState.STOPPED);
 								if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
 								if (alarm.getId() > 0) {
-									dbTool.open();
-									dbTool.delete(alarm.getId());
-									dbTool.close();
+									AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+									alarmClockDAO.open();
+									alarmClockDAO.delete(alarm.getId());
+									alarmClockDAO.close();
 								}
 								alarm.setElement(null); // TODO clean!
 								// mainL.removeView(((LinearLayout)alarm.getElement()
