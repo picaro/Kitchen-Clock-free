@@ -151,14 +151,14 @@ public class HistoryDAO {
 		cursor = getRecords();
 		if (cursor.moveToFirst()) {
 			do {
-			int idColIndex = cursor.getColumnIndex(AlarmClockDAO.ID);
-			int nameColIndex = cursor.getColumnIndex(AlarmClockDAO.NAME);
-			int seconds = cursor.getColumnIndex(AlarmClockDAO.SECONDS);
-			int initSeconds = cursor.getColumnIndex(AlarmClockDAO.INITSECONDS);
-			int pinned = cursor.getColumnIndex(AlarmClockDAO.PINNED);
-			int active = cursor.getColumnIndex(AlarmClockDAO.ACTIVE);
-			int dateadd = cursor.getColumnIndex(AlarmClockDAO.DATEADD);
-			int usagecnt = cursor.getColumnIndex(AlarmClockDAO.USAGECNT);
+			int idColIndex = cursor.getColumnIndex(HistoryDAO.ID);
+			int nameColIndex = cursor.getColumnIndex(HistoryDAO.NAME);
+			int seconds = cursor.getColumnIndex(HistoryDAO.SECONDS);
+			int initSeconds = cursor.getColumnIndex(HistoryDAO.INITSECONDS);
+			int pinned = cursor.getColumnIndex(HistoryDAO.PINNED);
+			int active = cursor.getColumnIndex(HistoryDAO.ACTIVE);
+			int dateadd = cursor.getColumnIndex(HistoryDAO.DATEADD);
+			int usagecnt = cursor.getColumnIndex(HistoryDAO.USAGECNT);
 			//int state = cursor.getColumnIndex(DbTool.STATE);
 			AlarmClock alarm = new AlarmClock(context);
 			alarm.setId(cursor.getInt(idColIndex));

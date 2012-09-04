@@ -64,6 +64,7 @@ import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.AlarmClockDAO;
+import com.op.kclock.utils.HistoryDAO;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
@@ -379,18 +380,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	protected void onStop() {
 		super.onStop();
 		// save to db
-		if (mPrefs.getBoolean(
-				getApplicationContext()
-						.getString(R.string.pref_savesession_key), true)) {
-			AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
-			alarmClockDAO.open();
-			// select min alarm and make caller
-			alarmClockDAO.truncate();
-			for (AlarmClock alarm : alarmList) {
-				alarmClockDAO.insert(alarm);
-			}
-			alarmClockDAO.close();
-		}
+
 		Log.d(TAG, "MainActivity: onStop()");
 	}
 
@@ -403,6 +393,22 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		if (mPrefs.getBoolean(
+				getApplicationContext()
+						.getString(R.string.pref_savesession_key), true)) {
+			AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+			alarmClockDAO.open();
+			// select min alarm and make caller
+			alarmClockDAO.truncate();
+			HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
+			for (AlarmClock alarm : alarmList) {
+				alarmClockDAO.insert(alarm);
+				historyDAO.insert(alarm);
+			}
+			historyDAO.close();
+			alarmClockDAO.close();
+		}
+		alarmList.clear();
 		Log.d(TAG, "MainActivity: onDestroy()");
 	}
 
