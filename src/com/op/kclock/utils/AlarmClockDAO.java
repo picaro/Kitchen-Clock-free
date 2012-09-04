@@ -31,8 +31,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.op.kclock.MainActivity;
 import com.op.kclock.model.*;
 import com.op.kclock.misc.*;
+import com.op.kclock.cookconst.*;
 
-public class DbTool {
+public class AlarmClockDAO {
 	SQLiteDatabase db;	
 	Context context;
 	DatabaseHelper dbHelper;
@@ -51,16 +52,16 @@ public class DbTool {
 	
 	public static String[] COLUMNS = new String[] { ID, NAME, SECONDS,INITSECONDS,STATE,PINNED,ACTIVE,DATEADD, USAGECNT };
 
-	static final int DB_VERSION=3;
+//	static final int DB_VERSION=3;
 
-	public DbTool(Context context) {
+	public AlarmClockDAO(Context context) {
 		this.context=context;
 		this.dbHelper=new DatabaseHelper(context);
 	}
 
 	public static class DatabaseHelper extends SQLiteOpenHelper{
 		public DatabaseHelper(Context context){
-			super(context, DB_NAME, null, DB_VERSION);
+			super(context, DB_NAME, null, SettingsConst.DB_VERSION);
 		}
 
 		@Override
@@ -150,14 +151,14 @@ public class DbTool {
 		cursor = getRecords();
 		if (cursor.moveToFirst()) {
 			do {
-			int idColIndex = cursor.getColumnIndex(DbTool.ID);
-			int nameColIndex = cursor.getColumnIndex(DbTool.NAME);
-			int seconds = cursor.getColumnIndex(DbTool.SECONDS);
-			int initSeconds = cursor.getColumnIndex(DbTool.INITSECONDS);
-			int pinned = cursor.getColumnIndex(DbTool.PINNED);
-			int active = cursor.getColumnIndex(DbTool.ACTIVE);
-			int dateadd = cursor.getColumnIndex(DbTool.DATEADD);
-			int usagecnt = cursor.getColumnIndex(DbTool.USAGECNT);
+			int idColIndex = cursor.getColumnIndex(AlarmClockDAO.ID);
+			int nameColIndex = cursor.getColumnIndex(AlarmClockDAO.NAME);
+			int seconds = cursor.getColumnIndex(AlarmClockDAO.SECONDS);
+			int initSeconds = cursor.getColumnIndex(AlarmClockDAO.INITSECONDS);
+			int pinned = cursor.getColumnIndex(AlarmClockDAO.PINNED);
+			int active = cursor.getColumnIndex(AlarmClockDAO.ACTIVE);
+			int dateadd = cursor.getColumnIndex(AlarmClockDAO.DATEADD);
+			int usagecnt = cursor.getColumnIndex(AlarmClockDAO.USAGECNT);
 			//int state = cursor.getColumnIndex(DbTool.STATE);
 			AlarmClock alarm = new AlarmClock(context);
 			alarm.setId(cursor.getInt(idColIndex));

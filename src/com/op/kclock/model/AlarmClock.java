@@ -257,6 +257,7 @@ public class AlarmClock implements Parcelable {
 		parcel.writeString(name);
 		parcel.writeInt(id);
 		parcel.writeLong(seconds);
+		parcel.writeString(state.name());
 	}
 
 	public TextView getWidget() {
@@ -289,6 +290,7 @@ public class AlarmClock implements Parcelable {
 		name = parcel.readString();
 		id = parcel.readInt();
 		seconds = parcel.readLong();
+		state = TimerState.valueOf( parcel.readString());
 	}
 
 	public boolean tick() {

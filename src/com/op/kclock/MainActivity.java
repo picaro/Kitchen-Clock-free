@@ -63,7 +63,7 @@ import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
-import com.op.kclock.utils.DbTool;
+import com.op.kclock.utils.AlarmClockDAO;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
@@ -76,7 +76,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	private ActionBar actionBar;
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
 
-	private DbTool dbTool;
+	private AlarmClockDAO dbTool;
 
 	//ACTIONBAR actions
 	private Action settingsButtonAction;
@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				.getApplicationContext());
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
 
-		dbTool = new DbTool(getApplicationContext());
+		dbTool = new AlarmClockDAO(getApplicationContext());
 
 		// Eula.show(this);
 		// Changelog.show(this);
@@ -393,6 +393,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				// }
 			}
 			dbTool.close();
+			alarmList.clear();
 		}
 		Log.d(TAG, "MainActivity: onStop()");
 	}
