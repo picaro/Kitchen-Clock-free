@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="hhmmss">hh:mm:ss</string>
-<string name="mmss">mm:ss</string>
 <string name="timer">Timer</string>
 <string name="start">Start</string>
 <string name="stop">Stop</string>
@@ -88,4 +86,32 @@
 <string name="eula_title">Licence</string>
 <string name="eula_accept">Accepter</string>
 <string name="eula_refuse">Refuser</string>
+
+
+    <string name="pref_showsettbtn">Show settings button</string>
+    <string name="pref_showsettbtn_summary">show settings button in actionbar</string>
+    <string name="pref_volume">Alarm Volume</string>
+    <string name="pref_volume_summary">set alarm volume</string>
+    <string name="pref_showdelall">Show del button</string>
+    <string name="pref_showdelall_summary">show delete All button in actionbar</string>
+    <string name="pref_soundfile">Custom Sound</string>
+    <string name="pref_soundfile_summary">select custom sound</string>
+  <string name="pref_soundsource_system">system</string>
+    <string name="pref_soundsource_custom">custom</string>
+    <string name="pref_soundsource_summary">select sound source</string>	
+    <string name="pref_soundsource_dialogtitle">Sound source</string>
+    <string name="alarm_settings">Alarm Settings</string>
+    <string name="main_settings">Main Settings</string>
+    <string name="interface_settings">Interface Settings</string>
+
+    <string name="pref_showaddbtn">Show add button</string>
+    <string name="pref_showaddbtn_summary">show add button in actionbar</string>	
+    <string name="pref_showrefreshbtn">Show refresh button</string>
+    <string name="pref_showrefreshbtn_summary">show refresh all button in actionbar</string>	
+    	
+    <string name="pref_sorttype_unsorted">unsorted</string>
+    <string name="pref_sorttype_runnedfirst">active first</string>
+    <string name="pref_sorttype_smallfirst">nearest first</string>
+    <string name="pref_sortlist">Sorting</string>
+    <string name="pref_sortlist_summary">alarms list sort type</string>
 </resources>
