@@ -183,9 +183,9 @@ public class AlarmClock implements Parcelable {
 				public void run() {
 					if (element != null)
 						getWidget().setText(
-								(CharSequence) (String.format("%02d:%02d:%02d",
-										getHour(), getMin(), getSec())));
+							(CharSequence) (AlarmClock.this.toString()));
 				}
+
 			});
 
 			// TODO - move to set text
@@ -198,6 +198,13 @@ public class AlarmClock implements Parcelable {
 
 		}
 	}
+	
+	public String toString()
+	{
+		return	String.format("%02d:%02d:%02d",
+							 getHour(), getMin(), getSec());
+	}
+	
 
 	public void setElement(LinearLayout element) {
 		this.element = element;

@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				.getApplicationContext());
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
 
-
+		TimePickDialog.isDialogShowed = false;
 		// Eula.show(this);
 		// Changelog.show(this);
 		initActionBar();
@@ -241,7 +241,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				R.layout.alarm_incl, null);
 		TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
 		txtView.setText(R.string.add);
-		itemView.setId(121212);
+	//	itemView.setId(121212);
 
 		if (!mPrefs.getBoolean(
 				getApplicationContext()
@@ -632,6 +632,10 @@ public class MainActivity extends Activity implements OnClickListener,
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
 				alarm.alarmSTOP();
+			HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
+			historyDAO.open();
+			historyDAO.insert(alarm);
+			historyDAO.close();
 			alarm.setState(	AlarmClock.TimerState.STOPPED);
 			alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getId() > 0) {
@@ -675,6 +679,11 @@ public class MainActivity extends Activity implements OnClickListener,
 							@Override
 							public void onAnimationEnd(Animation arg0) {
 								alarmList.remove(alarm);
+									HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
+			historyDAO.open();
+			historyDAO.insert(alarm);
+			historyDAO.close();
+		
 								if (alarm.getState().equals(
 										AlarmClock.TimerState.ALARMING))
 									alarm.alarmSTOP();

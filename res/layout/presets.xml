@@ -24,6 +24,7 @@
             android:layout_height="wrap_content" >
 
             <LinearLayout
+				android:orientation="vertical"	
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/presets_list" >
@@ -50,7 +51,9 @@
             android:layout_height="wrap_content" >
 
             <LinearLayout
+				android:orientation="vertical"
                 android:layout_width="match_parent"
+				android:id="@+id/logs_list"
                 android:layout_height="262dp" >
             </LinearLayout>
         </ScrollView>

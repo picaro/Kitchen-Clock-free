@@ -10,6 +10,7 @@ import android.os.*;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.op.kclock.utils.*;
 
 public class PresetsActivity extends Activity {
 
@@ -20,15 +21,32 @@ public class PresetsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.presets);
 		LinearLayout presetsList = (LinearLayout)findViewById(R.id.presets_list);
-		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-		TextView preset = new TextView(getApplicationContext());
-		//for(){		
-		//}
-		preset.setText("123");
-		presetsList.addView(preset);
+	//	LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		
+		PresetDAO presetDAO = new PresetDAO(getApplicationContext());
+		presetDAO.open();
+		List<AlarmClock> presets = presetDAO.getList();
+		for(AlarmClock alarm : presets){
+		TextView preset = new TextView(getApplicationContext());
+		String name = (alarm.getName() == null || alarm.getName().length() == 0)?
+		"alarm-":alarm.getName(); 	
+		preset.setText(name + "-" + alarm.toString());
+			presetsList.addView(preset);
+		}
+		presetDAO.close();			
+		
+		
+		LinearLayout logsList = (LinearLayout)findViewById(R.id.presets_list);
 		HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
-		List<AlarmClock> histories = historyDAO.getAlarmsList();
+		historyDAO.open();
+		List<AlarmClock> histories = presetDAO.getList();
+		for(AlarmClock alarm : histories){
+			TextView preset = new TextView(getApplicationContext());
+			preset.setText("-"+alarm.getHour());
+			logsList.addView(preset);
+			
+		}
+		historyDAO.close();
 	}
 
 

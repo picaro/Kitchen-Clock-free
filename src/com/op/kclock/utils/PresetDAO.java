@@ -38,7 +38,7 @@ public class PresetDAO {
 	Context context;
 	DatabaseHelper dbHelper;
 	static final String DB_NAME="DB_KCLOCK";
-	static final String TABLE="HISTORY";
+	static final String TABLE="PRESET";
 
 	public static final String ID="id";
 	public static final String NAME="alarmname";
@@ -62,6 +62,10 @@ public class PresetDAO {
 	public static class DatabaseHelper extends SQLiteOpenHelper{
 		public DatabaseHelper(Context context){
 			super(context, DB_NAME, null, SettingsConst.DB_VERSION);
+	 	    SQLiteDatabase db =this.getWritableDatabase() ;	
+			if(db.getVersion()<=4 ){
+				onCreate(db);
+			}			
 		}
 
 		@Override
@@ -143,7 +147,7 @@ public class PresetDAO {
 		db.delete(TABLE, ID+"=" + examId, null);
 	}
 
-	public List<AlarmClock> getAlarmsList() {
+	public List<AlarmClock> getList() {
 		Cursor cursor;
 
 		open();

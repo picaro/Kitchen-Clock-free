@@ -62,6 +62,10 @@ public class HistoryDAO {
 	public static class DatabaseHelper extends SQLiteOpenHelper{
 		public DatabaseHelper(Context context){
 			super(context, DB_NAME, null, SettingsConst.DB_VERSION);
+  	 	    SQLiteDatabase db =this.getWritableDatabase() ;	
+			if( SettingsConst.DB_VERSION<=4 ){
+				onUpgrade(db,0,db.getVersion());
+			}
 		}
 
 		@Override
@@ -143,7 +147,7 @@ public class HistoryDAO {
 		db.delete(TABLE, ID+"=" + examId, null);
 	}
 
-	public List<AlarmClock> getAlarmsList() {
+	public List<AlarmClock> getList() {
 		Cursor cursor;
 
 		open();
