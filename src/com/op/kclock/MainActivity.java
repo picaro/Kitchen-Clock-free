@@ -63,7 +63,7 @@ import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
-import com.op.kclock.utils.AlarmClockDAO;
+import com.op.kclock.utils.DBHelper;
 import com.op.kclock.utils.HistoryDAO;
 
 public class MainActivity extends Activity implements OnClickListener,
@@ -111,7 +111,7 @@ public class MainActivity extends Activity implements OnClickListener,
 					getApplicationContext().getString(
 							R.string.pref_savesession_key), true)) {
 				Log.d(TAG, "db read true!!");
-				AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
 				alarmList = alarmClockDAO.getAlarmsList();
 				alarmClockDAO.close();
 			}
@@ -396,14 +396,14 @@ public class MainActivity extends Activity implements OnClickListener,
 		if (mPrefs.getBoolean(
 				getApplicationContext()
 						.getString(R.string.pref_savesession_key), true)) {
-			AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+			DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
 			alarmClockDAO.open();
 			// select min alarm and make caller
-			alarmClockDAO.truncate();
+			alarmClockDAO.truncateAlarms();
 			HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 			for (AlarmClock alarm : alarmList) {
-				alarmClockDAO.insert(alarm);
-				historyDAO.insert(alarm);
+				alarmClockDAO.insertAlarm(alarm);
+				historyDAO.insertHistory(alarm);
 			}
 			historyDAO.close();
 			alarmClockDAO.close();
@@ -634,14 +634,15 @@ public class MainActivity extends Activity implements OnClickListener,
 				alarm.alarmSTOP();
 			HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 			historyDAO.open();
-			historyDAO.insert(alarm);
+			historyDAO.insertHistory(alarm);
+		//	 historyDAO.c
 			historyDAO.close();
 			alarm.setState(	AlarmClock.TimerState.STOPPED);
 			alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getId() > 0) {
-				AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
 				alarmClockDAO.open();
-				alarmClockDAO.delete(alarm.getId());
+				alarmClockDAO.deleteAlarm(alarm.getId());
 				alarmClockDAO.close();
 			}
 			alarm.setElement(null); // TODO clean!
@@ -681,7 +682,7 @@ public class MainActivity extends Activity implements OnClickListener,
 								alarmList.remove(alarm);
 									HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 			historyDAO.open();
-			historyDAO.insert(alarm);
+			historyDAO.insertHistory(alarm);
 			historyDAO.close();
 		
 								if (alarm.getState().equals(
@@ -690,9 +691,9 @@ public class MainActivity extends Activity implements OnClickListener,
 								alarm.setState(	AlarmClock.TimerState.STOPPED);
 								if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
 								if (alarm.getId() > 0) {
-									AlarmClockDAO alarmClockDAO = new AlarmClockDAO(getApplicationContext());
+									DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
 									alarmClockDAO.open();
-									alarmClockDAO.delete(alarm.getId());
+									alarmClockDAO.deleteAlarm(alarm.getId());
 									alarmClockDAO.close();
 								}
 								alarm.setElement(null); // TODO clean!

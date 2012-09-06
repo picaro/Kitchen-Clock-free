@@ -63,8 +63,8 @@ public class PresetDAO {
 		public DatabaseHelper(Context context){
 			super(context, DB_NAME, null, SettingsConst.DB_VERSION);
 	 	    SQLiteDatabase db =this.getWritableDatabase() ;	
-			if(db.getVersion()<=4 ){
-				onCreate(db);
+			if(db.getVersion()<=5 ){
+		//		onCreate(db);
 			}			
 		}
 
@@ -155,14 +155,14 @@ public class PresetDAO {
 		cursor = getRecords();
 		if (cursor.moveToFirst()) {
 			do {
-				int idColIndex = cursor.getColumnIndex(AlarmClockDAO.ID);
-				int nameColIndex = cursor.getColumnIndex(AlarmClockDAO.NAME);
-				int seconds = cursor.getColumnIndex(AlarmClockDAO.SECONDS);
-				int initSeconds = cursor.getColumnIndex(AlarmClockDAO.INITSECONDS);
-				int pinned = cursor.getColumnIndex(AlarmClockDAO.PINNED);
-				int active = cursor.getColumnIndex(AlarmClockDAO.ACTIVE);
-				int dateadd = cursor.getColumnIndex(AlarmClockDAO.DATEADD);
-				int usagecnt = cursor.getColumnIndex(AlarmClockDAO.USAGECNT);
+				int idColIndex = cursor.getColumnIndex(DBHelper.ID);
+				int nameColIndex = cursor.getColumnIndex(DBHelper.NAME);
+				int seconds = cursor.getColumnIndex(DBHelper.SECONDS);
+				int initSeconds = cursor.getColumnIndex(DBHelper.INITSECONDS);
+				int pinned = cursor.getColumnIndex(DBHelper.PINNED);
+				int active = cursor.getColumnIndex(DBHelper.ACTIVE);
+				int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
+				int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
 				//int state = cursor.getColumnIndex(DbTool.STATE);
 				AlarmClock alarm = new AlarmClock(context);
 				alarm.setId(cursor.getInt(idColIndex));

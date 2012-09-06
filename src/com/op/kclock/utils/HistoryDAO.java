@@ -38,7 +38,6 @@ public class HistoryDAO {
 	Context context;
 	DatabaseHelper dbHelper;
 	static final String DB_NAME="DB_KCLOCK";
-	static final String TABLE="HISTORY";
 	
 	public static final String ID="id";
 	public static final String NAME="alarmname";
@@ -50,7 +49,8 @@ public class HistoryDAO {
 	public static final String DATEADD="dateadd";
 	public static final String USAGECNT="usagecnt";
 	
-	public static String[] COLUMNS = new String[] { ID, NAME, SECONDS,INITSECONDS,STATE,PINNED,ACTIVE,DATEADD, USAGECNT };
+	static final String HISTORY_TABLE="HISTORY";
+	public static String[] HISTORY_COLUMNS = new String[] { ID, NAME, SECONDS,INITSECONDS,STATE,PINNED,ACTIVE,DATEADD, USAGECNT };
 
 //
 
@@ -63,36 +63,24 @@ public class HistoryDAO {
 		public DatabaseHelper(Context context){
 			super(context, DB_NAME, null, SettingsConst.DB_VERSION);
   	 	    SQLiteDatabase db =this.getWritableDatabase() ;	
-			if( SettingsConst.DB_VERSION<=4 ){
-				onUpgrade(db,0,db.getVersion());
+			if(db.getVersion() <5){
+				//onUpgrade(db,0,db.getVersion());
 			}
 		}
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE IF NOT EXISTS " +
-					TABLE + " ("+ 
-					ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
-					NAME+" TEXT NOT NULL," +
-					SECONDS+" INTEGER NOT NULL, " +
-					INITSECONDS+" INTEGER NOT NULL, " +
-					PINNED+" INTEGER NOT NULL, " +
-					ACTIVE +" INTEGER NOT NULL, " +
-					DATEADD+" INTEGER NOT NULL, " +
-					USAGECNT+" INTEGER NOT NULL, " +
-		     		STATE+" INTEGER NOT NULL"		
-					+")"
-			);
+	
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d("DbTool.onUpgrade", "old:"+oldVersion+" new:"+newVersion);
 			if(db.getVersion()==1){
-				db.execSQL("ALTER TABLE " + TABLE + " RENAME TO tmp_"+ TABLE);
+				db.execSQL("ALTER TABLE " + HISTORY_TABLE + " RENAME TO tmp_"+ HISTORY_TABLE);
 				onCreate(db);
 				db.execSQL("INSERT INTO " +
-						TABLE + "("+ 
+						HISTORY_TABLE + "("+ 
 						NAME +", " +
 						STATE +", " +
 						SECONDS  +") " +
@@ -100,11 +88,11 @@ public class HistoryDAO {
 						NAME+", " +
 						STATE +", " +
 						SECONDS + " " +
-						"FROM tmp_" + TABLE
+						"FROM tmp_" + HISTORY_TABLE
 				);
-				db.execSQL("DROP TABLE IF EXISTS tmp_"+TABLE);
+				db.execSQL("DROP TABLE IF EXISTS tmp_"+HISTORY_TABLE);
 			}else{
-				db.execSQL("DROP TABLE IF EXISTS "+TABLE);
+				db.execSQL("DROP TABLE IF EXISTS "+HISTORY_TABLE);
 				onCreate(db);
 			}
 		}
@@ -117,7 +105,7 @@ public class HistoryDAO {
 		dbHelper.close();
 	}
 
-	public void insert(AlarmClock record){
+	public void insertHistory(AlarmClock record){
 		ContentValues values = new ContentValues();
 		values.put(NAME,  record.getName()== null? "alarm":  record.getName());
 		values.put(STATE, record.getState().toString());
@@ -127,7 +115,7 @@ public class HistoryDAO {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
-		db.insert(TABLE, null, values);
+		db.insert(HISTORY_TABLE, null, values);
 	}
 
 	public void update(AlarmClock record){
@@ -140,11 +128,11 @@ public class HistoryDAO {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
-		db.update(TABLE, values, ID+"="+record.getId(), null);
+		db.update(HISTORY_TABLE, values, ID+"="+record.getId(), null);
 	}
 
 	public void delete(long examId){
-		db.delete(TABLE, ID+"=" + examId, null);
+		db.delete(HISTORY_TABLE, ID+"=" + examId, null);
 	}
 
 	public List<AlarmClock> getList() {
@@ -192,16 +180,16 @@ public class HistoryDAO {
 	}
 
 	public void truncate(){
-		db.delete(TABLE, null, null);
+		db.delete(HISTORY_TABLE, null, null);
 	}
 
 
 	public Cursor query(long examId){
-		return db.query(TABLE, COLUMNS, "_id=" + examId, null, null, null,null);
+		return db.query(HISTORY_TABLE, HISTORY_COLUMNS, "_id=" + examId, null, null, null,null);
 	}
 
 	public Cursor getRecords(){
-		return db.rawQuery("SELECT * FROM "+ TABLE + " ORDER BY " + NAME, null);
+		return db.rawQuery("SELECT * FROM "+ HISTORY_TABLE + " ORDER BY " + NAME, null);
 	}
 }
 

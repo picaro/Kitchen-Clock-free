@@ -33,12 +33,12 @@ import com.op.kclock.model.*;
 import com.op.kclock.misc.*;
 import com.op.kclock.cookconst.*;
 
-public class AlarmClockDAO {
+public class DBHelper {
 	SQLiteDatabase db;	
 	Context context;
 	DatabaseHelper dbHelper;
 	static final String DB_NAME="DB_KCLOCK";
-	static final String TABLE="ALARM";
+	static final String ALARM_TABLE="ALARM";
 	
 	public static final String ID="id";
 	public static final String NAME="alarmname";
@@ -50,11 +50,9 @@ public class AlarmClockDAO {
 	public static final String DATEADD="dateadd";
 	public static final String USAGECNT="usagecnt";
 	
-	public static String[] COLUMNS = new String[] { ID, NAME, SECONDS,INITSECONDS,STATE,PINNED,ACTIVE,DATEADD, USAGECNT };
+	public static String[] ALARM_COLUMNS = new String[] { ID, NAME, SECONDS,INITSECONDS,STATE,PINNED,ACTIVE,DATEADD, USAGECNT };
 
-//	static final int DB_VERSION=3;
-
-	public AlarmClockDAO(Context context) {
+	public DBHelper(Context context) {
 		this.context=context;
 		this.dbHelper=new DatabaseHelper(context);
 	}
@@ -67,7 +65,7 @@ public class AlarmClockDAO {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE IF NOT EXISTS " +
-					TABLE + " ("+ 
+					ALARM_TABLE + " ("+ 
 					ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
 					NAME+" TEXT NOT NULL," +
 					SECONDS+" INTEGER NOT NULL, " +
@@ -79,16 +77,30 @@ public class AlarmClockDAO {
 		     		STATE+" INTEGER NOT NULL"		
 					+")"
 			);
+			
+			db.execSQL("CREATE TABLE IF NOT EXISTS " +
+					   HISTORY_TABLE + " ("+ 
+					   ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+					   NAME+" TEXT NOT NULL," +
+					   SECONDS+" INTEGER NOT NULL, " +
+					   INITSECONDS+" INTEGER NOT NULL, " +
+					   PINNED+" INTEGER NOT NULL, " +
+					   ACTIVE +" INTEGER NOT NULL, " +
+					   DATEADD+" INTEGER NOT NULL, " +
+					   USAGECNT+" INTEGER NOT NULL, " +
+					   STATE+" INTEGER NOT NULL"		
+					   +")"
+					   );
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d("DbTool.onUpgrade", "old:"+oldVersion+" new:"+newVersion);
 			if(db.getVersion()==1){
-				db.execSQL("ALTER TABLE " + TABLE + " RENAME TO tmp_"+ TABLE);
+				db.execSQL("ALTER TABLE " + ALARM_TABLE + " RENAME TO tmp_"+ ALARM_TABLE);
 				onCreate(db);
 				db.execSQL("INSERT INTO " +
-						TABLE + "("+ 
+						ALARM_TABLE + "("+ 
 						NAME +", " +
 						STATE +", " +
 						SECONDS  +") " +
@@ -96,11 +108,11 @@ public class AlarmClockDAO {
 						NAME+", " +
 						STATE +", " +
 						SECONDS + " " +
-						"FROM tmp_" + TABLE
+						"FROM tmp_" + ALARM_TABLE
 				);
-				db.execSQL("DROP TABLE IF EXISTS tmp_"+TABLE);
+				db.execSQL("DROP TABLE IF EXISTS tmp_"+ALARM_TABLE);
 			}else{
-				db.execSQL("DROP TABLE IF EXISTS "+TABLE);
+				db.execSQL("DROP TABLE IF EXISTS "+ALARM_TABLE);
 				onCreate(db);
 			}
 		}
@@ -113,7 +125,7 @@ public class AlarmClockDAO {
 		dbHelper.close();
 	}
 
-	public void insert(AlarmClock record){
+	public void insertAlarm(AlarmClock record){
 		ContentValues values = new ContentValues();
 		values.put(NAME,  record.getName()== null? "alarm":  record.getName());
 		values.put(STATE, record.getState().toString());
@@ -123,10 +135,10 @@ public class AlarmClockDAO {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
-		db.insert(TABLE, null, values);
+		db.insert(ALARM_TABLE, null, values);
 	}
 
-	public void update(AlarmClock record){
+	public void updateAlarm(AlarmClock record){
 		ContentValues values = new ContentValues();
 		values.put(NAME, record.getName());
 		values.put(STATE, record.getState().toString());
@@ -136,11 +148,11 @@ public class AlarmClockDAO {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
-		db.update(TABLE, values, ID+"="+record.getId(), null);
+		db.update(ALARM_TABLE, values, ID+"="+record.getId(), null);
 	}
 
-	public void delete(long examId){
-		db.delete(TABLE, ID+"=" + examId, null);
+	public void deleteAlarm(long examId){
+		db.delete(ALARM_TABLE, ID+"=" + examId, null);
 	}
 
 	public List<AlarmClock> getAlarmsList() {
@@ -148,17 +160,17 @@ public class AlarmClockDAO {
 
 		open();
 		List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
-		cursor = getRecords();
+		cursor = getAlarmRecords();
 		if (cursor.moveToFirst()) {
 			do {
-			int idColIndex = cursor.getColumnIndex(AlarmClockDAO.ID);
-			int nameColIndex = cursor.getColumnIndex(AlarmClockDAO.NAME);
-			int seconds = cursor.getColumnIndex(AlarmClockDAO.SECONDS);
-			int initSeconds = cursor.getColumnIndex(AlarmClockDAO.INITSECONDS);
-			int pinned = cursor.getColumnIndex(AlarmClockDAO.PINNED);
-			int active = cursor.getColumnIndex(AlarmClockDAO.ACTIVE);
-			int dateadd = cursor.getColumnIndex(AlarmClockDAO.DATEADD);
-			int usagecnt = cursor.getColumnIndex(AlarmClockDAO.USAGECNT);
+			int idColIndex = cursor.getColumnIndex(DBHelper.ID);
+			int nameColIndex = cursor.getColumnIndex(DBHelper.NAME);
+			int seconds = cursor.getColumnIndex(DBHelper.SECONDS);
+			int initSeconds = cursor.getColumnIndex(DBHelper.INITSECONDS);
+			int pinned = cursor.getColumnIndex(DBHelper.PINNED);
+			int active = cursor.getColumnIndex(DBHelper.ACTIVE);
+			int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
+			int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
 			//int state = cursor.getColumnIndex(DbTool.STATE);
 			AlarmClock alarm = new AlarmClock(context);
 			alarm.setId(cursor.getInt(idColIndex));
@@ -187,17 +199,17 @@ public class AlarmClockDAO {
 		return alarmList;
 	}
 
-	public void truncate(){
-		db.delete(TABLE, null, null);
+	public void truncateAlarms(){
+		db.delete(ALARM_TABLE, null, null);
 	}
 
 
-	public Cursor query(long examId){
-		return db.query(TABLE, COLUMNS, "_id=" + examId, null, null, null,null);
+	public Cursor queryAlarm(long examId){
+		return db.query(ALARM_TABLE, ALARM_COLUMNS, "_id=" + examId, null, null, null,null);
 	}
 
-	public Cursor getRecords(){
-		return db.rawQuery("SELECT * FROM "+ TABLE + " ORDER BY " + NAME, null);
+	public Cursor getAlarmRecords(){
+		return db.rawQuery("SELECT * FROM "+ ALARM_TABLE + " ORDER BY " + NAME, null);
 	}
 }
 

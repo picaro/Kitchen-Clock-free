@@ -36,7 +36,7 @@ public class PresetsActivity extends Activity {
 		presetDAO.close();			
 		
 		
-		LinearLayout logsList = (LinearLayout)findViewById(R.id.presets_list);
+		LinearLayout logsList = (LinearLayout)findViewById(R.id.logs_list);
 		HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 		historyDAO.open();
 		List<AlarmClock> histories = presetDAO.getList();
@@ -46,6 +46,11 @@ public class PresetsActivity extends Activity {
 			logsList.addView(preset);
 			
 		}
+		
+				TextView preset = new TextView(getApplicationContext());
+			preset.setText("-");
+			logsList.addView(preset);
+		
 		historyDAO.close();
 	}
 
