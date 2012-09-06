@@ -64,7 +64,6 @@ import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DBHelper;
-import com.op.kclock.utils.HistoryDAO;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
@@ -396,17 +395,16 @@ public class MainActivity extends Activity implements OnClickListener,
 		if (mPrefs.getBoolean(
 				getApplicationContext()
 						.getString(R.string.pref_savesession_key), true)) {
-			DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
-			alarmClockDAO.open();
+			DBHelper dbHelper = new DBHelper(getApplicationContext());
+			dbHelper.open();
 			// select min alarm and make caller
-			alarmClockDAO.truncateAlarms();
-			HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
+			dbHelper.truncateAlarms();
+			//HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 			for (AlarmClock alarm : alarmList) {
-				alarmClockDAO.insertAlarm(alarm);
-				historyDAO.insertHistory(alarm);
+				dbHelper.insertAlarm(alarm);
+				dbHelper.insertHistory(alarm);
 			}
-			historyDAO.close();
-			alarmClockDAO.close();
+			dbHelper.close();
 		}
 		alarmList.clear();
 		Log.d(TAG, "MainActivity: onDestroy()");
@@ -632,7 +630,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
 				alarm.alarmSTOP();
-			HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
+			DBHelper historyDAO = new DBHelper(getApplicationContext());
 			historyDAO.open();
 			historyDAO.insertHistory(alarm);
 		//	 historyDAO.c
@@ -680,10 +678,10 @@ public class MainActivity extends Activity implements OnClickListener,
 							@Override
 							public void onAnimationEnd(Animation arg0) {
 								alarmList.remove(alarm);
-									HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
-			historyDAO.open();
-			historyDAO.insertHistory(alarm);
-			historyDAO.close();
+								DBHelper dbHelper = new DBHelper(getApplicationContext());
+			dbHelper.open();
+			dbHelper.insertHistory(alarm);
+			dbHelper.close();
 		
 								if (alarm.getState().equals(
 										AlarmClock.TimerState.ALARMING))
