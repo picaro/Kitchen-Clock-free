@@ -68,6 +68,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		AlarmClock alarm = (AlarmClock)historyMap.get(v);
 		Intent mainActivity = new Intent(this, MainActivity.class);
 		//mainActivity.
+		mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(mainActivity);
 
 	}
