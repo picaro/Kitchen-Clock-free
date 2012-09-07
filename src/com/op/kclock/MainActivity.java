@@ -347,6 +347,16 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		if (this.getIntent() != null)
+		{AlarmClock alarm = (AlarmClock) this.getIntent().getParcelableExtra("alarm_extra");
+	if(alarm!= null){
+		alarm.setElement(null);
+	alarm.setTime(553);
+	alarm.setState(AlarmClock.TimerState.PAUSED);
+	addAlarm(alarm);
+	}}
+	
 		WakeUpLock.acquire(this);
 		if (alarmList.size() == 0) {
 			if (mPrefs.getBoolean(
@@ -443,15 +453,16 @@ public class MainActivity extends Activity implements OnClickListener,
 
 
 	private void addAlarm(AlarmClock newAlarm) {
-		if (newAlarm.getElement() == null) {
+	//	if (newAlarm.getElement() == null) {
 			drawAlarm(newAlarm);
 			alarmList.add(newAlarm);
-		}
+	//	}
 	}
 
 	private LinearLayout drawAlarm(AlarmClock alarm) {
 		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
 		boolean isnew = false;
+		Log.e("dd","drawalarm");
 		if (alarm.getElement() == null) {
 			isnew = true;
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -470,10 +481,11 @@ public class MainActivity extends Activity implements OnClickListener,
 								LayoutParams.WRAP_CONTENT));
 			}
 		}
-
+	Log.e("dd","drawalarm2");
 		alarm.updateElement();
 		alarm.getElement().setOnClickListener(this);
-
+	Log.e("dd","drawalarme3");
+	
 		if (!mPrefs.getBoolean(
 				getApplicationContext().getString(R.string.pref_shownames_key),
 				false)) {
@@ -481,7 +493,7 @@ public class MainActivity extends Activity implements OnClickListener,
 					.getChildAt(0);
 			widgetLbl.setVisibility(View.INVISIBLE);
 		}
-
+	Log.e("dd","drawalarm4");
 
 		if (alarm.getState() == AlarmClock.TimerState.STOPPED) {
 			if (mPrefs.getBoolean(

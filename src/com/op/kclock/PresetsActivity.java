@@ -69,8 +69,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		Intent mainActivity = new Intent(this, MainActivity.class);
 		//mainActivity.
 		mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		mainActivity.putExtra("name_of_extra", alarm);
-		//MyParcelable myParcelableObject = (MyParcelable) i.getParcelableExtra("name_of_extra");
+		mainActivity.putExtra("alarm_extra", alarm);
 		startActivity(mainActivity);
 
 	}
