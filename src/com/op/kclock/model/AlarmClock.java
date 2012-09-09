@@ -176,6 +176,12 @@ public class AlarmClock implements Parcelable {
 		mNotificationManager = (NotificationManager) context
 				.getSystemService(ns);
 	}
+	
+	public void setContext(Context _context) {
+		context = _context;
+		mNotificationManager = (NotificationManager) context
+				.getSystemService(ns);
+	}
 
 	public void updateElement() {
 		if (element != null) {

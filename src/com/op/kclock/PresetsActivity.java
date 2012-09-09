@@ -41,7 +41,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		String name = (alarm.getName() == null || alarm.getName().length() == 0)?
 		"alarm-":alarm.getName(); 	
 		preset.setText(name + "-" + alarm.toString());
-			presetsList.addView(preset);
+			presetsList.addView(preset,0);
 		}
 		
 		
@@ -55,18 +55,21 @@ public class PresetsActivity extends Activity implements OnClickListener {
 			history.setBackgroundColor(Color.GRAY);
 			history.setTextSize(24);
 			history.setOnClickListener(this);
-			logsList.addView(history);
+			logsList.addView(history,0);
 			historyMap.put(history,alarm);
 		}
 		
 		
 		dbHelper.close();
+		Intent mainActivity = new Intent(this, MainActivity.class);
+		if (mainActivity.getExtras() != null) mainActivity.putExtra("alarm_extra", "");
 	}
 
 	@Override
 	public void onClick(View v) {
 		AlarmClock alarm = (AlarmClock)historyMap.get(v);
 		Intent mainActivity = new Intent(this, MainActivity.class);
+
 		//mainActivity.
 		mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivity.putExtra("alarm_extra", alarm);

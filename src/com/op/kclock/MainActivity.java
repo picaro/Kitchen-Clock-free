@@ -68,7 +68,6 @@ import com.op.kclock.utils.DBHelper;
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
 
-
 	private TimePickDialog timePickDialog = null;
 	public final static String TAG = "AlarmaClockActivity";
 	private static NotificationManager mNotificationManager;
@@ -76,8 +75,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	private ActionBar actionBar;
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
 
-	
-	//ACTIONBAR actions
+	// ACTIONBAR actions
 	private Action settingsButtonAction;
 	private Action delallAction;
 	private Action addButtonAction;
@@ -87,7 +85,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private Handler handler;
 	private Thread thread;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -133,8 +131,9 @@ public class MainActivity extends Activity implements OnClickListener,
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 		notification();
-		
-		AlarmSingleServiceImpl alarmService = new AlarmSingleServiceImpl(this, handler,alarmList);
+
+		AlarmSingleServiceImpl alarmService = new AlarmSingleServiceImpl(this,
+				handler, alarmList);
 		if (thread == null) {
 			thread = new Thread(alarmService);
 			thread.start();
@@ -144,19 +143,19 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void initActionBar() {
 		actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle(getApplicationContext().getString(R.string.app_name));
+		actionBar
+				.setTitle(getApplicationContext().getString(R.string.app_name));
 
-		settingsButtonAction = new IntentAction(this, new Intent(
-				this, SettingsActivity.class),
-				R.drawable.ic_menu_preferences);
-		presetsButtonAction = new IntentAction(this, new Intent(
-				this, PresetsActivity.class),
-				R.drawable.ic_menu_list);
+		settingsButtonAction = new IntentAction(this, new Intent(this,
+				SettingsActivity.class), R.drawable.ic_menu_preferences);
+		presetsButtonAction = new IntentAction(this, new Intent(this,
+				PresetsActivity.class), R.drawable.ic_menu_list);
 		delallAction = new Action() {
 			@Override
 			public void performAction(View view) {
-				deleteAllAlarms();
+				deleteAllAlarms(true);
 			}
+
 			@Override
 			public int getDrawable() {
 				return R.drawable.ic_menu_delete;
@@ -195,43 +194,41 @@ public class MainActivity extends Activity implements OnClickListener,
 				return R.drawable.ic_menu_play;
 			}
 		};
-				
-		
-		
-		
-		if (mPrefs.getBoolean(
-				getApplicationContext()
-						.getString(R.string.pref_showaddbtn_key), true)) {
+
+		if (mPrefs
+				.getBoolean(
+						getApplicationContext().getString(
+								R.string.pref_showaddbtn_key), true)) {
 			actionBar.addAction(addButtonAction);
-		}	
+		}
 		if (mPrefs.getBoolean(
 				getApplicationContext()
 						.getString(R.string.pref_showsettbtn_key), false)) {
 			actionBar.addAction(settingsButtonAction);
 		}
-		if (mPrefs.getBoolean(
-				getApplicationContext()
-						.getString(R.string.pref_showdelall_key), false)) {
+		if (mPrefs
+				.getBoolean(
+						getApplicationContext().getString(
+								R.string.pref_showdelall_key), false)) {
 			actionBar.addAction(delallAction);
 		}
-	    if (mPrefs.getBoolean(
-				getApplicationContext()
-						.getString(R.string.pref_showrefreshbtn_key), false)) {
+		if (mPrefs.getBoolean(
+				getApplicationContext().getString(
+						R.string.pref_showrefreshbtn_key), false)) {
 			actionBar.addAction(refreshButtonAction);
 		}
-	    if (mPrefs.getBoolean(
-				getApplicationContext()
-						.getString(R.string.pref_showpresetsbtn_key), true)) {
+		if (mPrefs.getBoolean(
+				getApplicationContext().getString(
+						R.string.pref_showpresetsbtn_key), true)) {
 			actionBar.addAction(presetsButtonAction);
 		}
-	    if (mPrefs.getBoolean(
+		if (mPrefs.getBoolean(
 				getApplicationContext()
 						.getString(R.string.pref_showplaybtn_key), true)) {
 			actionBar.addAction(runAllButtonAction);
 		}
-	    
-	}
 
+	}
 
 	public void appendAddButton() {
 		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
@@ -240,7 +237,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				R.layout.alarm_incl, null);
 		TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
 		txtView.setText(R.string.add);
-	//	itemView.setId(121212);
+		// itemView.setId(121212);
 
 		if (!mPrefs.getBoolean(
 				getApplicationContext()
@@ -317,14 +314,14 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		}
 	}
-	
 
 	protected void runAllTimers() {
 		for (AlarmClock alarm : alarmList) {
-			if (alarm.getState() != AlarmClock.TimerState.ALARMING && alarm.getTime() > 0) {
+			if (alarm.getState() != AlarmClock.TimerState.ALARMING
+					&& alarm.getTime() > 0) {
 				alarm.setState(TimerState.RUNNING);
 			}
-		}		
+		}
 	}
 
 	// Store the instance of an object
@@ -347,16 +344,28 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		if (this.getIntent() != null)
-		{AlarmClock alarm = (AlarmClock) this.getIntent().getParcelableExtra("alarm_extra");
-	if(alarm!= null){
-		alarm.setElement(null);
-	alarm.setTime(553);
-	alarm.setState(AlarmClock.TimerState.PAUSED);
-	addAlarm(alarm);
-	}}
-	
+
+		if (this.getIntent() != null) {
+			AlarmClock alarm = (AlarmClock) this.getIntent()
+					.getParcelableExtra("alarm_extra");
+			if (alarm != null) {
+				
+				boolean needAdd = true;
+				for (AlarmClock calarm : alarmList) {
+					if (calarm.getId() == alarm.getId()){
+						needAdd = false;
+						break;
+					}
+				}
+				if (needAdd){
+					alarm.setElement(null);
+					alarm.setContext(getApplicationContext());
+					deleteAllAlarms(false);
+					addAlarm(alarm);
+				}
+			}
+		}
+
 		WakeUpLock.acquire(this);
 		if (alarmList.size() == 0) {
 			if (mPrefs.getBoolean(
@@ -372,7 +381,8 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (isTimerActive()) WakeUpLock.release();
+		if (isTimerActive())
+			WakeUpLock.release();
 		Log.d(TAG, "MainActivity: onPause()");
 	}
 
@@ -381,7 +391,7 @@ public class MainActivity extends Activity implements OnClickListener,
 			if (alarm.getState() != AlarmClock.TimerState.RUNNING) {
 				return true;
 			}
-		}		
+		}
 		return false;
 	}
 
@@ -409,10 +419,10 @@ public class MainActivity extends Activity implements OnClickListener,
 			dbHelper.open();
 			// select min alarm and make caller
 			dbHelper.truncateAlarms();
-			//HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
+			// HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 			for (AlarmClock alarm : alarmList) {
 				dbHelper.insertAlarm(alarm);
-				dbHelper.insertHistory(alarm);
+				if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
 			}
 			dbHelper.close();
 		}
@@ -436,14 +446,15 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private void drawAlarms() {
-		//sort
-		String sortType = mPrefs.getString(getApplicationContext()
-				.getString(R.string.pref_sortlist_key), "unsorted");
-		if(sortType.equals("runnedfirst")) {
-			AlarmClock.ActiveFirstComparator comparator = new AlarmClock.ActiveFirstComparator();			
+		// sort
+		String sortType = mPrefs.getString(
+				getApplicationContext().getString(R.string.pref_sortlist_key),
+				"unsorted");
+		if (sortType.equals("runnedfirst")) {
+			AlarmClock.ActiveFirstComparator comparator = new AlarmClock.ActiveFirstComparator();
 			Collections.sort(alarmList, comparator);
-		} else if (sortType.equals("smallfirst")){
-			AlarmClock.NearestActiveFirstComparator comparator = new AlarmClock.NearestActiveFirstComparator();			
+		} else if (sortType.equals("smallfirst")) {
+			AlarmClock.NearestActiveFirstComparator comparator = new AlarmClock.NearestActiveFirstComparator();
 			Collections.sort(alarmList, comparator);
 		}
 		for (AlarmClock alarm : alarmList) {
@@ -451,41 +462,38 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 	}
 
-
 	private void addAlarm(AlarmClock newAlarm) {
-	//	if (newAlarm.getElement() == null) {
-			drawAlarm(newAlarm);
-			alarmList.add(newAlarm);
-	//	}
+		// if (newAlarm.getElement() == null) {
+		drawAlarm(newAlarm);
+		alarmList.add(newAlarm);
+		// }
 	}
 
 	private LinearLayout drawAlarm(AlarmClock alarm) {
 		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
 		boolean isnew = false;
-		Log.e("dd","drawalarm");
+		Log.e("dd", "drawalarm");
 		if (alarm.getElement() == null) {
 			isnew = true;
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 			LinearLayout itemView = (LinearLayout) inflater.inflate(
 					R.layout.alarm_incl, null);
 			alarm.setElement(itemView);
-			mainL.addView(alarm.getElement(),//mainL.getChildCount() - 1
+			mainL.addView(alarm.getElement(),// mainL.getChildCount() - 1
 					new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
 							LayoutParams.WRAP_CONTENT));
 			TextViewWithMenu textView = (TextViewWithMenu) (alarm.getWidget());
 			textView.setAlarm(alarm);
 		} else {
-			if(alarm.getElement().getParent() == null) {
-				mainL.addView(alarm.getElement(),
-						new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
-								LayoutParams.WRAP_CONTENT));
+			if (alarm.getElement().getParent() == null) {
+				mainL.addView(alarm.getElement(), new TableLayout.LayoutParams(
+						LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 			}
 		}
-	Log.e("dd","drawalarm2");
 		alarm.updateElement();
 		alarm.getElement().setOnClickListener(this);
-	Log.e("dd","drawalarme3");
-	
+		Log.e("dd", "drawalarme3");
+
 		if (!mPrefs.getBoolean(
 				getApplicationContext().getString(R.string.pref_shownames_key),
 				false)) {
@@ -493,20 +501,19 @@ public class MainActivity extends Activity implements OnClickListener,
 					.getChildAt(0);
 			widgetLbl.setVisibility(View.INVISIBLE);
 		}
-	Log.e("dd","drawalarm4");
+		Log.e("dd", "drawalarm4");
 
 		if (alarm.getState() == AlarmClock.TimerState.STOPPED) {
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
 							R.string.pref_autostart_key), true)) {
-				if (alarm.getState() != AlarmClock.TimerState.PAUSED && alarm.getTime() > 0) {
-					alarm.setState(
-							AlarmClock.TimerState.RUNNING);
+				if (alarm.getState() != AlarmClock.TimerState.PAUSED
+						&& alarm.getTime() > 0) {
+					alarm.setState(AlarmClock.TimerState.RUNNING);
 				}
 
 			} else {
-				alarm.setState(
-						AlarmClock.TimerState.PAUSED);
+				alarm.setState(AlarmClock.TimerState.PAUSED);
 			}
 		}
 
@@ -516,14 +523,13 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		updateAlarmSize(alarm);
 
-
 		return alarm.getElement();
 	}
 
 	private void updateAlarmSize(AlarmClock alarm) {
 		int width = getWindowManager().getDefaultDisplay().getWidth();
 		alarm.getWidget().setTextSize(width / 8);
-		((TextView)alarm.getElement().getChildAt(0)).setTextSize(width / 24);
+		((TextView) alarm.getElement().getChildAt(0)).setTextSize(width / 24);
 	}
 
 	// ON-CLICK
@@ -535,21 +541,20 @@ public class MainActivity extends Activity implements OnClickListener,
 					.getChildAt(1);
 			if (tvTimer == v) {
 				if (alarm.getState() == AlarmClock.TimerState.RUNNING) {
-					alarm.setState(
-							AlarmClock.TimerState.PAUSED);
+					alarm.setState(AlarmClock.TimerState.PAUSED);
 				} else if (alarm.getState() == AlarmClock.TimerState.PAUSED) {
-					alarm.setState(
-							AlarmClock.TimerState.RUNNING);
+					alarm.setState(AlarmClock.TimerState.RUNNING);
 				} else if (alarm.getState() == AlarmClock.TimerState.ALARMING) {
 					alarm.alarmSTOP();
 				}
 				break;
 			}
 		}
-		
-		String sortType = mPrefs.getString(getApplicationContext()
-										   .getString(R.string.pref_sortlist_key), "unsorted");
-		if(sortType != "unsorted"){
+
+		String sortType = mPrefs.getString(
+				getApplicationContext().getString(R.string.pref_sortlist_key),
+				"unsorted");
+		if (sortType != "unsorted") {
 			LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
 			mainL.removeAllViews();
 			this.drawAlarms();
@@ -591,7 +596,7 @@ public class MainActivity extends Activity implements OnClickListener,
 			return true;
 		}
 		case R.id.menu_delete_all: {
-			deleteAllAlarms();
+			deleteAllAlarms(true);
 			return true;
 		}
 		case R.id.menu_exit: {
@@ -637,18 +642,18 @@ public class MainActivity extends Activity implements OnClickListener,
 	// ============================================================
 	// ==================== END MENUS ===============================
 	// ============================================================
-	private void deleteAllAlarms() {
+	private void deleteAllAlarms(boolean allowDialog) {
 
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
 				alarm.alarmSTOP();
-			DBHelper historyDAO = new DBHelper(getApplicationContext());
-			historyDAO.open();
-			historyDAO.insertHistory(alarm);
-		//	 historyDAO.c
-			historyDAO.close();
-			alarm.setState(	AlarmClock.TimerState.STOPPED);
-			alarm.getElement().setVisibility(View.GONE);
+			//DBHelper historyDAO = new DBHelper(getApplicationContext());
+			//historyDAO.open();
+			//historyDAO.insertHistory(alarm);
+			//historyDAO.close();
+			alarm.setState(AlarmClock.TimerState.STOPPED);
+			
+			if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getId() > 0) {
 				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
 				alarmClockDAO.open();
@@ -658,25 +663,24 @@ public class MainActivity extends Activity implements OnClickListener,
 			alarm.setElement(null); // TODO clean!
 		}
 		alarmList.clear();
-		if (mPrefs.getBoolean(
+		if (allowDialog && mPrefs.getBoolean(
 				getApplicationContext().getString(
 						R.string.pref_addalarmonstart_key), true)) {
 			addAlarmDialog();
 		}
 
 	}
-	
+
 	private void refreshAllAlarms() {
 		for (final AlarmClock alarm : alarmList) {
-			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)){
-				alarm.alarmSTOP();			
+			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) {
+				alarm.alarmSTOP();
 			}
-			alarm.setState(
-				AlarmClock.TimerState.PAUSED);
+			alarm.setState(AlarmClock.TimerState.PAUSED);
 			alarm.restart();
 			alarm.updateElement();
 		}
-		
+
 	}
 
 	private void deleteAlarm(final TextViewWithMenu text) {
@@ -690,18 +694,21 @@ public class MainActivity extends Activity implements OnClickListener,
 							@Override
 							public void onAnimationEnd(Animation arg0) {
 								alarmList.remove(alarm);
-								DBHelper dbHelper = new DBHelper(getApplicationContext());
-			dbHelper.open();
-			dbHelper.insertHistory(alarm);
-			dbHelper.close();
-		
+								DBHelper dbHelper = new DBHelper(
+										getApplicationContext());
+								dbHelper.open();
+								if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
+								dbHelper.close();
+
 								if (alarm.getState().equals(
 										AlarmClock.TimerState.ALARMING))
 									alarm.alarmSTOP();
-								alarm.setState(	AlarmClock.TimerState.STOPPED);
-								if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
+								alarm.setState(AlarmClock.TimerState.STOPPED);
+								if (alarm.getElement() != null)
+									alarm.getElement().setVisibility(View.GONE);
 								if (alarm.getId() > 0) {
-									DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
+									DBHelper alarmClockDAO = new DBHelper(
+											getApplicationContext());
 									alarmClockDAO.open();
 									alarmClockDAO.deleteAlarm(alarm.getId());
 									alarmClockDAO.close();
@@ -796,43 +803,43 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		} else if (key.equals("pref_showdelall_key")) {
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_showdelall_key), false)) {
+					getApplicationContext().getString(
+							R.string.pref_showdelall_key), false)) {
 				actionBar.addAction(delallAction);
 			} else {
-				actionBar.removeAction(delallAction);				
+				actionBar.removeAction(delallAction);
 			}
 		} else if (key.equals("pref_showaddbtn_key")) {
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_showaddbtn_key), false)) {
+					getApplicationContext().getString(
+							R.string.pref_showaddbtn_key), false)) {
 				actionBar.addAction(addButtonAction);
 			} else {
-				actionBar.removeAction(addButtonAction);				
+				actionBar.removeAction(addButtonAction);
 			}
-		}  else if (key.equals("pref_showrefreshbtn_key")) {
+		} else if (key.equals("pref_showrefreshbtn_key")) {
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_showrefreshbtn_key), false)) {
+					getApplicationContext().getString(
+							R.string.pref_showrefreshbtn_key), false)) {
 				actionBar.addAction(refreshButtonAction);
 			} else {
-				actionBar.removeAction(refreshButtonAction);				
+				actionBar.removeAction(refreshButtonAction);
 			}
-		}  else if (key.equals("pref_showpresetsbtn_key")) {
+		} else if (key.equals("pref_showpresetsbtn_key")) {
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_showpresetsbtn_key), false)) {
+					getApplicationContext().getString(
+							R.string.pref_showpresetsbtn_key), false)) {
 				actionBar.addAction(presetsButtonAction);
 			} else {
-				actionBar.removeAction(presetsButtonAction);				
+				actionBar.removeAction(presetsButtonAction);
 			}
-		}  else if (key.equals("pref_showplaybtn_key")) {
+		} else if (key.equals("pref_showplaybtn_key")) {
 			if (mPrefs.getBoolean(
-					getApplicationContext()
-							.getString(R.string.pref_showplaybtn_key), false)) {
+					getApplicationContext().getString(
+							R.string.pref_showplaybtn_key), false)) {
 				actionBar.addAction(runAllButtonAction);
 			} else {
-				actionBar.removeAction(runAllButtonAction);				
+				actionBar.removeAction(runAllButtonAction);
 			}
 		}
 	}
