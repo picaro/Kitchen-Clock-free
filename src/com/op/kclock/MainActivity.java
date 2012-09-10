@@ -103,26 +103,8 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
-		} else if (alarmList.size() == 0) {
-			if (mPrefs.getBoolean(
-					getApplicationContext().getString(
-							R.string.pref_savesession_key), true)) {
-				Log.d(TAG, "db read true!!");
-				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
-				alarmList = alarmClockDAO.getAlarmsList();
-				alarmClockDAO.close();
-			}
-		}
-
-		if (alarmList.size() > 0) {
-			drawAlarms();
-		} else {
-			if (mPrefs.getBoolean(
-					getApplicationContext().getString(
-							R.string.pref_addalarmonstart_key), true)) {
-				addAlarmDialog();
-			}
-		}
+		} 
+		
 
 		Log.d("oo", "start");
 
@@ -338,13 +320,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Log.d(TAG, "MainActivity: onStart()");
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-
+		
 		if (this.getIntent() != null) {
 			AlarmClock alarm = (AlarmClock) this.getIntent()
 					.getParcelableExtra("alarm_extra");
@@ -365,6 +341,34 @@ public class MainActivity extends Activity implements OnClickListener,
 				}
 			}
 		}
+		
+		if (alarmList.size() > 0) {
+			if (mPrefs.getBoolean(
+					getApplicationContext().getString(
+							R.string.pref_savesession_key), true)) {
+				Log.d(TAG, "db read true!!");
+				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
+				alarmList = alarmClockDAO.getAlarmsList();
+				alarmClockDAO.close();
+			}
+
+			drawAlarms();
+		} else {
+			if (mPrefs.getBoolean(
+					getApplicationContext().getString(
+							R.string.pref_addalarmonstart_key), true)) {
+				addAlarmDialog();
+			}
+		}
+
+		Log.d(TAG, "MainActivity: onStart()");
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+
 
 		WakeUpLock.acquire(this);
 		if (alarmList.size() == 0) {
