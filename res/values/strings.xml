@@ -114,8 +114,8 @@
     <string name="pref_showhr">Show hours in picker</string>
     <string name="pref_showhr_summary_on">Hours in picker on</string>
     <string name="pref_showhr_summary_off">Hours in picker off</string>
-    <string name="pref_simmetricpick">Simmetrical pickers</string>
-    <string name="pref_simmetricpick_summary_on">simmetrical</string>
+    <string name="pref_simmetricpick">Symmetrical pickers</string>
+    <string name="pref_simmetricpick_summary_on">symmetrical</string>
     <string name="pref_simmetricpick_summary_off">minutes bigger</string>
     <string name="pref_autostart">Autostart timers</string>
     <string name="pref_autostart_summary_on">autostart on</string>
