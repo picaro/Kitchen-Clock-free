@@ -71,7 +71,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		Intent mainActivity = new Intent(this, MainActivity.class);
 
 		//mainActivity.
-		mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	//	mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivity.putExtra("alarm_extra", alarm);
 		startActivity(mainActivity);
 
