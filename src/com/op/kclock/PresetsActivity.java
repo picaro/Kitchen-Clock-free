@@ -61,17 +61,13 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		
 		
 		dbHelper.close();
-		Intent mainActivity = new Intent(this, MainActivity.class);
-		if (mainActivity.getExtras() != null) mainActivity.putExtra("alarm_extra", "");
 	}
 
 	@Override
 	public void onClick(View v) {
 		AlarmClock alarm = (AlarmClock)historyMap.get(v);
 		Intent mainActivity = new Intent(this, MainActivity.class);
-
-		//mainActivity.
-	//	mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivity.putExtra("alarm_extra", alarm);
 		startActivity(mainActivity);
 

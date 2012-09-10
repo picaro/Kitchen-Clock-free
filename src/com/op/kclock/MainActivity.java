@@ -343,6 +343,9 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 		
 		if (alarmList.size() > 0) {
+
+			drawAlarms();
+		} else {
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
 							R.string.pref_savesession_key), true)) {
@@ -352,8 +355,6 @@ public class MainActivity extends Activity implements OnClickListener,
 				alarmClockDAO.close();
 			}
 
-			drawAlarms();
-		} else {
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
 							R.string.pref_addalarmonstart_key), true)) {
@@ -426,7 +427,6 @@ public class MainActivity extends Activity implements OnClickListener,
 			// HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 			for (AlarmClock alarm : alarmList) {
 				dbHelper.insertAlarm(alarm);
-				if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
 			}
 			dbHelper.close();
 		}
@@ -648,24 +648,21 @@ public class MainActivity extends Activity implements OnClickListener,
 	// ============================================================
 	private void deleteAllAlarms(boolean allowDialog) {
 
+		DBHelper dbHelper = new DBHelper(getApplicationContext());
+		dbHelper.open();
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
 				alarm.alarmSTOP();
-			//DBHelper historyDAO = new DBHelper(getApplicationContext());
-			//historyDAO.open();
-			//historyDAO.insertHistory(alarm);
-			//historyDAO.close();
 			alarm.setState(AlarmClock.TimerState.STOPPED);
 			
 			if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getId() > 0) {
-				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
-				alarmClockDAO.open();
-				alarmClockDAO.deleteAlarm(alarm.getId());
-				alarmClockDAO.close();
+				if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
+				dbHelper.deleteAlarm(alarm.getId());
 			}
 			alarm.setElement(null); // TODO clean!
 		}
+		dbHelper.close();
 		alarmList.clear();
 		if (allowDialog && mPrefs.getBoolean(
 				getApplicationContext().getString(
