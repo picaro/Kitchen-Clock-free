@@ -686,7 +686,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void deleteAlarm(final TextViewWithMenu text) {
 		for (final AlarmClock alarm : alarmList) {
-			if (alarm.getElement().getChildAt(1) == (TextViewWithMenu) text) {
+			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text) {
 				// final AlarmClock falarm = alarm;
 				Animation hyperspaceJump = AnimationUtils.loadAnimation(this,
 						R.anim.hsjump);

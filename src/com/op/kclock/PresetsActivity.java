@@ -22,7 +22,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 	private List<AlarmClock> histories  = null;
 	private List<AlarmClock> presets = null;
-	private Map<TextView, AlarmClock> historyMap = new HashMap<TextView, AlarmClock>();
+	private Map<View, AlarmClock> historyMap = new HashMap<View, AlarmClock>();
 	
 	
 	@Override
@@ -31,7 +31,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.presets);
 		LinearLayout presetsList = (LinearLayout)findViewById(R.id.presets_list);
-	//	LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		
 		DBHelper dbHelper = new DBHelper(getApplicationContext());
 		dbHelper.open();
@@ -49,14 +49,21 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		histories = dbHelper.getHistoryList();
 		for(AlarmClock alarm : histories){
 			String name = (alarm.getName() == null || alarm.getName().length() == 0)?
-					"alarm-":alarm.getName(); 	
-			TextView history = new TextView(getApplicationContext());
-			history.setText(name + "-"+alarm.toString());
-			history.setBackgroundColor(Color.GRAY);
-			history.setTextSize(24);
-			history.setOnClickListener(this);
-			logsList.addView(history,0);
-			historyMap.put(history,alarm);
+					"alarm":alarm.getName(); 	
+//			TextView history = new TextView(getApplicationContext());
+//			history.setText(name + "-"+alarm.toString());
+//			history.setBackgroundColor(Color.GRAY);
+//			history.setTextSize(24);
+			
+			View convertView = inflater.inflate(R.layout.hist_unit, null);
+            TextView tvName = (TextView) convertView.findViewById(R.id.name);
+            TextView tvTime = (TextView) convertView.findViewById(R.id.time);
+            tvName.setText(name);
+            tvTime.setText(alarm.toString());
+			convertView.setOnClickListener(this);
+
+            logsList.addView(convertView,0);
+			historyMap.put(convertView,alarm);
 		}
 		
 		
