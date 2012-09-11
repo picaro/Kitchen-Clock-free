@@ -66,6 +66,10 @@ public class PresetsActivity extends Activity implements OnClickListener {
 			historyMap.put(convertView,alarm);
 		}
 		
+		Intent mainActivity = new Intent(this, MainActivity.class);
+	//	mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		mainActivity.putExtra("alarm_extra", "");
+
 		
 		dbHelper.close();
 	}
@@ -74,7 +78,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		AlarmClock alarm = (AlarmClock)historyMap.get(v);
 		Intent mainActivity = new Intent(this, MainActivity.class);
-		mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	//	mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivity.putExtra("alarm_extra", alarm);
 		startActivity(mainActivity);
 

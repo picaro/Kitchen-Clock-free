@@ -114,6 +114,47 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		notification();
 
+		if (this.getIntent() != null) {
+			AlarmClock alarm = (AlarmClock) this.getIntent()
+					.getParcelableExtra("alarm_extra");
+			if (alarm != null) {
+				
+				boolean needAdd = true;
+				for (AlarmClock calarm : alarmList) {
+					if (calarm.getId() == alarm.getId()){
+						needAdd = false;
+						break;
+					}
+				}
+				if (needAdd){
+					alarm.setElement(null);
+					alarm.setContext(getApplicationContext());
+					deleteAllAlarms(false);
+					addAlarm(alarm);
+				}
+			}
+		}
+		
+		if (alarmList.size() > 0) {
+
+			drawAlarms();
+		} else {
+			if (mPrefs.getBoolean(
+					getApplicationContext().getString(
+							R.string.pref_savesession_key), true)) {
+				Log.d(TAG, "db read true!!");
+				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
+				alarmList = alarmClockDAO.getAlarmsList();
+				alarmClockDAO.close();
+			}
+
+			if (mPrefs.getBoolean(
+					getApplicationContext().getString(
+							R.string.pref_addalarmonstart_key), true)) {
+				addAlarmDialog();
+			}
+		}
+		
 		AlarmSingleServiceImpl alarmService = new AlarmSingleServiceImpl(this,
 				handler, alarmList);
 		if (thread == null) {
@@ -321,46 +362,6 @@ public class MainActivity extends Activity implements OnClickListener,
 	protected void onStart() {
 		super.onStart();
 		
-		if (this.getIntent() != null) {
-			AlarmClock alarm = (AlarmClock) this.getIntent()
-					.getParcelableExtra("alarm_extra");
-			if (alarm != null) {
-				
-				boolean needAdd = true;
-				for (AlarmClock calarm : alarmList) {
-					if (calarm.getId() == alarm.getId()){
-						needAdd = false;
-						break;
-					}
-				}
-				if (needAdd){
-					alarm.setElement(null);
-					alarm.setContext(getApplicationContext());
-					deleteAllAlarms(false);
-					addAlarm(alarm);
-				}
-			}
-		}
-		
-		if (alarmList.size() > 0) {
-
-			drawAlarms();
-		} else {
-			if (mPrefs.getBoolean(
-					getApplicationContext().getString(
-							R.string.pref_savesession_key), true)) {
-				Log.d(TAG, "db read true!!");
-				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
-				alarmList = alarmClockDAO.getAlarmsList();
-				alarmClockDAO.close();
-			}
-
-			if (mPrefs.getBoolean(
-					getApplicationContext().getString(
-							R.string.pref_addalarmonstart_key), true)) {
-				addAlarmDialog();
-			}
-		}
 
 		Log.d(TAG, "MainActivity: onStart()");
 	}
@@ -653,13 +654,13 @@ public class MainActivity extends Activity implements OnClickListener,
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
 				alarm.alarmSTOP();
-			alarm.setState(AlarmClock.TimerState.STOPPED);
 			
 			if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getId() > 0) {
 				if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
 				dbHelper.deleteAlarm(alarm.getId());
 			}
+			alarm.setState(AlarmClock.TimerState.STOPPED);
 			alarm.setElement(null); // TODO clean!
 		}
 		dbHelper.close();
