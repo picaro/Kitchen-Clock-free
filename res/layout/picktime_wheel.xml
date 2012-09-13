@@ -10,13 +10,16 @@
 
 			<kankan.wheel.widget.WheelView android:id="@+id/hour"
 				android:layout_height="wrap_content"
+				android:gravity="center"
 				android:layout_width="70dp"
 				/>
 			<kankan.wheel.widget.WheelView android:id="@+id/mins"
 				android:layout_height="wrap_content"
+				android:gravity="center"
 				android:layout_width="120dp"/>
 			<kankan.wheel.widget.WheelView android:id="@+id/secs"
 				android:layout_height="wrap_content"
+				android:gravity="center"
 				android:layout_width="50dp"/>
 		</LinearLayout>	
 	

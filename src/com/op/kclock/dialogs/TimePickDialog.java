@@ -52,8 +52,6 @@ public class TimePickDialog extends Dialog {
 	private AlarmClock alarm = null;
 	private OnMyDialogResult mDialogResult; // the callback
 
-	public static boolean isDialogShowed = false;
-
 	private SharedPreferences mPrefs;
 
 	private INumberPicker hours;
@@ -71,7 +69,7 @@ public class TimePickDialog extends Dialog {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		isDialogShowed = true;
+		//isDialogShowed = true;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.picktime);
 
@@ -148,7 +146,7 @@ public class TimePickDialog extends Dialog {
 
 			
 			mDialogResult.finish(alarm);
-			isDialogShowed = false;
+			//isDialogShowed = false;
 			dismiss();
 		}
 
@@ -240,7 +238,7 @@ public class TimePickDialog extends Dialog {
 
 	View.OnClickListener cancelHandler = new View.OnClickListener() {
 		public void onClick(View v) {
-			isDialogShowed = false;
+			//isDialogShowed = false;
 			dismiss();
 		}
 	};
@@ -260,7 +258,7 @@ public class TimePickDialog extends Dialog {
 
 	@Override
 	public void cancel() {
-		isDialogShowed = false;
+		//isDialogShowed = false;
 		super.cancel();
 	}
 	
