@@ -193,6 +193,9 @@ public class TimePickDialog extends Dialog {
 					secslbl.setVisibility(View.GONE);
 				}
 		
+				TextView minslbl =  (TextView) findViewById(R.id.minslbl);
+				TextView secslbl =  (TextView) findViewById(R.id.secslbl);
+				TextView hrlbl =  (TextView) findViewById(R.id.hourslbl);
 				if (mPrefs.getBoolean(
 						getContext().getString(R.string.pref_simmetricpick_key),
 						true)) {
@@ -203,6 +206,20 @@ public class TimePickDialog extends Dialog {
 					hours.setLayoutParams(lp);
 					mins.setLayoutParams(lp);
 					secs.setLayoutParams(lp);
+					minslbl.setLayoutParams(lp);
+					secslbl.setLayoutParams(lp);
+					hrlbl.setLayoutParams(lp);
+				} else {
+					ViewGroup.LayoutParams lp = (LayoutParams) minslbl
+							.getLayoutParams();
+					lp.width = 120;
+					minslbl.setLayoutParams(lp);
+					lp = (LayoutParams) secslbl.getLayoutParams();
+					lp.width = 50;
+					secslbl.setLayoutParams(lp);
+					lp = (LayoutParams) hrlbl.getLayoutParams();
+					lp.width = 70;
+					hrlbl.setLayoutParams(lp);					
 				}
 		
 			}

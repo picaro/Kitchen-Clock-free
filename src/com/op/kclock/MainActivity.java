@@ -68,6 +68,9 @@ import com.op.kclock.utils.DBHelper;
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
 
+	private static final String SMALLFIRST = "smallfirst";
+	private static final String UNSORTED = "unsorted";
+	private static final String RUNNEDFIRST = "runnedfirst";
 	private TimePickDialog timePickDialog = null;
 	public final static String TAG = "AlarmaClockActivity";
 	private static NotificationManager mNotificationManager;
@@ -84,7 +87,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	private Action runAllButtonAction;
 
 	private Handler handler;
-	private Thread thread;
+	private static Thread thread;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -105,8 +108,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		} 
 		
 
-		Log.d("oo", "start");
-
+		Log.d(TAG, "start");
 		WakeUpLock.acquire(this);
 
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -140,10 +142,11 @@ public class MainActivity extends Activity implements OnClickListener,
 		} else {
 			if (mPrefs.getBoolean(
 					getApplicationContext().getString(
-							R.string.pref_savesession_key), true)) {
+							R.string.pref_savesession_key), false)) {
 				Log.d(TAG, "db read true!!");
 				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
 				alarmList = alarmClockDAO.getAlarmsList();
+				drawAlarms();
 				alarmClockDAO.close();
 			}
 
@@ -156,7 +159,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		
 		AlarmSingleServiceImpl alarmService = new AlarmSingleServiceImpl(this,
 				handler, alarmList);
-		if (thread == null) {
+		if (thread == null || (thread != null && thread.getState() != Thread.State.RUNNABLE)) {
 			thread = new Thread(alarmService);
 			thread.start();
 		}
@@ -453,11 +456,11 @@ public class MainActivity extends Activity implements OnClickListener,
 		// sort
 		String sortType = mPrefs.getString(
 				getApplicationContext().getString(R.string.pref_sortlist_key),
-				"unsorted");
-		if (sortType.equals("runnedfirst")) {
+				UNSORTED);
+		if (sortType.equals(RUNNEDFIRST)) {
 			AlarmClock.ActiveFirstComparator comparator = new AlarmClock.ActiveFirstComparator();
 			Collections.sort(alarmList, comparator);
-		} else if (sortType.equals("smallfirst")) {
+		} else if (sortType.equals(SMALLFIRST)) {
 			AlarmClock.NearestActiveFirstComparator comparator = new AlarmClock.NearestActiveFirstComparator();
 			Collections.sort(alarmList, comparator);
 		}
@@ -467,10 +470,12 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private void addAlarm(AlarmClock newAlarm) {
-		// if (newAlarm.getElement() == null) {
-		drawAlarm(newAlarm);
-		alarmList.add(newAlarm);
-		// }
+		if (newAlarm.getElement() == null) {
+			drawAlarm(newAlarm);
+			if(newAlarm.getElement() != null){
+				alarmList.add(newAlarm);			
+			}
+		}
 	}
 
 	private LinearLayout drawAlarm(AlarmClock alarm) {
@@ -527,6 +532,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		updateAlarmSize(alarm);
 
+		if (alarm.getElement() == null) throw new IllegalArgumentException();
 		return alarm.getElement();
 	}
 
@@ -557,8 +563,8 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		String sortType = mPrefs.getString(
 				getApplicationContext().getString(R.string.pref_sortlist_key),
-				"unsorted");
-		if (sortType != "unsorted") {
+				UNSORTED);
+		if (sortType != UNSORTED) {
 			LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
 			mainL.removeAllViews();
 			this.drawAlarms();
@@ -655,12 +661,13 @@ public class MainActivity extends Activity implements OnClickListener,
 				alarm.alarmSTOP();
 			
 			if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
+			if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
 			if (alarm.getId() > 0) {
-				if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
 				dbHelper.deleteAlarm(alarm.getId());
 			}
 			alarm.setState(AlarmClock.TimerState.STOPPED);
 			alarm.setElement(null); // TODO clean!
+			alarm.setTime(-1);
 		}
 		dbHelper.close();
 		alarmList.clear();
@@ -685,6 +692,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private void deleteAlarm(final TextViewWithMenu text) {
+		AlarmClock nalarm = null;
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text) {
 				// final AlarmClock falarm = alarm;
@@ -713,7 +721,9 @@ public class MainActivity extends Activity implements OnClickListener,
 									alarmClockDAO.open();
 									alarmClockDAO.deleteAlarm(alarm.getId());
 									alarmClockDAO.close();
+									
 								}
+								alarm.setTime(-1);
 								alarm.setElement(null); // TODO clean!
 								// mainL.removeView(((LinearLayout)alarm.getElement()
 
@@ -729,17 +739,25 @@ public class MainActivity extends Activity implements OnClickListener,
 						});
 
 				alarm.getElement().startAnimation(hyperspaceJump);
-
+				
 				break;
 			}
 		}
 	}
 	
 	
-
+//************************** GET SET *************************
 	public TimePickDialog getTimePickDialog() {
 		return timePickDialog;
 	}
+	
+	
+	public List<AlarmClock> getAlarmList() {
+		return alarmList;
+	}
+	
+//************************* end Getters Setters ************
+
 
 	private void addAlarmDialog() {
 		if (timePickDialog == null || (timePickDialog != null && !timePickDialog.isShowing())){
@@ -759,13 +777,6 @@ public class MainActivity extends Activity implements OnClickListener,
 				newAlarm.updateElement();
 				if (newAlarm.getState() == AlarmClock.TimerState.STOPPED) {
 					drawAlarm(newAlarm);
-					// newAlarm.setState(getApplicationContext(),
-					// AlarmClock.TimerState.RUNNING);
-					// AlarmService alarmService = new
-					// AlarmServiceImpl(MainActivity.this, handler);
-					// alarmService.setAlarmClock(newAlarm);
-					// new Thread(alarmService).start();
-
 				}
 			}
 		});

@@ -192,6 +192,12 @@ public class DBHelper {
 			} while (cursor.moveToNext());
 		} else
 			Log.d(MainActivity.TAG, "0 rows");
+		
+		if (alarmList.size() > 5){
+			this.deleteHistory(alarmList.get(0).getId());
+			alarmList.remove(0);
+		}
+
 		close();
 		return alarmList;
 	}
