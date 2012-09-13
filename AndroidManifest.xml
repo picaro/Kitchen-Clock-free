@@ -41,7 +41,7 @@ android:installLocation="auto"
  </activity>
         
     </application>
-    
+   
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.INJECT_EVENTS"/>

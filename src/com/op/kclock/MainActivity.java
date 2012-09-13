@@ -96,7 +96,6 @@ public class MainActivity extends Activity implements OnClickListener,
 				.getApplicationContext());
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
 
-		TimePickDialog.isDialogShowed = false;
 		// Eula.show(this);
 		// Changelog.show(this);
 		initActionBar();
@@ -313,7 +312,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		for (AlarmClock alarm : alarmList) {
 			updateAlarmSize(alarm);
 		}
-		if (TimePickDialog.isDialogShowed && timePickDialog != null) {
+		if (timePickDialog != null && timePickDialog.isShowing()) {
 			LinearLayout subscr = (LinearLayout) timePickDialog
 					.findViewById(R.id.pick_text);
 			if (height < 500) {
@@ -737,8 +736,9 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private void addAlarmDialog() {
-		if (!TimePickDialog.isDialogShowed)
+		if (timePickDialog == null || (timePickDialog != null && !timePickDialog.isShowing())){
 			setAlarmDialog(null);
+		}
 	}
 
 	private void setAlarmDialog(AlarmClock alarm) {
