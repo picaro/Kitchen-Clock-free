@@ -734,6 +734,12 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		}
 	}
+	
+	
+
+	public TimePickDialog getTimePickDialog() {
+		return timePickDialog;
+	}
 
 	private void addAlarmDialog() {
 		if (timePickDialog == null || (timePickDialog != null && !timePickDialog.isShowing())){
