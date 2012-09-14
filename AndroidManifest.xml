@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.op.kclock"
 android:installLocation="auto"
-    android:versionCode="5"
-    android:versionName="1.4" >
+    android:versionCode="6"
+    android:versionName="1.5" >
 
     <uses-sdk
         android:minSdkVersion="3"
@@ -44,5 +44,5 @@ android:installLocation="auto"
    
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<uses-permission android:name="android.permission.INJECT_EVENTS"/>
+	<!--  uses-permission android:name="android.permission.INJECT_EVENTS"/-->
 </manifest>
