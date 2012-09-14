@@ -49,6 +49,7 @@ public class TimePickDialog extends Dialog {
 	private static final int SCROLL_SPEED = 50;
 	private static final int SECONDS_IN_HOUR = 3600;
 	private static final int MAX_MINUTE_OR_SECOND = 59;
+	private int dialogWidth = 250;
 	private AlarmClock alarm = null;
 	private OnMyDialogResult mDialogResult; // the callback
 
@@ -201,14 +202,17 @@ public class TimePickDialog extends Dialog {
 						true)) {
 					ViewGroup.LayoutParams lp = (LayoutParams) hours
 							.getLayoutParams();
-					lp.width = 110;
-					// lp.height = 10;
+					lp.width = dialogWidth/3;
+						// lp.height = 10;
 					hours.setLayoutParams(lp);
 					mins.setLayoutParams(lp);
 					secs.setLayoutParams(lp);
-					minslbl.setLayoutParams(lp);
-					secslbl.setLayoutParams(lp);
-					hrlbl.setLayoutParams(lp);
+					ViewGroup.LayoutParams lp2 = (LayoutParams) minslbl
+							.getLayoutParams();
+					lp2.width = (dialogWidth/3);
+					minslbl.setLayoutParams(lp2);
+					secslbl.setLayoutParams(lp2);
+					hrlbl.setLayoutParams(lp2);
 				} else {
 					ViewGroup.LayoutParams lp = (LayoutParams) minslbl
 							.getLayoutParams();
