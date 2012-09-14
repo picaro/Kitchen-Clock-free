@@ -8,7 +8,7 @@
     <string name="stop">stop</string>
     <string name="changelog_title">Changelog</string>
     
-    <string name="alarm_name">input name</string>
+    <string name="alarm_name">alarm name</string>
     
 
     <!-- Eula -->
@@ -165,5 +165,12 @@
     <string name="pref_sorttype_smallfirst">nearest first</string>
     <string name="pref_sortlist">Sorting</string>
     <string name="pref_sortlist_summary">alarms list sort type</string>
+    
+	<string name="preset_list_empty">Preset list empty</string>
+    <string name="presets_saved">Presets saved in</string>
+    <string name="presets">Presets</string>
+    <string name="delete_preset_title">Delete all presets?</string>
+    <string name="delete_preset_message">Are you sure want to delete all presets?</string>
+    <string name="logs">History</string>
     
 </resources>
