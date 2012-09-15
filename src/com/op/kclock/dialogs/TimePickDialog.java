@@ -145,9 +145,11 @@ public class TimePickDialog extends Dialog {
 			alarm.setTime(seconds);
 			
 
-			
-			mDialogResult.finish(alarm);
+			AlarmClock alarmT = alarm;
+			alarm = null;
+			mDialogResult.finish(alarmT);
 			//isDialogShowed = false;
+			
 			dismiss();
 		}
 
