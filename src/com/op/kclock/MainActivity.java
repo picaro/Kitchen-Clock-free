@@ -474,7 +474,17 @@ public class MainActivity extends Activity implements OnClickListener,
 			drawAlarm(newAlarm);
 			if(newAlarm.getElement() != null){
 				alarmList.add(newAlarm);			
+				String sortType = mPrefs.getString(
+						getApplicationContext().getString(R.string.pref_sortlist_key),
+						UNSORTED);
+				if (sortType != UNSORTED) {
+					LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+					mainL.removeAllViews();
+					drawAlarms();
+				}
 			}
+			
+
 		}
 	}
 
@@ -860,6 +870,16 @@ public class MainActivity extends Activity implements OnClickListener,
 			} else {
 				actionBar.removeAction(runAllButtonAction);
 			}
+		} else if (key.equals("pref_sortlist_key")) {
+							String sortType = mPrefs.getString(
+						getApplicationContext().getString(R.string.pref_sortlist_key),
+						UNSORTED);
+				if (sortType != UNSORTED) {
+					LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+					mainL.removeAllViews();
+					drawAlarms();
+				}
+				
 		}
 	}
 
