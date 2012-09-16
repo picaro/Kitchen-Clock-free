@@ -68,9 +68,9 @@ import com.op.kclock.utils.DBHelper;
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
 
-	private static final String SMALLFIRST = "smallfirst";
-	private static final String UNSORTED = "unsorted";
-	private static final String RUNNEDFIRST = "runnedfirst";
+	public static final String SMALLFIRST = "smallfirst";
+	public static final String UNSORTED = "unsorted";
+	public static final String RUNNEDFIRST = "runnedfirst";
 	private TimePickDialog timePickDialog = null;
 	public final static String TAG = "AlarmaClockActivity";
 	private static NotificationManager mNotificationManager;
