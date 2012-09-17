@@ -548,7 +548,12 @@ public class MainActivity extends Activity implements OnClickListener,
 	private void updateAlarmSize(AlarmClock alarm) {
 		int width = getWindowManager().getDefaultDisplay().getWidth();
 //		alarm.getWidget().setTextSize(width / 8);
-	//	alarm.getWidget().getst
+		final float densityMultiplier = getContext().getResources().getDisplayMetrics().density;
+		Paint paint = new Paint();
+		final float scaledPx = 20 * densityMultiplier;
+		paint.setTextSize(scaledPx);
+		final float size = paint.measureText("00:00:00");
+		
 		((TextView) alarm.getElement().getChildAt(0)).setTextSize(width / 24);
 	}
 
