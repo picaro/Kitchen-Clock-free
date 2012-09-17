@@ -31,7 +31,7 @@
         android:paddingRight="7dp"
         android:text="00:00:00"
         android:textColor="@color/white"
-        style="@android:style/TextAppearance.Large"
+        android:textSize="50sp"
         android:textStyle="bold"
         android:typeface="sans" />
 
