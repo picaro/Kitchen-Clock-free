@@ -64,6 +64,7 @@ import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DBHelper;
+import android.graphics.*;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
@@ -548,12 +549,14 @@ public class MainActivity extends Activity implements OnClickListener,
 	private void updateAlarmSize(AlarmClock alarm) {
 		int width = getWindowManager().getDefaultDisplay().getWidth();
 //		alarm.getWidget().setTextSize(width / 8);
-		final float densityMultiplier = getContext().getResources().getDisplayMetrics().density;
+		final float densityMultiplier = getApplicationContext().getResources().getDisplayMetrics().density;
 		Paint paint = new Paint();
-		final float scaledPx = 20 * densityMultiplier;
+		final float scaledPx = 66 * densityMultiplier;
 		paint.setTextSize(scaledPx);
 		final float size = paint.measureText("00:00:00");
-		
+		int coef = (int)(width/ size);
+		alarm.getWidget().setTextSize((int)(66*(width/ size)-10));
+	
 		((TextView) alarm.getElement().getChildAt(0)).setTextSize(width / 24);
 	}
 
