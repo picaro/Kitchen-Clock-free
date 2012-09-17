@@ -262,7 +262,6 @@ public class MainActivity extends Activity implements OnClickListener,
 				R.layout.alarm_incl, null);
 		TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
 		txtView.setText(R.string.add);
-		// itemView.setId(121212);
 
 		if (!mPrefs.getBoolean(
 				getApplicationContext()
@@ -548,7 +547,8 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void updateAlarmSize(AlarmClock alarm) {
 		int width = getWindowManager().getDefaultDisplay().getWidth();
-		alarm.getWidget().setTextSize(width / 8);
+//		alarm.getWidget().setTextSize(width / 8);
+	//	alarm.getWidget().getst
 		((TextView) alarm.getElement().getChildAt(0)).setTextSize(width / 24);
 	}
 
@@ -595,9 +595,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenu.ContextMenuInfo menuInfo) {
 		MenuInflater inflater = getMenuInflater();
-		if (v.getId() == 2) {
-
-		}
+		
 		inflater.inflate(R.menu.alarm_context, menu);
 		super.onCreateContextMenu(menu, v, menuInfo);
 
@@ -620,13 +618,11 @@ public class MainActivity extends Activity implements OnClickListener,
 			return true;
 		}
 		case R.id.menu_exit: {
-			// mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID);
 			mNotificationManager.cancelAll();
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.addCategory(Intent.CATEGORY_HOME);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
-			// onStop();
 			finish();
 		}
 
@@ -677,7 +673,7 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 			alarm.setState(AlarmClock.TimerState.STOPPED);
 			alarm.setElement(null); // TODO clean!
-			alarm.setTime(-1);
+			alarm.setTime(-1);//used for debug. ensure thay deleted
 		}
 		dbHelper.close();
 		alarmList.clear();
@@ -689,6 +685,8 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	}
 
+	/**
+	*/
 	private void refreshAllAlarms() {
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING)) {
@@ -702,7 +700,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private void deleteAlarm(final TextViewWithMenu text) {
-		AlarmClock nalarm = null;
+	//	AlarmClock nalarm = null;
 		for (final AlarmClock alarm : alarmList) {
 			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text) {
 				// final AlarmClock falarm = alarm;
