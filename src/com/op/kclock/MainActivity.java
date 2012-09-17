@@ -65,6 +65,7 @@ import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DBHelper;
 import android.graphics.*;
+import android.media.*;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
@@ -104,9 +105,9 @@ public class MainActivity extends Activity implements OnClickListener,
 		// Changelog.show(this);
 		initActionBar();
 		
-            AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+            AudioManager am = (AudioManager)getSystemService(this.getApplicationContext().AUDIO_SERVICE);
             am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-
+		am.setMode(AudioManager.MODE_NORMAL);
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
 		} 

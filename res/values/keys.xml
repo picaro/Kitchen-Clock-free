@@ -52,5 +52,6 @@
     <string name="pref_showpresetsbtn_key">pref_showpresetsbtn_key</string>
     <string name="pref_showplaybtn_key">pref_showplaybtn_key</string>
     <string name="pref_sortlist_key">pref_sortlist_key</string>
-    	
+    <string name="pref_overridevolume_key">pref_overridevolume_key</string>
+   	
 </resources>

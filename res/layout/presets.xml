@@ -18,11 +18,11 @@
             android:id="@+id/presets_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Presets"
+            android:text="@string/presets"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ScrollView
-            android:id="@+id/scrollView1"
+            android:id="@+id/scrollViewPreset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -47,11 +47,11 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log"
+            android:text="@string/logs"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/scrollViewLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 

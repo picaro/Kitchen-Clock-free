@@ -31,16 +31,16 @@ public class SettingsActivity extends PreferenceActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setVolumeControlStream(AudioManager.STREAM_NOTIFICATION);
-		addPreferencesFromResource(R.xml.settings);
+		addPreferencesFromResource(R.xml.settings_lite);
 
 		// mPrefs =
 		// PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
 
-		String version;
+		String version = "0";
 		try {
 			PackageInfo pi = getPackageManager().getPackageInfo(
 					getPackageName(), 0);
-			version = pi.versionName;
+			if (pi != null) version = pi.versionName;
 		} catch (PackageManager.NameNotFoundException e) {
 			Log.e(MainActivity.TAG, "Package name not found", e);
 			version = getString(R.string.pref_info_version_error);
@@ -50,9 +50,11 @@ public class SettingsActivity extends PreferenceActivity implements
 				version);
 
 		ListPreference soundSource = (ListPreference) findPreference(getString(R.string.pref_soundsource_key));
-		soundSource.setOnPreferenceChangeListener(this);
-		soundSourceChanged(soundSource.getValue());
-
+		if (soundSource != null){
+			soundSource.setOnPreferenceChangeListener(this);
+			soundSourceChanged(soundSource.getValue());
+		}
+		
 		ListPreference pickstyle = (ListPreference) findPreference(getString(R.string.pref_pickstyle_key));
 		pickstyle.setOnPreferenceChangeListener(this);
 		dialogTypeChanged(pickstyle.getValue());
