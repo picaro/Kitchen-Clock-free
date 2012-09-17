@@ -103,6 +103,9 @@ public class MainActivity extends Activity implements OnClickListener,
 		// Eula.show(this);
 		// Changelog.show(this);
 		initActionBar();
+		
+            AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+            am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
