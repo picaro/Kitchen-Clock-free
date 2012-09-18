@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.op.kclock.utils.*;
 import com.op.kclock.dialogs.TimePickDialog;
 import android.view.*;
+import com.op.kclock.utils.DBHelper;
 
 public class PresetsActivity extends Activity implements OnClickListener
 {
@@ -60,15 +61,20 @@ public class PresetsActivity extends Activity implements OnClickListener
 					{
 						View p1 = (View)p2.getParent();
 						presetsList.removeView(p1);
-						//presets.remove(
 						for (AlarmClock alarm : presets)
 						{
 							if( alarm.getElement() == p1){
 								presets.remove(alarm);
+								DBHelper dbHelper = new DBHelper(getApplicationContext());
+								dbHelper.open();
+								dbHelper.deletePreset(alarm.getId());
+								dbHelper.close();
 								break;
 							}
 						}
 						historyMap.remove(p1);
+				
+				
 					}
 
 				
