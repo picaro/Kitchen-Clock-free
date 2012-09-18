@@ -6,6 +6,10 @@ import java.util.Map;
 
 import com.op.kclock.model.AlarmClock;
 
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,7 +32,8 @@ public class PresetsActivity extends Activity implements OnClickListener
 	private List<AlarmClock> presets = null;
 	private final Map<View, AlarmClock> historyMap = new HashMap<View, AlarmClock>();
 	//private Map<View, AlarmClock> presetsMap = new HashMap<View, AlarmClock>();
-
+	private GestureDetector gestureDetector;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -139,5 +144,34 @@ public class PresetsActivity extends Activity implements OnClickListener
 
 	}
 
+	
+	class MyGestureDetector extends SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+			Intent intent = new Intent(PresetsActivity.this.getBaseContext(), MainActivity.class);
+
+            if (Math.abs(e1.getY() - e2.getY()) > MainActivity.SWIPE_MAX_OFF_PATH) {
+                return false;
+            }
+
+            // left to right swipe
+			if (e2.getX() - e1.getX() > MainActivity.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > MainActivity.SWIPE_THRESHOLD_VELOCITY) {
+			 startActivity(intent);
+			 PresetsActivity.this.overridePendingTransition(
+			 R.anim.slide_in_left, 
+			 R.anim.slide_out_right
+			 );
+			}
+
+            return false;
+        }
+
+        // It is necessary to return true from onDown for the onFling event to register
+        @Override
+        public boolean onDown(MotionEvent e) {
+			return true;
+        }
+
+    }
 
 }

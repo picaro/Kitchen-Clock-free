@@ -83,9 +83,9 @@ public class MainActivity extends Activity implements OnClickListener,
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
 
 	// fling
-	private static final int SWIPE_MIN_DISTANCE = 120;
-    	private static final int SWIPE_MAX_OFF_PATH = 250;
-    	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+	public static final int SWIPE_MIN_DISTANCE = 120;
+    	public static final int SWIPE_MAX_OFF_PATH = 250;
+    	public static final int SWIPE_THRESHOLD_VELOCITY = 200;
 	private GestureDetector gestureDetector;
 
 	// ACTIONBAR actions
@@ -180,16 +180,20 @@ public class MainActivity extends Activity implements OnClickListener,
 
 
         gestureDetector = new GestureDetector(new MyGestureDetector());
-        View mainview = (View)  findViewById(R.id.mainView);
+        View mainview = findViewById(R.id.mainScroll);
         // Set the touch listener for the main view to be our custom gesture listener
         mainview.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                if (gestureDetector.onTouchEvent(event)) {
+               	Log.d(TAG, "touch");
+				if (gestureDetector.onTouchEvent(event)) {
                     return true;
                 }
+				Log.d(TAG, "no touch");	
                 return false;
             }
         });
+		
+	
         
 	}
 
@@ -297,13 +301,11 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 
 		itemView.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View arg0) {
 				addAlarmDialog();
 
 			}
-
 		});
 		mainL.addView(itemView, new TableLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -517,13 +519,14 @@ public class MainActivity extends Activity implements OnClickListener,
 	private LinearLayout drawAlarm(AlarmClock alarm) {
 		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
 		boolean isnew = false;
-		Log.e("dd", "drawalarm");
+		Log.d(TAG, "drawalarm");
 		if (alarm.getElement() == null) {
 			isnew = true;
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 			LinearLayout itemView = (LinearLayout) inflater.inflate(
 					R.layout.alarm_incl, null);
 			alarm.setElement(itemView);
+			
 			mainL.addView(alarm.getElement(),// mainL.getChildCount() - 1
 					new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
 							LayoutParams.WRAP_CONTENT));
@@ -537,8 +540,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 		alarm.updateElement();
 		alarm.getElement().setOnClickListener(this);
-		Log.e("dd", "drawalarme3");
-
+	
 		if (!mPrefs.getBoolean(
 				getApplicationContext().getString(R.string.pref_shownames_key),
 				false)) {
@@ -546,7 +548,6 @@ public class MainActivity extends Activity implements OnClickListener,
 					.getChildAt(0);
 			widgetLbl.setVisibility(View.INVISIBLE);
 		}
-		Log.e("dd", "drawalarm4");
 
 		if (alarm.getState() == AlarmClock.TimerState.STOPPED) {
 			if (mPrefs.getBoolean(
@@ -945,7 +946,7 @@ public class MainActivity extends Activity implements OnClickListener,
       class MyGestureDetector extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-	        	Intent intent = new Intent(MainActivity.this.getBaseContext(), MainActivity.class);
+	        	Intent intent = new Intent(MainActivity.this.getBaseContext(), PresetsActivity.class);
         	
             if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
                 return false;
@@ -959,13 +960,13 @@ public class MainActivity extends Activity implements OnClickListener,
 						R.anim.slide_out_left
     				);
     			// right to left swipe
-            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+            }  /*else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
     				startActivity(intent);
     				MainActivity.this.overridePendingTransition(
 						R.anim.slide_in_left, 
 						R.anim.slide_out_right
     				);
-            }
+            }*/
 
             return false;
         }
