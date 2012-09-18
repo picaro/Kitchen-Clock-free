@@ -175,6 +175,16 @@
 	<string name="pref_overridevolume">Override volume</string>
     <string name="pref_overridevolume_summary_on">used custom volume</string>	
     <string name="pref_overridevolume_summary_off">used system volume</string>	
+<<<<<<< HEAD
      <string name="addpreset">Add preset</string>
    
+=======
+    <string name="pref_advancedsettings">show advanced settings</string>	
+    <string name="pref_advancedsettings_summary">show additional</string>	
+    <string name="pref_hideadvsettings">hide advanced settings</string>	
+    <string name="pref_hideadvsettings_summary">hide additional</string>	
+    
+    
+    
+>>>>>>> sett_off
 </resources>

@@ -1,6 +1,7 @@
 package com.op.kclock;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 //import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
@@ -21,7 +23,7 @@ public class SettingsActivity extends PreferenceActivity implements
 
 	public static final String SYSTEM_SOUND_VALUE = "system";
 	private static final String WHEEL_DIALOG_VALUE = "wheel";
-	//private SharedPreferences mPrefs;
+	private SharedPreferences mPrefs;
 	public static final String CUSTOM_SOUNDFILE_KEY = "pref_soundfile_key";
 	private static final int REQUEST_PICK_FILE = 4;
 	public static final String v = "soundfile";
@@ -31,11 +33,27 @@ public class SettingsActivity extends PreferenceActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setVolumeControlStream(AudioManager.STREAM_NOTIFICATION);
+<<<<<<< HEAD
 		addPreferencesFromResource(R.xml.settings);
 
 		// mPrefs =
 		// PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
 
+=======
+		
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
+				.getApplicationContext());
+//		if (mPrefs.getBoolean(
+//				getApplicationContext().getString(
+//						R.string.pref_advancedsettings_key), false)) {
+//			addPreferencesFromResource(R.xml.settings);			
+//			final Preference advsett = findPreference(getString(R.string.pref_hideadvsettings_key));
+//		} else {
+//			addPreferencesFromResource(R.xml.settings_lite);
+//			final Preference advsett = findPreference(getString(R.string.pref_advancedsettings_key));
+//		}
+		
+>>>>>>> sett_off
 		String version = "0";
 		try {
 			PackageInfo pi = getPackageManager().getPackageInfo(
@@ -49,24 +67,28 @@ public class SettingsActivity extends PreferenceActivity implements
 		findPreference(getString(R.string.pref_info_version_key)).setSummary(
 				version);
 
-		ListPreference soundSource = (ListPreference) findPreference(getString(R.string.pref_soundsource_key));
+		Preference soundSource = findPreference(getString(R.string.pref_soundsource_key));
 		if (soundSource != null){
 			soundSource.setOnPreferenceChangeListener(this);
-			soundSourceChanged(soundSource.getValue());
+			soundSourceChanged(((ListPreference)soundSource).getValue());
 		}
 		
-		ListPreference pickstyle = (ListPreference) findPreference(getString(R.string.pref_pickstyle_key));
-		pickstyle.setOnPreferenceChangeListener(this);
-		dialogTypeChanged(pickstyle.getValue());
+		Preference pickstyle = findPreference(getString(R.string.pref_pickstyle_key));
+		if (pickstyle != null){ 
+			pickstyle.setOnPreferenceChangeListener(this);
+			dialogTypeChanged(((ListPreference) pickstyle).getValue());
+		}
 
 		Preference syssoundPref = findPreference(getString(R.string.pref_notification_ringtone_key));
-		syssoundPref.setOnPreferenceChangeListener(this);
+		if (syssoundPref != null){ 			
+			syssoundPref.setOnPreferenceChangeListener(this);
+		}
 
-		final EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
-		if (customPref2 != null && customPref2.getText() != null
-				&& customPref2.getText().length() > 0
-				&& customPref2.getText().toCharArray()[0] == '/') {
-			customPref2.setTitle(customPref2.getText());
+		final Preference soundFilePath = findPreference(getString(R.string.pref_soundfile_path_key));
+		if (soundFilePath != null && ((EditTextPreference)soundFilePath).getText() != null
+				&& ((EditTextPreference)soundFilePath).getText().length() > 0
+				&& ((EditTextPreference) soundFilePath).getText().toCharArray()[0] == '/') {
+			((EditTextPreference) soundFilePath).setTitle(((EditTextPreference) soundFilePath).getText());
 		}
 
 		// add onclick for select shader
@@ -80,15 +102,15 @@ public class SettingsActivity extends PreferenceActivity implements
 							Intent fileChooserI = new Intent(
 									SettingsActivity.this,
 									FileChooserActivity.class);
-							if (customPref2 != null
-									&& customPref2.getText() != null
-									&& customPref2.getText().length() > 0
-									&& customPref2.getText().toCharArray()[0] == '/') {
+							if (soundFilePath != null
+									&& ((EditTextPreference) soundFilePath).getText() != null
+									&& ((EditTextPreference) soundFilePath).getText().length() > 0
+									&& ((EditTextPreference) soundFilePath).getText().toCharArray()[0] == '/') {
 								fileChooserI.putExtra(
 										FileChooserActivity.EXTRA_FILE_PATH,
-										customPref2.getText().substring(
+										((EditTextPreference) soundFilePath).getText().substring(
 												0,
-												customPref2.getText()
+												((EditTextPreference) soundFilePath).getText()
 														.lastIndexOf("/")));
 							}
 							startActivityForResult(fileChooserI,

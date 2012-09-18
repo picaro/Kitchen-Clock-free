@@ -26,6 +26,7 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -72,6 +73,7 @@ import android.media.*;
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
 
+	private static final int DEF_TEXT_SIZE = 66;
 	public static final String SMALLFIRST = "smallfirst";
 	public static final String UNSORTED = "unsorted";
 	public static final String RUNNEDFIRST = "runnedfirst";
@@ -113,9 +115,15 @@ public class MainActivity extends Activity implements OnClickListener,
 		// Changelog.show(this);
 		initActionBar();
 		
+<<<<<<< HEAD
             AudioManager am = (AudioManager)getSystemService(this.getApplicationContext().AUDIO_SERVICE);
             //am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 	    //am.setMode(AudioManager.MODE_NORMAL);
+=======
+            AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+            am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+		am.setMode(AudioManager.MODE_NORMAL);
+>>>>>>> sett_off
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
 		} 
@@ -575,16 +583,14 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void updateAlarmSize(AlarmClock alarm) {
 		int width = getWindowManager().getDefaultDisplay().getWidth();
-//		alarm.getWidget().setTextSize(width / 8);
 		final float densityMultiplier = getApplicationContext().getResources().getDisplayMetrics().density;
 		Paint paint = new Paint();
-		final float scaledPx = 66 * densityMultiplier;
+		final float scaledPx = DEF_TEXT_SIZE * densityMultiplier;
 		paint.setTextSize(scaledPx);
 		final float size = paint.measureText("00:00:00");
-		int coef = (int)(width/ size);
-		alarm.getWidget().setTextSize((int)(66*(width/ size)-10));
-	
-		((TextView) alarm.getElement().getChildAt(0)).setTextSize(width / 24);
+		int tsize = (int)(DEF_TEXT_SIZE*(width/ size)-10);
+		alarm.getWidget().setTextSize(tsize);
+		((TextView) alarm.getElement().getChildAt(0)).setTextSize(tsize / 3);
 	}
 
 	// ON-CLICK

@@ -101,8 +101,7 @@ limitations under the License.
         <Preference
             android:key="@string/pref_soundfile_key"
             android:summary="@string/pref_soundfile_summary"
-            android:title="@string/pref_soundfile" >
-        </Preference>
+            android:title="@string/pref_soundfile" />
 
         <VolumePreference
             android:name="Volume Preference"
@@ -131,6 +130,13 @@ limitations under the License.
             android:summaryOff="@string/pref_stoponrotate_summary_off"
             android:summaryOn="@string/pref_stoponrotate_summary_on"
             android:title="@string/pref_stoponrotate" />
-    </PreferenceCategory>
 
+             <Preference
+            android:key="@string/pref_advancedsettings_key"
+            android:summary="@string/pref_advancedsettings_summary"
+            android:title="@string/pref_advancedsettings" />
+        
+        </PreferenceCategory>
+
+    
 </PreferenceScreen>
