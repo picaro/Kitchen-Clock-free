@@ -25,7 +25,7 @@ public class PresetsActivity extends Activity implements OnClickListener
 	/** Called when the activity is first created. */
 	private List<AlarmClock> histories  = null;
 	private List<AlarmClock> presets = null;
-	private Map<View, AlarmClock> historyMap = new HashMap<View, AlarmClock>();
+	private final Map<View, AlarmClock> historyMap = new HashMap<View, AlarmClock>();
 	//private Map<View, AlarmClock> presetsMap = new HashMap<View, AlarmClock>();
 
 	@Override
@@ -34,7 +34,7 @@ public class PresetsActivity extends Activity implements OnClickListener
 		//Bundle savedInstanceState = null;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.presets);
-		LinearLayout presetsList = (LinearLayout)findViewById(R.id.presets_list);
+		final LinearLayout presetsList = (LinearLayout)findViewById(R.id.presets_list);
 		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
 		DBHelper dbHelper = new DBHelper(getApplicationContext());
@@ -54,7 +54,25 @@ public class PresetsActivity extends Activity implements OnClickListener
 			tvTime.setText(alarm.toString());
 			convertView.setOnClickListener(this);
 			final View tvDel = convertView.findViewById(R.id.delpreset);
-   			tvDel.setOnClickListener(null);
+   			tvDel.setOnClickListener(new View.OnClickListener(){
+
+					public void onClick(View p2)
+					{
+						View p1 = (View)p2.getParent();
+						presetsList.removeView(p1);
+						//presets.remove(
+						for (AlarmClock alarm : presets)
+						{
+							if( alarm.getElement() == p1){
+								presets.remove(alarm);
+								break;
+							}
+						}
+						historyMap.remove(p1);
+					}
+
+				
+			});
 			presetsList.addView(convertView, 0);
 			historyMap.put(convertView, alarm);
 
