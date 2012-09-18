@@ -23,6 +23,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	private List<AlarmClock> histories  = null;
 	private List<AlarmClock> presets = null;
 	private Map<View, AlarmClock> historyMap = new HashMap<View, AlarmClock>();
+	private Map<View, AlarmClock> presetsMap = new HashMap<View, AlarmClock>();
 	
 	
 	@Override
@@ -37,11 +38,21 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		dbHelper.open();
 		presets = dbHelper.getPresetsList();
 		for(AlarmClock alarm : presets){
-		TextView preset = new TextView(getApplicationContext());
-		String name = (alarm.getName() == null || alarm.getName().length() == 0)?
-		"alarm-":alarm.getName(); 	
-		preset.setText(name + "-" + alarm.toString());
+			//TextView preset = new TextView(getApplicationContext());
+			//String name = (alarm.getName() == null || alarm.getName().length() == 0)?
+			//"alarm-":alarm.getName(); 	
+			//preset.setText(name + "-" + alarm.toString());
+			
+			String name = (alarm.getName() == null || alarm.getName().length() == 0)?
+					"alarm":alarm.getName(); 	
+			View convertView = inflater.inflate(R.layout.hist_unit, null);
+            		TextView tvName = (TextView) convertView.findViewById(R.id.name);
+            		tvName.setText(name);
+            		TextView tvTime = (TextView) convertView.findViewById(R.id.time);
+            		tvTime.setText(alarm.toString());
+			convertView.setOnClickListener(this);
 			presetsList.addView(preset,0);
+			presetsMap.put(convertView,alarm);
 		}
 		
 		
@@ -50,27 +61,18 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		for(AlarmClock alarm : histories){
 			String name = (alarm.getName() == null || alarm.getName().length() == 0)?
 					"alarm":alarm.getName(); 	
-//			TextView history = new TextView(getApplicationContext());
-//			history.setText(name + "-"+alarm.toString());
-//			history.setBackgroundColor(Color.GRAY);
-//			history.setTextSize(24);
-			
 			View convertView = inflater.inflate(R.layout.hist_unit, null);
-            TextView tvName = (TextView) convertView.findViewById(R.id.name);
-            TextView tvTime = (TextView) convertView.findViewById(R.id.time);
-            tvName.setText(name);
-            tvTime.setText(alarm.toString());
+            		TextView tvName = (TextView) convertView.findViewById(R.id.name);
+            		tvName.setText(name);
+            		TextView tvTime = (TextView) convertView.findViewById(R.id.time);
+            		tvTime.setText(alarm.toString());
 			convertView.setOnClickListener(this);
-
-            logsList.addView(convertView,0);
+            		logsList.addView(convertView,0);
 			historyMap.put(convertView,alarm);
 		}
 		
 		Intent mainActivity = new Intent(this, MainActivity.class);
-	//	mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivity.putExtra("alarm_extra", "");
-
-		
 		dbHelper.close();
 	}
 
