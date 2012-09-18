@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.op.kclock.utils.*;
 import com.op.kclock.dialogs.TimePickDialog;
+import android.view.*;
 
 public class PresetsActivity extends Activity implements OnClickListener {
 
@@ -37,7 +38,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		DBHelper dbHelper = new DBHelper(getApplicationContext());
 		dbHelper.open();
 		presets = dbHelper.getPresetsList();
-		for(AlarmClock alarm : presets){
+		for(final AlarmClock alarm : presets){
 			//TextView preset = new TextView(getApplicationContext());
 			//String name = (alarm.getName() == null || alarm.getName().length() == 0)?
 			//"alarm-":alarm.getName(); 	
@@ -54,12 +55,12 @@ public class PresetsActivity extends Activity implements OnClickListener {
 			presetsList.addView(convertView,0);
 			presetsMap.put(convertView,alarm);
 			
-			convertView.setOnLongClickListener(new OnLongClickListener() { 
+			convertView.setOnLongClickListener(new View.OnLongClickListener() { 
 		        @Override
 		        public boolean onLongClick(View v) {
 		            // TODO Auto-generated method stub
 				TimePickDialog timePickDialog = null;	
-				timePickDialog = new TimePickDialog(MainActivity.this);
+				timePickDialog = new TimePickDialog(PresetsActivity.this);
 				timePickDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				timePickDialog.setAlarm(alarm);
 		
