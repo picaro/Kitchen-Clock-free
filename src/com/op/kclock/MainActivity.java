@@ -659,12 +659,28 @@ public class MainActivity extends Activity implements OnClickListener,
 			setAlarmDialog(text.getAlarm());
 			return true;
 		}
+		case R.id.addpreset: {
+			addPreset(text);
+			return true;
+		}	
 		case R.id.remove: {
 			deleteAlarm(text);
 			return true;
 		}
 		}
 		return super.onContextItemSelected(item);
+	}
+
+	private void addPreset(TextViewWithMenu text)
+	{
+		DBHelper dbHelper = new DBHelper(getApplicationContext());
+		dbHelper.open();
+		for (final AlarmClock alarm : alarmList) {
+			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text) {
+				dbHelper.insertPreset(alarm);
+			}
+		}
+				dbHelper.close();
 	}
 
 	// ============================================================
@@ -679,7 +695,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				alarm.alarmSTOP();
 			
 			if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
-			if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
+			if (alarm.getInitSeconds() > 0) dbHelper.insertHistory(alarm);
 			if (alarm.getId() > 0) {
 				dbHelper.deleteAlarm(alarm.getId());
 			}
@@ -726,7 +742,7 @@ public class MainActivity extends Activity implements OnClickListener,
 								DBHelper dbHelper = new DBHelper(
 										getApplicationContext());
 								dbHelper.open();
-								if (alarm.getTime() > 0) dbHelper.insertHistory(alarm);
+								if (alarm.getInitSeconds() > 0) dbHelper.insertHistory(alarm);
 								dbHelper.close();
 
 								if (alarm.getState().equals(

@@ -175,5 +175,6 @@
 	<string name="pref_overridevolume">Override volume</string>
     <string name="pref_overridevolume_summary_on">used custom volume</string>	
     <string name="pref_overridevolume_summary_off">used system volume</string>	
-    
+     <string name="addpreset">Add preset</string>
+   
 </resources>
