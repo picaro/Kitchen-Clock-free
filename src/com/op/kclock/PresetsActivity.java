@@ -131,6 +131,21 @@ public class PresetsActivity extends Activity implements OnClickListener
 		Intent mainActivity = new Intent(this, MainActivity.class);
 		mainActivity.putExtra("alarm_extra", "");
 		dbHelper.close();
+		
+		
+		 gestureDetector = new GestureDetector(new MyGestureDetector());
+        View mainview = findViewById(R.id.logs_list);
+        // Set the touch listener for the main view to be our custom gesture listener
+        mainview.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+              // 	Log.d(TAG, "touch");
+				if (gestureDetector.onTouchEvent(event)) {
+                    return true;
+                }
+			//	Log.d(TAG, "no touch");	
+                return false;
+            }
+        });
 	}
 
 	@Override
