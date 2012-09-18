@@ -51,7 +51,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
             		TextView tvTime = (TextView) convertView.findViewById(R.id.time);
             		tvTime.setText(alarm.toString());
 			convertView.setOnClickListener(this);
-			presetsList.addView(preset,0);
+			presetsList.addView(convertView,0);
 			presetsMap.put(convertView,alarm);
 		}
 		
