@@ -134,18 +134,21 @@ public class PresetsActivity extends Activity implements OnClickListener
 		
 		
 		 gestureDetector = new GestureDetector(new MyGestureDetector());
-        View mainview = findViewById(R.id.logs_list);
+        View logsScroll = findViewById(R.id.llViewLog);
+		View presetsScroll = findViewById(R.id.llViewPreset);
+
         // Set the touch listener for the main view to be our custom gesture listener
-        mainview.setOnTouchListener(new View.OnTouchListener() {
+		logsScroll.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-              // 	Log.d(TAG, "touch");
-				if (gestureDetector.onTouchEvent(event)) {
-                    return true;
-                }
-			//	Log.d(TAG, "no touch");	
+				if (gestureDetector.onTouchEvent(event)) { return true; }
                 return false;
-            }
-        });
+            }});
+		presetsScroll.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+				if (gestureDetector.onTouchEvent(event)) { return true; }
+                return false;
+            }});
+
 	}
 
 	@Override
@@ -163,7 +166,7 @@ public class PresetsActivity extends Activity implements OnClickListener
 	class MyGestureDetector extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-			Intent intent = new Intent(PresetsActivity.this.getBaseContext(), MainActivity.class);
+			//Intent intent = new Intent(PresetsActivity.this.getBaseContext(), MainActivity.class);
 
             if (Math.abs(e1.getY() - e2.getY()) > MainActivity.SWIPE_MAX_OFF_PATH) {
                 return false;
@@ -171,7 +174,8 @@ public class PresetsActivity extends Activity implements OnClickListener
 
             // left to right swipe
 			if (e2.getX() - e1.getX() > MainActivity.SWIPE_MIN_DISTANCE && Math.abs(velocityX) > MainActivity.SWIPE_THRESHOLD_VELOCITY) {
-			 startActivity(intent);
+			 //startActivity(intent);
+			 PresetsActivity.this.finish();
 			 PresetsActivity.this.overridePendingTransition(
 			 R.anim.slide_in_left, 
 			 R.anim.slide_out_right

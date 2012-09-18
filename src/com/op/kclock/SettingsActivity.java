@@ -33,27 +33,10 @@ public class SettingsActivity extends PreferenceActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setVolumeControlStream(AudioManager.STREAM_NOTIFICATION);
-<<<<<<< HEAD
 		addPreferencesFromResource(R.xml.settings);
 
-		// mPrefs =
-		// PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-
-=======
-		
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
 				.getApplicationContext());
-//		if (mPrefs.getBoolean(
-//				getApplicationContext().getString(
-//						R.string.pref_advancedsettings_key), false)) {
-//			addPreferencesFromResource(R.xml.settings);			
-//			final Preference advsett = findPreference(getString(R.string.pref_hideadvsettings_key));
-//		} else {
-//			addPreferencesFromResource(R.xml.settings_lite);
-//			final Preference advsett = findPreference(getString(R.string.pref_advancedsettings_key));
-//		}
-		
->>>>>>> sett_off
 		String version = "0";
 		try {
 			PackageInfo pi = getPackageManager().getPackageInfo(

@@ -12,7 +12,8 @@
         android:layout_margin="4dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="10dip" >
+        android:padding="10dip" 
+        android:id="@+id/llViewPreset">
 
         <TextView
             android:id="@+id/presets_header"
@@ -41,7 +42,9 @@
         android:layout_margin="3dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="10dip" >
+        android:padding="10dip"
+        android:id="@+id/llViewLog"
+         >
 
         <TextView
             android:id="@+id/textView2"
