@@ -37,6 +37,8 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		
 		DBHelper dbHelper = new DBHelper(getApplicationContext());
 		dbHelper.open();
+		
+		//Show presets list
 		presets = dbHelper.getPresetsList();
 		for(final AlarmClock alarm : presets){
 			//TextView preset = new TextView(getApplicationContext());
@@ -55,10 +57,10 @@ public class PresetsActivity extends Activity implements OnClickListener {
 			presetsList.addView(convertView,0);
 			presetsMap.put(convertView,alarm);
 			
+			// On long click on preset - show edit dialog
 			convertView.setOnLongClickListener(new View.OnLongClickListener() { 
 		        @Override
 		        public boolean onLongClick(View v) {
-		            // TODO Auto-generated method stub
 				TimePickDialog timePickDialog = null;	
 				timePickDialog = new TimePickDialog(PresetsActivity.this);
 				timePickDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -66,9 +68,8 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		
 				timePickDialog.setDialogResult(new TimePickDialog.OnMyDialogResult() {
 					public void finish(AlarmClock newAlarm) {
-						//addAlarm(newAlarm);
-						tvTime.setText(alarm.toString());
-						//newAlarm.updateElement();
+						tvName.setText(name);
+            					tvTime.setText(alarm.toString());
 					}
 				});
 				timePickDialog.show();
@@ -78,7 +79,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
     
 		}
 		
-		
+		// show logs list
 		LinearLayout logsList = (LinearLayout)findViewById(R.id.logs_list);
 		histories = dbHelper.getHistoryList();
 		for(AlarmClock alarm : histories){
