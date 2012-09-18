@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.op.kclock.utils.*;
+import com.op.kclock.dialogs.TimePickDialog;
 
 public class PresetsActivity extends Activity implements OnClickListener {
 
@@ -24,7 +25,6 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	private List<AlarmClock> presets = null;
 	private Map<View, AlarmClock> historyMap = new HashMap<View, AlarmClock>();
 	private Map<View, AlarmClock> presetsMap = new HashMap<View, AlarmClock>();
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,36 @@ public class PresetsActivity extends Activity implements OnClickListener {
 			
 			String name = (alarm.getName() == null || alarm.getName().length() == 0)?
 					"alarm":alarm.getName(); 	
-			View convertView = inflater.inflate(R.layout.hist_unit, null);
-            		TextView tvName = (TextView) convertView.findViewById(R.id.name);
+			final View convertView = inflater.inflate(R.layout.hist_unit, null);
+            		final TextView tvName = (TextView) convertView.findViewById(R.id.name);
             		tvName.setText(name);
-            		TextView tvTime = (TextView) convertView.findViewById(R.id.time);
+            		final TextView tvTime = (TextView) convertView.findViewById(R.id.time);
             		tvTime.setText(alarm.toString());
 			convertView.setOnClickListener(this);
 			presetsList.addView(convertView,0);
 			presetsMap.put(convertView,alarm);
+			
+			convertView.setOnLongClickListener(new OnLongClickListener() { 
+		        @Override
+		        public boolean onLongClick(View v) {
+		            // TODO Auto-generated method stub
+				TimePickDialog timePickDialog = null;	
+				timePickDialog = new TimePickDialog(MainActivity.this);
+				timePickDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				timePickDialog.setAlarm(alarm);
+		
+				timePickDialog.setDialogResult(new TimePickDialog.OnMyDialogResult() {
+					public void finish(AlarmClock newAlarm) {
+						//addAlarm(newAlarm);
+						tvTime.setText(alarm.toString());
+						//newAlarm.updateElement();
+					}
+				});
+				timePickDialog.show();
+				return true;
+		        }
+    			});
+    
 		}
 		
 		
