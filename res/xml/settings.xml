@@ -201,6 +201,11 @@ limitations under the License.
             android:summaryOff="@string/pref_stoponrotate_summary_off"
             android:summaryOn="@string/pref_stoponrotate_summary_on"
             android:title="@string/pref_stoponrotate" />
+        
+         <!-- Preference
+            android:key="@string/pref_advancedsettings_key"
+            android:summary="@string/pref_advancedsettings_summary"
+            android:title="@string/pref_advancedsettings" / -->
     </PreferenceCategory>
 
 </PreferenceScreen>
