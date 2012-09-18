@@ -114,8 +114,8 @@ public class MainActivity extends Activity implements OnClickListener,
 		initActionBar();
 		
             AudioManager am = (AudioManager)getSystemService(this.getApplicationContext().AUDIO_SERVICE);
-            am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-		am.setMode(AudioManager.MODE_NORMAL);
+            //am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+	    //am.setMode(AudioManager.MODE_NORMAL);
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
 		} 
