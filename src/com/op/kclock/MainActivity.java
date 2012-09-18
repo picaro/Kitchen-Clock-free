@@ -50,12 +50,14 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+
 import com.markupartist.android.widget.ActionBar.Action;
 import com.markupartist.android.widget.ActionBar.IntentAction;
 import com.markupartist.android.widget.ActionBar;
 import com.op.kclock.alarm.AlarmSingleServiceImpl;
-//import com.op.kclock.alarm.AlarmService;
-//import com.op.kclock.alarm.AlarmServiceImpl;
 import com.op.kclock.alarm.WakeUpLock;
 import com.op.kclock.cookconst.SettingsConst;
 import com.op.kclock.dialogs.TimePickDialog;
@@ -79,6 +81,12 @@ public class MainActivity extends Activity implements OnClickListener,
 	private SharedPreferences mPrefs;
 	private ActionBar actionBar;
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
+
+	// fling
+	private static final int SWIPE_MIN_DISTANCE = 120;
+    	private static final int SWIPE_MAX_OFF_PATH = 250;
+    	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+	private GestureDetector gestureDetector;
 
 	// ACTIONBAR actions
 	private Action settingsButtonAction;
@@ -169,6 +177,20 @@ public class MainActivity extends Activity implements OnClickListener,
 			thread.start();
 		}
 
+
+
+        gestureDetector = new GestureDetector(new MyGestureDetector());
+        View mainview = (View)  findViewById(R.id.alarm_layout);
+        // Set the touch listener for the main view to be our custom gesture listener
+        mainview.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (gestureDetector.onTouchEvent(event)) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        
 	}
 
 	private void initActionBar() {
@@ -908,7 +930,7 @@ public class MainActivity extends Activity implements OnClickListener,
 				
 		}
 	}
-
+	
 	/**
 	 * Finishes the activity, also closes the various things started by
 	 * onCreate.
@@ -917,5 +939,43 @@ public class MainActivity extends Activity implements OnClickListener,
 	public void finish() {
 		Log.v(TAG, "finish");
 	}
+	
+	
+	
+      class MyGestureDetector extends SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+	        	Intent intent = new Intent(MainActivity.this.getBaseContext(), MainActivity.class);
+        	
+            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
+                return false;
+            }
+            
+            // right to left swipe
+            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+    				startActivity(intent);
+    				MainActivity.this.overridePendingTransition(
+						R.anim.slide_in_right,
+						R.anim.slide_out_left
+    				);
+    			// right to left swipe
+            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+    				startActivity(intent);
+    				MainActivity.this.overridePendingTransition(
+						R.anim.slide_in_left, 
+						R.anim.slide_out_right
+    				);
+            }
+
+            return false;
+        }
+        
+        // It is necessary to return true from onDown for the onFling event to register
+        @Override
+        public boolean onDown(MotionEvent e) {
+	        	return true;
+        }
+
+    }
 
 }
