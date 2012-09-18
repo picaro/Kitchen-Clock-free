@@ -180,7 +180,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 
         gestureDetector = new GestureDetector(new MyGestureDetector());
-        View mainview = (View)  findViewById(R.id.alarm_layout);
+        View mainview = (View)  findViewById(R.id.mainView);
         // Set the touch listener for the main view to be our custom gesture listener
         mainview.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
