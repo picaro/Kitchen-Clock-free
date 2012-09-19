@@ -164,5 +164,8 @@ public class SettingsActivity extends PreferenceActivity implements
 			syssoundPref.setEnabled(false);
 		}
 	}
-
+	
+	public void volumeChanged(Object value) {
+		VolumePreference volumePref = (VolumePreference)findPreference(getString(R.string.pref_volume_key));		
+	}
 }
