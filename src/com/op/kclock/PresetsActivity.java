@@ -159,7 +159,53 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		actionBar
 			.setTitle(getApplicationContext().getString(R.string.app_name));
 	}
-			
+	
+	// ============================================================
+	// ==================== MENUS ===============================
+	// ============================================================
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		new MenuInflater(this).inflate(R.menu.presets_options, menu);
+		return (super.onCreateOptionsMenu(menu));
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_settings: {
+					goSettings();
+					return true;
+
+				}
+			case R.id.menu_add: {
+					//addAlarmDialog();
+					return true;
+				}
+			case R.id.menu_delete_all: {
+					//deleteAllAlarms(true);
+					return true;
+				}
+			case R.id.menu_exit: {
+					//mNotificationManager.cancelAll();
+					Intent intent = new Intent(Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_HOME);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+					finish();
+				}
+
+		}
+		return false;
+	}
+
+	private Intent goSettings() {
+		Intent i3 = new Intent(this, SettingsActivity.class);
+		startActivity(i3);
+		return i3;
+	}
+	//=======
+	
 	@Override
 	public void onClick(View v) {
 		AlarmClock alarm = (AlarmClock) historyMap.get(v);
@@ -202,4 +248,6 @@ public class PresetsActivity extends Activity implements OnClickListener {
 
 	}
 
+	
+	
 }
