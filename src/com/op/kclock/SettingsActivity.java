@@ -9,6 +9,8 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
+//import android.preference.VolumePreference;
+
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -166,6 +168,6 @@ public class SettingsActivity extends PreferenceActivity implements
 	}
 	
 	public void volumeChanged(Object value) {
-		VolumePreference volumePref = (VolumePreference)findPreference(getString(R.string.pref_volume_key));		
+	//	Preference volumePref = (Preference)findPreference(getString(R.string.pref_volume_key));		
 	}
 }

@@ -121,10 +121,15 @@ public class MainActivity extends Activity implements OnClickListener,
 			AudioManager am = (AudioManager)getSystemService(this.getApplicationContext().AUDIO_SERVICE);
             		am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 	    		am.setMode(AudioManager.MODE_NORMAL);
-	    		
+	    
+		int vol = mPrefs.getInt(
+			getApplicationContext().getString(
+				R.string.pref_volume_key), 1);
+		Log.e(TAG,"vol-"+am.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
 	    		// Set the volume of played media to maximum.
-			am.setStreamVolume (AudioManager.STREAM_MUSIC,
-				am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),0);
+		
+	//	am.setStreamVolume(AudioManager.STREAM_NOTIFICATION ,
+		//		am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION)*0+vol,0);
 		}
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
