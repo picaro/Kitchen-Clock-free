@@ -33,6 +33,7 @@ android:installLocation="auto"
             android:label="@string/app_name"/>
 
  	<activity android:name="com.op.kclock.PresetsActivity"
+			android:theme="@android:style/Theme.NoTitleBar"
             android:label="@string/app_name"/>
            
         <activity android:name=".OtherActivity"

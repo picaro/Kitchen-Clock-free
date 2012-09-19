@@ -10,6 +10,10 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 
+import com.markupartist.android.widget.ActionBar.Action;
+import com.markupartist.android.widget.ActionBar.IntentAction;
+import com.markupartist.android.widget.ActionBar;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -33,7 +37,8 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	// private Map<View, AlarmClock> presetsMap = new HashMap<View,
 	// AlarmClock>();
 	private GestureDetector gestureDetector;
-
+	private ActionBar actionBar;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// Bundle savedInstanceState = null;
@@ -146,9 +151,15 @@ public class PresetsActivity extends Activity implements OnClickListener {
 				return false;
 			}
 		});
-
+		initActionBar();
 	}
 
+	private void initActionBar() {
+		actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar
+			.setTitle(getApplicationContext().getString(R.string.app_name));
+	}
+			
 	@Override
 	public void onClick(View v) {
 		AlarmClock alarm = (AlarmClock) historyMap.get(v);

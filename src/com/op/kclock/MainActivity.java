@@ -892,7 +892,7 @@ public class MainActivity extends Activity implements OnClickListener,
 					getApplicationContext().getString(
 							R.string.pref_showaddbtn_key), true)) {
 				actionBar.removeAction(addButtonAction);
-				actionBar.addAction(addButtonAction);
+				actionBar.addAction(addButtonAction,0);
 			} else {
 				actionBar.removeAction(addButtonAction);
 			}
