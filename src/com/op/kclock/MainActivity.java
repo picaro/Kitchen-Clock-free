@@ -115,9 +115,13 @@ public class MainActivity extends Activity implements OnClickListener,
 		// Changelog.show(this);
 		initActionBar();
 		
-            AudioManager am = (AudioManager)getSystemService(this.getApplicationContext().AUDIO_SERVICE);
-            //am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-	    //am.setMode(AudioManager.MODE_NORMAL);
+		if (mPrefs.getBoolean(
+			getApplicationContext().getString(
+				R.string.pref_overridevolume_key), true)) {
+			AudioManager am = (AudioManager)getSystemService(this.getApplicationContext().AUDIO_SERVICE);
+            		am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+	    		am.setMode(AudioManager.MODE_NORMAL);
+		}
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
 		} 
@@ -152,7 +156,6 @@ public class MainActivity extends Activity implements OnClickListener,
 		}
 		
 		if (alarmList.size() > 0) {
-
 			drawAlarms();
 		} else {
 			if (mPrefs.getBoolean(
