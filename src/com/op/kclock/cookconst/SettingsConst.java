@@ -5,6 +5,8 @@ package com.op.kclock.cookconst;
 */
 public class SettingsConst
 {
+	public static final boolean APP_FULL = false;
+
 	public static final String SETTINGS ="pro.pastukhov.cookdroid";
 	public static final String SAVE_SESSION ="savesession";
 	public static final String THEME ="";
@@ -23,4 +25,5 @@ public class SettingsConst
 	public static final int REQUEST_PRESETS = 1;
 	public static final long WAKELOCK_TIMEOUT = 5000;
 	public static final int DB_VERSION=5;
+
 }
