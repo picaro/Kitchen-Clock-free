@@ -195,6 +195,7 @@ public class DBHelper {
 		
 		if (alarmList.size() > 5){
 			this.deleteHistory(alarmList.get(0).getId());
+			Log.e("TAG","del log" + alarmList.size());
 			alarmList.remove(0);
 		}
 
