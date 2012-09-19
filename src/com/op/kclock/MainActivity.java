@@ -953,7 +953,7 @@ public class MainActivity extends Activity implements OnClickListener,
                 return false;
             }
             
-            // right to left swipe
+            // left to right  swipe
             if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
     				startActivity(intent);
     				MainActivity.this.overridePendingTransition(
@@ -961,13 +961,17 @@ public class MainActivity extends Activity implements OnClickListener,
 						R.anim.slide_out_left
     				);
     			// right to left swipe
-            }  /*else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-    				startActivity(intent);
+            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+    				//startActivity(intent);
+    				Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+				intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+				startActivityForResult(intent, 0);
+
     				MainActivity.this.overridePendingTransition(
 						R.anim.slide_in_left, 
 						R.anim.slide_out_right
     				);
-            }*/
+            }
 
             return false;
         }
@@ -979,5 +983,19 @@ public class MainActivity extends Activity implements OnClickListener,
         }
 
     }
+
+
+
+public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+   if (requestCode == 0) {
+      if (resultCode == RESULT_OK) {
+         String contents = intent.getStringExtra("SCAN_RESULT");
+         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+         // Handle successful scan
+      } else if (resultCode == RESULT_CANCELED) {
+         // Handle cancel
+      }
+   }
+}
 
 }
