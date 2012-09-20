@@ -24,6 +24,6 @@ public class SettingsConst
 	public static final String TIMER_NAME = "timer_name";
 	public static final int REQUEST_PRESETS = 1;
 	public static final long WAKELOCK_TIMEOUT = 5000;
-	public static final int DB_VERSION=5;
+	public static final int DB_VERSION=6;
 
 }

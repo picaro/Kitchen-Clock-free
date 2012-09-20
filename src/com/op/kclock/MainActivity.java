@@ -69,10 +69,12 @@ import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DBHelper;
 import android.graphics.*;
 import android.media.*;
+import android.database.*;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
 
+	  private static String ALARMID = "ALARMID";
 	private static final int DEF_TEXT_SIZE = 66;
 	public static final String SMALLFIRST = "smallfirst";
 	public static final String UNSORTED = "unsorted";
@@ -697,13 +699,26 @@ public class MainActivity extends Activity implements OnClickListener,
 		case R.id.addpreset: {
 			addPreset(text);
 			return true;
-		}	
+		}
+		case R.id.assigncode: {
+			assignCode(text);
+			return true;
+		}
 		case R.id.remove: {
 			deleteAlarm(text);
 			return true;
 		}
 		}
 		return super.onContextItemSelected(item);
+	}
+
+	private void assignCode(TextViewWithMenu text)
+	{
+		Intent intent2 = new Intent("com.google.zxing.client.android.SCAN");
+		intent2.putExtra("SCAN_MODE", "ONE_D_MODE");
+		//intent2.putExtra(ALARMID,"0");
+		startActivityForResult(intent2, 11);
+		// TODO: Implement this method
 	}
 
 	private void addPreset(TextViewWithMenu text)
@@ -999,11 +1014,53 @@ public class MainActivity extends Activity implements OnClickListener,
 
 
 public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-   if (requestCode == 0) {
+   if (requestCode != 670) {
       if (resultCode == RESULT_OK) {
          String contents = intent.getStringExtra("SCAN_RESULT");
-         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+         //String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
          // Handle successful scan
+			 Log.e(TAG,"eeeeeextra" + requestCode);
+			 if ( requestCode != 0) 
+			 {
+					 alarmList.get(0).setSCode(contents);
+			 }
+			 else {
+			DBHelper dbHelper = new DBHelper(getApplicationContext());
+			dbHelper.open();
+			// select min alarm and make caller
+			Cursor cursor = dbHelper.presetBySCode(contents);
+			if (cursor.moveToFirst()){
+				int idColIndex = cursor.getColumnIndex(DBHelper.ID);
+				int nameColIndex = cursor.getColumnIndex(DBHelper.NAME);
+				int seconds = cursor.getColumnIndex(DBHelper.SECONDS);
+				int initSeconds = cursor.getColumnIndex(DBHelper.INITSECONDS);
+				int pinned = cursor.getColumnIndex(DBHelper.PINNED);
+				int active = cursor.getColumnIndex(DBHelper.ACTIVE);
+				int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
+				int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
+				// int state = cursor.getColumnIndex(DbTool.STATE);
+				int sound = cursor.getColumnIndex(DBHelper.SOUND);
+				int scode = cursor.getColumnIndex(DBHelper.SCODE);
+				AlarmClock alarm = new AlarmClock(this.getApplicationContext());
+				alarm.setId(cursor.getInt(idColIndex));
+				alarm.setTime(cursor.getInt(seconds));
+				alarm.setInitSeconds(cursor.getInt(initSeconds));
+				alarm.setPinned(cursor.getInt(pinned) == 1 ? true : false);
+				alarm.setActive(cursor.getInt(active) == 1 ? true : false);
+				alarm.setDateAdd(cursor.getInt(dateadd));
+				alarm.setUsageCnt(cursor.getInt(usagecnt));
+				alarm.restart();
+				// alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
+				// .getString(state)));
+				alarm.setName(cursor.getString(nameColIndex));
+				alarm.setSound(cursor.getString(sound));
+				alarm.setSCode(cursor.getString(scode));
+				alarm.setState(AlarmClock.TimerState.PAUSED);
+				deleteAllAlarms(false);
+				this.addAlarm(alarm);
+			}
+			dbHelper.close();
+			} 
 		 Log.e(TAG,"ct."+contents);
       } else if (resultCode == RESULT_CANCELED) {
          // Handle cancel

@@ -48,15 +48,18 @@ public class DBHelper {
 	public static final String ACTIVE = "active";
 	public static final String DATEADD = "dateadd";
 	public static final String USAGECNT = "usagecnt";
+	public static final String SOUND = "sound";
+	public static final String SCODE = "scancode";
 
 	static final String DB_NAME = "DB_KCLOCK";
 	public static String[] ALARM_COLUMNS = new String[] { ID, NAME, SECONDS,
-			INITSECONDS, STATE, PINNED, ACTIVE, DATEADD, USAGECNT };
+			INITSECONDS, STATE, PINNED, ACTIVE, DATEADD, USAGECNT ,SOUND,SCODE};
 	static final String HISTORY_TABLE = "HISTORY";
 	public static String[] HISTORY_COLUMNS = new String[] { ID, NAME, SECONDS,
-			INITSECONDS, STATE, PINNED, ACTIVE, DATEADD, USAGECNT };
+			INITSECONDS, STATE, PINNED, ACTIVE, DATEADD, USAGECNT ,SOUND,SCODE };
 	static final String PRESET_TABLE="PRESET";
-	public static String[] PRESET_COLUMNS = new String[] { ID, NAME, SECONDS,INITSECONDS,STATE,PINNED,ACTIVE,DATEADD, USAGECNT };
+	public static String[] PRESET_COLUMNS = new String[] { ID, NAME, SECONDS,
+			INITSECONDS, STATE, PINNED, ACTIVE, DATEADD, USAGECNT  ,SOUND,SCODE};
 
 
 	public DBHelper(Context context) {
@@ -71,21 +74,35 @@ public class DBHelper {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE IF NOT EXISTS " + ALARM_TABLE + " (" + ID
-					+ " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME
-					+ " TEXT NOT NULL," + SECONDS + " INTEGER NOT NULL, "
-					+ INITSECONDS + " INTEGER NOT NULL, " + PINNED
-					+ " INTEGER NOT NULL, " + ACTIVE + " INTEGER NOT NULL, "
-					+ DATEADD + " INTEGER NOT NULL, " + USAGECNT
-					+ " INTEGER NOT NULL, " + STATE + " INTEGER NOT NULL" + ")");
-
-			db.execSQL("CREATE TABLE IF NOT EXISTS " + HISTORY_TABLE + " ("
-					+ ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME
-					+ " TEXT NOT NULL," + SECONDS + " INTEGER NOT NULL, "
-					+ INITSECONDS + " INTEGER NOT NULL, " + PINNED
-					+ " INTEGER NOT NULL, " + ACTIVE + " INTEGER NOT NULL, "
-					+ DATEADD + " INTEGER NOT NULL, " + USAGECNT
-					+ " INTEGER NOT NULL, " + STATE + " INTEGER NOT NULL" + ")");
+			db.execSQL("CREATE TABLE IF NOT EXISTS " +
+					   ALARM_TABLE + " ("+ 
+					   ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+					   NAME+" TEXT NOT NULL," +
+					   SECONDS+" INTEGER NOT NULL, " +
+					   INITSECONDS+" INTEGER NOT NULL, " +
+					   PINNED+" INTEGER NOT NULL, " +
+					   ACTIVE +" INTEGER NOT NULL, " +
+					   DATEADD+" INTEGER NOT NULL, " +
+					   USAGECNT+" INTEGER NOT NULL, " +
+					   STATE+" INTEGER NOT NULL," +		
+					   SOUND+" TEXT," +
+					   SCODE+" TEXT" 
+					   +")"  );
+					   
+			db.execSQL("CREATE TABLE IF NOT EXISTS " +
+					   HISTORY_TABLE + " ("+ 
+					   ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+					   NAME+" TEXT NOT NULL," +
+					   SECONDS+" INTEGER NOT NULL, " +
+					   INITSECONDS+" INTEGER NOT NULL, " +
+					   PINNED+" INTEGER NOT NULL, " +
+					   ACTIVE +" INTEGER NOT NULL, " +
+					   DATEADD+" INTEGER NOT NULL, " +
+					   USAGECNT+" INTEGER NOT NULL, " +
+					   STATE+" INTEGER NOT NULL," +		
+					   SOUND+" TEXT," +
+					   SCODE+" TEXT" 
+					   +")"  );	
 			db.execSQL("CREATE TABLE IF NOT EXISTS " +
 					   PRESET_TABLE + " ("+ 
 					   ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -96,32 +113,34 @@ public class DBHelper {
 					   ACTIVE +" INTEGER NOT NULL, " +
 					   DATEADD+" INTEGER NOT NULL, " +
 					   USAGECNT+" INTEGER NOT NULL, " +
-					   STATE+" INTEGER NOT NULL"		
-					   +")"
-					   );
+					   STATE+" INTEGER NOT NULL," +		
+					   SOUND+" TEXT," +
+					   SCODE+" TEXT" 
+					   +")"  );
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d("DbTool.onUpgrade", "old:" + oldVersion + " new:"
 					+ newVersion);
-			if (db.getVersion() == 1) {
-				db.execSQL("ALTER TABLE " + ALARM_TABLE + " RENAME TO tmp_"
-						+ ALARM_TABLE);
+			if (oldVersion == 5) {
+				db.execSQL("ALTER TABLE " + PRESET_TABLE + " RENAME TO tmp_"
+						+ PRESET_TABLE);
 				onCreate(db);
-				db.execSQL("INSERT INTO " + ALARM_TABLE + "(" + NAME + ", "
-						+ STATE + ", " + SECONDS + ") " + "SELECT " + NAME
-						+ ", " + STATE + ", " + SECONDS + " " + "FROM tmp_"
-						+ ALARM_TABLE);
-				db.execSQL("DROP TABLE IF EXISTS tmp_" + ALARM_TABLE);
+				db.execSQL("INSERT INTO " + PRESET_TABLE + "(" + NAME + ", "
+						   + STATE + ", " + SECONDS + "," + INITSECONDS+"," + PINNED+"," + ACTIVE +"," + DATEADD+"," + USAGECNT + ") " + "SELECT " + NAME
+						   + ", " + STATE + ", " + SECONDS +"," + INITSECONDS+"," + PINNED+"," + ACTIVE+"," + DATEADD+"," + USAGECNT + " " + "FROM tmp_"
+						+ PRESET_TABLE);
+				db.execSQL("DROP TABLE IF EXISTS " + ALARM_TABLE);
 				db.execSQL("DROP TABLE IF EXISTS " + HISTORY_TABLE);
-				db.execSQL("DROP TABLE IF EXISTS "+PRESET_TABLE);
+				db.execSQL("DROP TABLE IF EXISTS tmp_"+PRESET_TABLE);
 			} else {
 				db.execSQL("DROP TABLE IF EXISTS " + ALARM_TABLE);
 				db.execSQL("DROP TABLE IF EXISTS " + HISTORY_TABLE);
 				db.execSQL("DROP TABLE IF EXISTS "+PRESET_TABLE);
-				onCreate(db);
+		
 			}
+			onCreate(db);
 		}
 	}
 
@@ -135,6 +154,8 @@ public class DBHelper {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
+		values.put(SOUND, record.getSound());
+		values.put(SCODE, record.getSCode());
 		db.insert(HISTORY_TABLE, null, values);
 	}
 
@@ -148,6 +169,8 @@ public class DBHelper {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
+		values.put(SOUND, record.getSound());
+		values.put(SCODE, record.getSCode());
 		db.update(HISTORY_TABLE, values, ID + "=" + record.getId(), null);
 	}
 
@@ -172,6 +195,8 @@ public class DBHelper {
 				int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
 				int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
 				// int state = cursor.getColumnIndex(DbTool.STATE);
+				int sound = cursor.getColumnIndex(DBHelper.SOUND);
+				int scode = cursor.getColumnIndex(DBHelper.SCODE);
 				AlarmClock alarm = new AlarmClock(context);
 				alarm.setId(cursor.getInt(idColIndex));
 				alarm.setTime(cursor.getInt(seconds));
@@ -184,7 +209,9 @@ public class DBHelper {
 				// alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
 				// .getString(state)));
 				alarm.setName(cursor.getString(nameColIndex));
-				alarm.setState(AlarmClock.TimerState.PAUSED);
+				alarm.setSound(cursor.getString(sound));
+				alarm.setSCode(cursor.getString(scode));
+						alarm.setState(AlarmClock.TimerState.PAUSED);
 				alarmList.add(alarm);
 				Log.d(MainActivity.TAG, "ID = " + cursor.getInt(idColIndex)
 						+ ", " + NAME + " = " + cursor.getString(nameColIndex)
@@ -235,6 +262,8 @@ public class DBHelper {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
+		values.put(SOUND, record.getSound());
+		values.put(SCODE, record.getSCode());
 		db.insert(ALARM_TABLE, null, values);
 	}
 
@@ -248,6 +277,8 @@ public class DBHelper {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
+		values.put(SOUND, record.getSound());
+		values.put(SCODE, record.getSCode());
 		db.update(ALARM_TABLE, values, ID + "=" + record.getId(), null);
 	}
 
@@ -271,6 +302,8 @@ public class DBHelper {
 				int active = cursor.getColumnIndex(DBHelper.ACTIVE);
 				int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
 				int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
+				int sound = cursor.getColumnIndex(DBHelper.SOUND);
+				int scode = cursor.getColumnIndex(DBHelper.SCODE);
 				// int state = cursor.getColumnIndex(DbTool.STATE);
 				AlarmClock alarm = new AlarmClock(context);
 				alarm.setId(cursor.getInt(idColIndex));
@@ -284,6 +317,8 @@ public class DBHelper {
 				// alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
 				// .getString(state)));
 				alarm.setName(cursor.getString(nameColIndex));
+				alarm.setSound(cursor.getString(sound));
+				alarm.setSCode(cursor.getString(scode));
 				alarm.setState(AlarmClock.TimerState.PAUSED);
 				alarmList.add(alarm);
 				Log.d(MainActivity.TAG, "ID = " + cursor.getInt(idColIndex)
@@ -321,6 +356,8 @@ public class DBHelper {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
+		values.put(SOUND, record.getSound());
+		values.put(SCODE, record.getSCode());
 		db.insert(PRESET_TABLE, null, values);
 	}
 
@@ -334,6 +371,8 @@ public class DBHelper {
 		values.put(ACTIVE, record.isActive() ? 1 : 0);
 		values.put(DATEADD, record.getDateAdd());
 		values.put(USAGECNT, record.getUsageCnt());
+		values.put(SOUND, record.getSound());
+		values.put(SCODE, record.getSCode());
 		db.update(PRESET_TABLE, values, ID+"="+record.getId(), null);
 	}
 
@@ -357,6 +396,8 @@ public class DBHelper {
 				int active = cursor.getColumnIndex(DBHelper.ACTIVE);
 				int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
 				int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
+				int sound = cursor.getColumnIndex(DBHelper.SOUND);
+				int scode = cursor.getColumnIndex(DBHelper.SCODE);
 				//int state = cursor.getColumnIndex(DbTool.STATE);
 				AlarmClock alarm = new AlarmClock(context);
 				alarm.setId(cursor.getInt(idColIndex));
@@ -370,12 +411,16 @@ public class DBHelper {
 //			alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
 //					.getString(state)));
 				alarm.setName(cursor.getString(nameColIndex));
+				alarm.setSound(cursor.getString(sound));
+				alarm.setSCode(cursor.getString(scode));
 				alarm.setState(AlarmClock.TimerState.PAUSED);
 				alarmList.add(alarm);
-				Log.d(MainActivity.TAG,
+				Log.e(MainActivity.TAG,
 					  "ID = " + cursor.getInt(idColIndex) + ", "
 					  + NAME + " = "
 					  + cursor.getString(nameColIndex) + ", "
+					  + SCODE + " = "
+					  + cursor.getString(scode) + ", "
 					  + SECONDS + " = "
 					  + cursor.getString(seconds));
 			} while (cursor.moveToNext());
@@ -393,7 +438,11 @@ public class DBHelper {
 	public Cursor presetQuery(long examId){
 		return db.query(PRESET_TABLE, PRESET_COLUMNS, "_id=" + examId, null, null, null,null);
 	}
-
+	
+	public Cursor presetBySCode(String scode){
+		return db.query(PRESET_TABLE, PRESET_COLUMNS, "scancode=" + scode, null, null, null,null);
+	}
+	
 	public Cursor getPresetRecords(){
 		return db.rawQuery("SELECT * FROM "+ PRESET_TABLE + " ORDER BY " + NAME, null);
 	}

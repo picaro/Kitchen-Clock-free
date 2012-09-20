@@ -73,7 +73,33 @@ public class AlarmClock implements Parcelable {
 	private int usageCnt;
 
 	private int dateAdd;
+	
+	private String sound;
+	
+	private String sCode;
 
+	public void setSCode(String sCode)
+	{
+		this.sCode = sCode;
+	}
+
+	public String getSCode()
+	{
+		return sCode;
+	}
+
+	public void setSound(String sound)
+	{
+		this.sound = sound;
+	}
+
+	public String getSound()
+	{
+		return sound;
+	}
+
+	
+	
 	public boolean isPinned() {
 		return pinned;
 	}

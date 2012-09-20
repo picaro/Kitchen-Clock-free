@@ -4,6 +4,8 @@
 		android:title="@string/settime" />
 	<item android:id="@+id/addpreset"
 		android:title="@string/addpreset" />
-		<item android:id="@+id/remove"
+	<item android:id="@+id/assigncode"
+		android:title="@string/assigncode" />
+	<item android:id="@+id/remove"
 		android:title="@string/delete" />
 </menu>
