@@ -209,6 +209,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		AlarmClock alarm = (AlarmClock) historyMap.get(v);
+		alarm.setUsageCnt(alarm.getUsageCnt() + 1);
 		Intent mainActivity = new Intent(this, MainActivity.class);
 		// mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivity.putExtra("alarm_extra", alarm);
@@ -220,8 +221,6 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
-			// Intent intent = new Intent(PresetsActivity.this.getBaseContext(),
-			// MainActivity.class);
 
 			if (Math.abs(e1.getY() - e2.getY()) > MainActivity.SWIPE_MAX_OFF_PATH) {
 				return false;
@@ -230,7 +229,6 @@ public class PresetsActivity extends Activity implements OnClickListener {
 			// left to right swipe
 			if (e2.getX() - e1.getX() > MainActivity.SWIPE_MIN_DISTANCE
 					&& Math.abs(velocityX) > MainActivity.SWIPE_THRESHOLD_VELOCITY) {
-				// startActivity(intent);
 				PresetsActivity.this.finish();
 				PresetsActivity.this.overridePendingTransition(
 						R.anim.slide_in_left, R.anim.slide_out_right);
