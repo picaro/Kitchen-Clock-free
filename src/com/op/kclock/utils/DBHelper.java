@@ -414,6 +414,7 @@ public class DBHelper {
 				alarm.setSound(cursor.getString(sound));
 				alarm.setSCode(cursor.getString(scode));
 				alarm.setState(AlarmClock.TimerState.PAUSED);
+				alarm.setPreset(true);
 				alarmList.add(alarm);
 				Log.e(MainActivity.TAG,
 					  "ID = " + cursor.getInt(idColIndex) + ", "

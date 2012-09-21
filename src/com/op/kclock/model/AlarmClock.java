@@ -52,8 +52,6 @@ public class AlarmClock implements Parcelable {
 
 	private static final int HOUR = 3600;
 
-//	private Thread thread;
-
 	private int id;
 
 	private String name;
@@ -77,7 +75,20 @@ public class AlarmClock implements Parcelable {
 	private String sound;
 	
 	private String sCode;
+	
+	//this alarm loaded from presets?
+	private boolean preset = false;
 
+	public void setPreset(boolean preset)
+	{
+		this.preset = preset;
+	}
+
+	public boolean isPreset()
+	{
+		return preset;
+	}
+	
 	public void setSCode(String sCode)
 	{
 		this.sCode = sCode;

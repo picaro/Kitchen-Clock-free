@@ -22,7 +22,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
-
+/**
+ class for little dialogs. 
+ seems inused now
+ */
 public class DialogUtils {
 
     /**
