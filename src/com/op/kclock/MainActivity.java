@@ -601,21 +601,18 @@ OnSharedPreferenceChangeListener
 					drawAlarms();
 				}
 			}
+		} else {
+			updatePreset(newAlarm);		
 		}
-		updatePreset(newAlarm);		
 	}
 
 	private void updatePreset(AlarmClock newAlarm)
 	{	
 		Log.e(TAG, "updatepreset");
 		if (newAlarm.isPreset()){
-			
 			Log.e(TAG, "is preset");
-
 			DBHelper dbHelper = new DBHelper(getApplicationContext());
-			dbHelper.open();		
 			dbHelper.updatePreset(newAlarm);
-			dbHelper.close();
 		}
 	}
 
@@ -836,7 +833,7 @@ OnSharedPreferenceChangeListener
 		{
 			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text)
 			{
-				startActivityForResult(intent2, alarm.getId());
+				startActivityForResult(intent2, alarm.hashCode());
 			}
 		}		
 	}
@@ -850,6 +847,7 @@ OnSharedPreferenceChangeListener
 			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text)
 			{
 				dbHelper.insertPreset(alarm);
+				alarm.setPreset(true);
 			}
 		}
 		dbHelper.close();
@@ -1217,10 +1215,15 @@ OnSharedPreferenceChangeListener
 				{
 					for (AlarmClock alarm : alarmList)
 					{
-						if (alarm.getId() == requestCode) {
+						if (alarm.hashCode() == requestCode) {
 							alarm.setSCode(contents);
 							//if its preset
 							updatePreset(alarm);
+							DBHelper dbHelper = new DBHelper(getApplicationContext());
+							dbHelper.open();
+							dbHelper.insertPreset(alarm);
+							dbHelper.close();
+							alarm.setPreset(true);
 							return;
 						}
 					}
@@ -1230,41 +1233,12 @@ OnSharedPreferenceChangeListener
 				else
 				{
 					DBHelper dbHelper = new DBHelper(getApplicationContext());
-					dbHelper.open();
 					// select min alarm and make caller
-					Cursor cursor = dbHelper.presetBySCode(contents);
-					if (cursor.moveToFirst())
-					{
-						int idColIndex = cursor.getColumnIndex(DBHelper.ID);
-						int nameColIndex = cursor.getColumnIndex(DBHelper.NAME);
-						int seconds = cursor.getColumnIndex(DBHelper.SECONDS);
-						int initSeconds = cursor.getColumnIndex(DBHelper.INITSECONDS);
-						int pinned = cursor.getColumnIndex(DBHelper.PINNED);
-						int active = cursor.getColumnIndex(DBHelper.ACTIVE);
-						int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
-						int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
-						// int state = cursor.getColumnIndex(DbTool.STATE);
-						int sound = cursor.getColumnIndex(DBHelper.SOUND);
-						int scode = cursor.getColumnIndex(DBHelper.SCODE);
-						AlarmClock alarm = new AlarmClock(this.getApplicationContext());
-						alarm.setId(cursor.getInt(idColIndex));
-						alarm.setTime(cursor.getInt(seconds));
-						alarm.setInitSeconds(cursor.getInt(initSeconds));
-						alarm.setPinned(cursor.getInt(pinned) == 1 ? true : false);
-						alarm.setActive(cursor.getInt(active) == 1 ? true : false);
-						alarm.setDateAdd(cursor.getInt(dateadd));
-						alarm.setUsageCnt(cursor.getInt(usagecnt));
-						alarm.restart();
-						// alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
-						// .getString(state)));
-						alarm.setName(cursor.getString(nameColIndex));
-						alarm.setSound(cursor.getString(sound));
-						alarm.setSCode(cursor.getString(scode));
-						alarm.setState(AlarmClock.TimerState.PAUSED);
+					AlarmClock alarm = dbHelper.presetBySCode(contents);
+					if (alarm != null){	
 						deleteAllAlarms(false);
-						this.addAlarm(alarm);
+						addAlarm(alarm);
 					}
-					dbHelper.close();
 				} 
 				Log.d(TAG, "ct." + contents);
 			}

@@ -160,6 +160,7 @@ public class DBHelper {
 	}
 
 	public void updateHistory(AlarmClock record) {
+		open();
 		ContentValues values = new ContentValues();
 		values.put(NAME, record.getName());
 		values.put(STATE, record.getState().toString());
@@ -172,6 +173,7 @@ public class DBHelper {
 		values.put(SOUND, record.getSound());
 		values.put(SCODE, record.getSCode());
 		db.update(HISTORY_TABLE, values, ID + "=" + record.getId(), null);
+		close();
 	}
 
 	public void deleteHistory(long examId) {
@@ -268,6 +270,7 @@ public class DBHelper {
 	}
 
 	public void updateAlarm(AlarmClock record) {
+		open();
 		ContentValues values = new ContentValues();
 		values.put(NAME, record.getName());
 		values.put(STATE, record.getState().toString());
@@ -280,6 +283,7 @@ public class DBHelper {
 		values.put(SOUND, record.getSound());
 		values.put(SCODE, record.getSCode());
 		db.update(ALARM_TABLE, values, ID + "=" + record.getId(), null);
+		close();
 	}
 
 	public void deleteAlarm(long examId) {
@@ -362,6 +366,7 @@ public class DBHelper {
 	}
 
 	public void updatePreset(AlarmClock record){
+		open();
 		ContentValues values = new ContentValues();
 		values.put(NAME, record.getName());
 		values.put(STATE, record.getState().toString());
@@ -374,6 +379,7 @@ public class DBHelper {
 		values.put(SOUND, record.getSound());
 		values.put(SCODE, record.getSCode());
 		db.update(PRESET_TABLE, values, ID+"="+record.getId(), null);
+		close();
 	}
 
 	public void deletePreset(long examId){
@@ -440,8 +446,40 @@ public class DBHelper {
 		return db.query(PRESET_TABLE, PRESET_COLUMNS, "_id=" + examId, null, null, null,null);
 	}
 	
-	public Cursor presetBySCode(String scode){
-		return db.query(PRESET_TABLE, PRESET_COLUMNS, "scancode=" + scode, null, null, null,null);
+	public AlarmClock presetBySCode(String tscode){
+		open();
+		Log.e(MainActivity.TAG, "tsc" + tscode + " - " + (db == null));
+		Cursor cursor = db.query(PRESET_TABLE, PRESET_COLUMNS, "scancode=" + tscode, null, null, null,null);
+		AlarmClock alarm = null;
+		if (cursor.moveToFirst())
+		{
+			alarm = new AlarmClock(context);
+			int idColIndex = cursor.getColumnIndex(DBHelper.ID);
+			int nameColIndex = cursor.getColumnIndex(DBHelper.NAME);
+			int seconds = cursor.getColumnIndex(DBHelper.SECONDS);
+			int initSeconds = cursor.getColumnIndex(DBHelper.INITSECONDS);
+			int pinned = cursor.getColumnIndex(DBHelper.PINNED);
+			int active = cursor.getColumnIndex(DBHelper.ACTIVE);
+			int dateadd = cursor.getColumnIndex(DBHelper.DATEADD);
+			int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
+			int sound = cursor.getColumnIndex(DBHelper.SOUND);
+			int scode = cursor.getColumnIndex(DBHelper.SCODE);
+			alarm.setId(cursor.getInt(idColIndex));
+			alarm.setTime(cursor.getInt(seconds));
+			alarm.setInitSeconds(cursor.getInt(initSeconds));
+			alarm.setPinned(cursor.getInt(pinned) == 1 ? true : false);
+			alarm.setActive(cursor.getInt(active) == 1 ? true : false);
+			alarm.setDateAdd(cursor.getInt(dateadd));
+			alarm.setUsageCnt(cursor.getInt(usagecnt));
+			alarm.setName(cursor.getString(nameColIndex));
+			alarm.setSound(cursor.getString(sound));
+			alarm.setSCode(cursor.getString(scode));
+			alarm.setState(AlarmClock.TimerState.PAUSED);
+			alarm.restart();
+		}
+		close();
+		return alarm;
+
 	}
 	
 	public Cursor getPresetRecords(){

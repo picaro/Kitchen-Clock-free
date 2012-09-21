@@ -100,6 +100,8 @@ public class PresetsActivity extends Activity implements OnClickListener {
 								public void finish(AlarmClock newAlarm) {
 									tvName.setText(alarm.getName());
 									tvTime.setText(alarm.toString());
+									DBHelper dbHelper = new DBHelper(getApplicationContext());
+									dbHelper.updatePreset(alarm);
 								}
 							});
 					timePickDialog.show();
