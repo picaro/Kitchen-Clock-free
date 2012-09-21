@@ -65,7 +65,8 @@
     <string name="pref_notification_custom_sound_summary_on">Использовать свою мелодию</string>
     <string name="pref_notification_custom_sound_summary_off">Использовать мелодию по умолчанию</string>
     <string name="pref_notification_ringtone">Звук будильника</string>
-    <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе</string>
+    <string name="pref_notification_ringtone_summary">Выбрать свой звук из доступных в системе
+</string>
     <string name="pref_notification_led">Индикация</string>
     <string name="pref_notification_led_summary_on">Световая индикация включена</string>
     <string name="pref_notification_led_summary_off">Световая индикация выкл</string>
@@ -161,4 +162,23 @@
     <string name="pref_sorttype_smallfirst">ближайшие первыми</string>
     <string name="pref_sortlist">Сортировка</string>
     <string name="pref_sortlist_summary">сортировка списка таймеров</string>	
-</resources>
+
+		
+	<string name="preset_list_empty">Список пресетов пуст</string>
+    <string name="presets_saved">Пресеты сохраненв</string>
+    <string name="presets">Пресет</string>
+    <string name="delete_preset_title">Удалить все?</string>
+    <string name="delete_preset_message">Are you sure want to delete all presets?</string>
+    <string name="logs">История</string>
+	<string name="pref_overridevolume">Приоритет громкости</string>
+    <string name="pref_overridevolume_summary_on">использовать свою громкость</string>	
+    <string name="pref_overridevolume_summary_off">использовать системную громкость</string>	
+	<string name="addpreset">Add preset</string>
+    <string name="pref_advancedsettings">show advanced settings</string>	
+    <string name="pref_advancedsettings_summary">show additional</string>	
+    <string name="pref_hideadvsettings">hide advanced settings</string>	
+    <string name="pref_hideadvsettings_summary">hide additional</string>
+	<string name="assigncode">Связать штрихкод</string>	
+	
+		
+		</resources>
