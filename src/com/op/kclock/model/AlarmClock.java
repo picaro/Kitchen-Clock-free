@@ -309,12 +309,21 @@ public class AlarmClock implements Parcelable {
 		parcel.writeLong(seconds);
 		parcel.writeString(state.name());
 		parcel.writeString(sCode);
-		
+		parcel.writeInt(preset?1:0);
+	}
+
+	private AlarmClock(Parcel parcel) {
+		Log.d(MainActivity.TAG, "AlarmClock(Parcel parcel)");
+		name = parcel.readString();
+		id = parcel.readInt();
+		seconds = parcel.readLong();
+		state = TimerState.valueOf( parcel.readString());
+		sCode = parcel.readString();
+		preset = (parcel.readInt()==1)? true : false;
 	}
 
 	public TextView getWidget() {
-		if (element == null)
-			return null;
+		if (element == null)	return null;
 		final TextView widget = (TextView) element.getChildAt(1);
 		return widget;
 	}
@@ -337,17 +346,11 @@ public class AlarmClock implements Parcelable {
 		}
 	};
 
-	private AlarmClock(Parcel parcel) {
-		Log.d(MainActivity.TAG, "AlarmClock(Parcel parcel)");
-		name = parcel.readString();
-		id = parcel.readInt();
-		seconds = parcel.readLong();
-		state = TimerState.valueOf( parcel.readString());
-		sCode = parcel.readString();
-	}
 
+    /**
+	 Delete one second and change timer state
+	*/
 	public boolean tick() {
-
 		if (state == TimerState.RUNNING)
 			seconds--;
 		if (seconds > 0) {
@@ -363,6 +366,7 @@ public class AlarmClock implements Parcelable {
 		initSeconds = i;
 	}
 
+	// reinit timer
 	public void restart() {
 		seconds = initSeconds;
 	}
@@ -476,8 +480,6 @@ public class AlarmClock implements Parcelable {
 		SharedPreferences mPrefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
-
-
 		icon = R.drawable.stat_notify_alarm;
 		CharSequence mTickerText = " - "
 				+ context.getResources().getString(R.string.app_name);
@@ -518,15 +520,6 @@ public class AlarmClock implements Parcelable {
 				notification.sound = Uri.parse(customNotification);
 		}
 
-		// notification.sound =
-		// Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
-		// "6");
-		// notification.defaults |= Notification.DEFAULT_SOUND;
-		// }
-		// } else {
-		// notification.sound = Uri.parse(defaultNotification);
-		// }
-		// }
 		if (mPrefs.getBoolean(
 				context.getString(R.string.pref_notification_insistent_key),
 				true))
