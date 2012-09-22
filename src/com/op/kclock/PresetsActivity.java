@@ -185,7 +185,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 					return true;
 				}
 			case R.id.menu_delete_all: {
-					//deleteAllAlarms(true);
+					deleteAllPresets();
 					return true;
 				}
 			case R.id.menu_exit: {
@@ -199,6 +199,18 @@ public class PresetsActivity extends Activity implements OnClickListener {
 
 		}
 		return false;
+	}
+
+	private void deleteAllPresets()
+	{
+		DBHelper dbHelper = new DBHelper(getApplicationContext());
+		dbHelper.open();
+		dbHelper.truncatePresets();
+		dbHelper.close();
+		final LinearLayout presetsList = (LinearLayout) findViewById(R.id.presets_list);
+		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+		presetsList.removeAllViewsInLayout();
+		presets.clear();	
 	}
 
 	private Intent goSettings() {
