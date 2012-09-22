@@ -60,7 +60,6 @@ import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 import com.markupartist.android.widget.ActionBar.IntentAction;
 import com.op.kclock.alarm.AlarmSingleServiceImpl;
-import com.op.kclock.alarm.WakeUpLock;
 import com.op.kclock.cookconst.SettingsConst;
 import com.op.kclock.dialogs.NameDialog;
 import com.op.kclock.dialogs.TimePickDialog;
@@ -74,7 +73,7 @@ public class MainActivity extends Activity implements OnClickListener,
 OnSharedPreferenceChangeListener
 {
 
-	private static String ALARMID = "ALARMID";
+	private static final int ALPHA_CLOCK = 80;
 	private static final int DEF_TEXT_SIZE = 66;
 	public static final String SMALLFIRST = "smallfirst";
 	public static final String UNSORTED = "unsorted";
@@ -332,33 +331,33 @@ OnSharedPreferenceChangeListener
 
 	}
 
-	public void appendAddButton()
-	{
-		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
-		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-		LinearLayout itemView = (LinearLayout) inflater.inflate(
-			R.layout.alarm_incl, null);
-		TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
-		txtView.setText(R.string.add);
-
-		if (!mPrefs.getBoolean(
-				getApplicationContext()
-				.getString(R.string.pref_showsettbtn_key), false))
-		{
-			itemView.setVisibility(View.GONE);
-		}
-
-		itemView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0)
-				{
-					addAlarmDialog();
-
-				}
-			});
-		mainL.addView(itemView, new TableLayout.LayoutParams(
-						  LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-	}
+//	public void appendAddButton()
+//	{
+//		LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
+//		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//		LinearLayout itemView = (LinearLayout) inflater.inflate(
+//			R.layout.alarm_incl, null);
+//		TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
+//		txtView.setText(R.string.add);
+//
+//		if (!mPrefs.getBoolean(
+//				getApplicationContext()
+//				.getString(R.string.pref_showsettbtn_key), false))
+//		{
+//			itemView.setVisibility(View.GONE);
+//		}
+//
+//		itemView.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View arg0)
+//				{
+//					addAlarmDialog();
+//
+//				}
+//			});
+//		mainL.addView(itemView, new TableLayout.LayoutParams(
+//						  LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+//	}
 
 	public void notification()
 	{
@@ -642,7 +641,8 @@ OnSharedPreferenceChangeListener
 		}
 		alarm.updateElement();
 		alarm.getElement().setOnClickListener(this);
-
+		alarm.getWidget().getBackground().setAlpha(ALPHA_CLOCK);
+		
 		if (!mPrefs.getBoolean(
 				getApplicationContext().getString(R.string.pref_shownames_key),
 				false))
@@ -850,7 +850,6 @@ OnSharedPreferenceChangeListener
 	{
 		Intent intent2 = new Intent("com.google.zxing.client.android.SCAN");
 		intent2.putExtra("SCAN_MODE", "ONE_D_MODE");
-		//intent2.putExtra(ALARMID,"0");
 		for (final AlarmClock alarm : alarmList)
 		{
 			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text)

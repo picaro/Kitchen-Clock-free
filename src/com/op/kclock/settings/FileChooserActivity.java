@@ -1,6 +1,7 @@
 package com.op.kclock.settings;
 
 
+import android.annotation.TargetApi;
 import android.app.*;
 import android.content.*;
 import android.os.*;
@@ -108,8 +109,10 @@ public class FileChooserActivity extends ListActivity {
 		mAdapter.notifyDataSetChanged();
 	}
 
+	@TargetApi(5)
 	@Override
 	public void onBackPressed() {
+		super.onBackPressed();
 		if(mDirectory.getParentFile() != null) {
 			// Go to parent directory
 			mDirectory = mDirectory.getParentFile();
@@ -117,7 +120,6 @@ public class FileChooserActivity extends ListActivity {
 			return;
 		}
 
-		super.onBackPressed();
 	}
 
 	@Override

@@ -44,10 +44,8 @@ public class WakeUpLock {
             sWakeLock.release();
         }
         KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-		if (keyguardManager != null){
-     	   keyguardLock = keyguardManager.newKeyguardLock("TAG");
-      	   keyguardLock.disableKeyguard();
-		}
+     	keyguardLock = keyguardManager.newKeyguardLock("TAG");
+      	keyguardLock.disableKeyguard();
 	  
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 

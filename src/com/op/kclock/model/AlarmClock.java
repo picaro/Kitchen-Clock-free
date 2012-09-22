@@ -255,11 +255,6 @@ public class AlarmClock implements Parcelable {
 		return element;
 	}
 
-	// public void setSec(long sec) {
-	// this.seconds = sec;
-	// initSeconds
-	// }
-
 	public long getSec() {
 		return seconds - (getHour() * HOUR) - (getMin() * MINUTE);
 	}

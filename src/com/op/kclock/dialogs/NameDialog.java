@@ -69,7 +69,21 @@ public class NameDialog extends Dialog {
 
 		Button buttonCancel = (Button) findViewById(R.id.cancelsettimer);
 		buttonCancel.setOnClickListener(cancelHandler);
+		Button settimerbtn = (Button) findViewById(R.id.settimerbtn);
+		settimerbtn.setOnClickListener(saveHandler);
 	}
+
+	View.OnClickListener saveHandler = new View.OnClickListener() {
+		public void onClick(View v) {
+			alarm.setName(timerName.getText().toString());
+			AlarmClock alarmT = alarm;
+			alarm = null;
+			mDialogResult.finish(alarmT);
+			dismiss();
+		}
+
+	};
+
 	
 	View.OnClickListener cancelHandler = new View.OnClickListener() {
 		public void onClick(View v) {

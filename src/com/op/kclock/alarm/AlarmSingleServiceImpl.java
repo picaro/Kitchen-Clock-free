@@ -18,7 +18,6 @@
  */
 package com.op.kclock.alarm;
 
-import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
@@ -27,7 +26,6 @@ import android.os.Handler;
 import com.op.kclock.MainActivity;
 import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
-import com.op.kclock.model.AlarmClock.TimerState;
 
 /**
  * Class that handles Putting alarm to file and to device. So that we can wake
@@ -37,6 +35,7 @@ public class AlarmSingleServiceImpl implements Runnable {
 
 	private final Context context;
 	private static boolean running = false;
+	private static boolean stateChanged = true;
 	private List<AlarmClock> alarmList;
 
 	Handler handler;
@@ -51,19 +50,32 @@ public class AlarmSingleServiceImpl implements Runnable {
 
 	@Override
 	public void run() {
+		boolean isRunning = false;
 		do {
-			boolean isRunning = false;
+			//if (isRunning) stateChanged = true; else stateChanged = false;
 			if (alarmList != null) {
+				boolean runned = false;
 				for (AlarmClock alarm : alarmList) {
 					if (alarm.getState() == AlarmClock.TimerState.RUNNING){
+						runned = true;
+						if (!isRunning) {
+							stateChanged = true;
+						} else {stateChanged = false;}
+						isRunning = true;
 						if (alarm.tick()){
 							alarm.updateElement();			
-							isRunning = true;
 						} else {
 							alarm.updateElement();
 							if (alarm.getState() == AlarmClock.TimerState.ALARMING)  alarm.alarmNOW(); 
 						}
 					}
+				}
+				if (!runned){
+					if (isRunning) {
+						stateChanged = true;
+					} else {stateChanged = false;}
+
+					isRunning = false;
 				}
 			}
 			try {
@@ -77,11 +89,14 @@ public class AlarmSingleServiceImpl implements Runnable {
 	}
 
 	private void updateLock(boolean isRunning) {
-		Log.v(MainActivity.TAG, "updateLock:" + isRunning);
-		if(isRunning) {
-			WakeUpLock.acquire(context);
-		} else {
-			WakeUpLock.release();
+		Log.d(MainActivity.TAG, "updateLock:" + isRunning + " - " + stateChanged);
+		if (stateChanged){
+			Log.d(MainActivity.TAG, ":" + isRunning );
+			if(isRunning) {
+				WakeUpLock.acquire(context);
+			} else {
+				WakeUpLock.release();
+			}
 		}
 	}
 
