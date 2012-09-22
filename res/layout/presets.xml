@@ -3,7 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="1"
-    android:gravity="center_horizontal"
     android:orientation="vertical" 
     android:background="@drawable/bg_wood"
     >
@@ -11,15 +10,17 @@
 	<com.markupartist.android.widget.ActionBar
         android:id="@+id/actionbar"
         style="@style/ActionBar" />
-		
+		
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/llViewPreset"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="top"
         android:layout_margin="4dp"
         android:layout_weight="0.7"
         android:orientation="vertical"
-        android:padding="10dip" 
-        android:id="@+id/llViewPreset">
+        android:minHeight="200dip"
+        android:padding="10dip" >
 
         <TextView
             android:id="@+id/presets_header"
@@ -41,15 +42,16 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
+
     <LinearLayout
+        android:id="@+id/llViewLog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dip"
+        android:layout_gravity="bottom"
         android:layout_margin="3dp"
         android:layout_weight="0.3"
         android:orientation="vertical"
         android:padding="10dip"
-        android:id="@+id/llViewLog"
          >
 
         <TextView
@@ -62,13 +64,15 @@
         <ScrollView
             android:id="@+id/scrollViewLog"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+            >
 
             <LinearLayout
 				android:orientation="vertical"
                 android:layout_width="match_parent"
+            	android:layout_height="wrap_content" 
 				android:id="@+id/logs_list"
-                android:layout_height="262dp" >
+                >
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
