@@ -31,18 +31,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.graphics.Paint;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.EditTextPreference;
 import android.preference.PreferenceManager;
 import android.view.ContextMenu;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -50,26 +54,21 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-
+import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 import com.markupartist.android.widget.ActionBar.IntentAction;
-import com.markupartist.android.widget.ActionBar;
 import com.op.kclock.alarm.AlarmSingleServiceImpl;
 import com.op.kclock.alarm.WakeUpLock;
 import com.op.kclock.cookconst.SettingsConst;
+import com.op.kclock.dialogs.NameDialog;
 import com.op.kclock.dialogs.TimePickDialog;
 import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DBHelper;
-import android.graphics.*;
-import android.media.*;
-import android.database.*;
 
 public class MainActivity extends Activity implements OnClickListener,
 OnSharedPreferenceChangeListener
@@ -123,9 +122,9 @@ OnSharedPreferenceChangeListener
 				getApplicationContext().getString(
 					R.string.pref_overridevolume_key), true))
 		{
-			AudioManager am = (AudioManager)getSystemService(this.getApplicationContext().AUDIO_SERVICE);
+			AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 			am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-			am.setMode(AudioManager.MODE_NORMAL);
+			//am.setMode(AudioManager.MODE_NORMAL);
 
 			int vol = mPrefs.getInt(
 				getApplicationContext().getString(
@@ -143,10 +142,9 @@ OnSharedPreferenceChangeListener
 
 
 		Log.d(TAG, "start");
-		WakeUpLock.acquire(this);
+		//WakeUpLock.acquire(this);
 
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
 		notification();
 
 		if (this.getIntent() != null)
@@ -470,7 +468,7 @@ OnSharedPreferenceChangeListener
 
 
 
-		WakeUpLock.acquire(this);
+		//WakeUpLock.acquire(this);
 		if (alarmList.size() == 0)
 		{
 			if (mPrefs.getBoolean(
@@ -488,8 +486,7 @@ OnSharedPreferenceChangeListener
 	protected void onPause()
 	{
 		super.onPause();
-		if (isTimerActive())
-			WakeUpLock.release();
+		//if (isTimerActive())//WakeUpLock.release();
 		Log.d(TAG, "MainActivity: onPause()");
 	}
 
@@ -666,7 +663,6 @@ OnSharedPreferenceChangeListener
 				{
 					alarm.setState(AlarmClock.TimerState.RUNNING);
 				}
-
 			}
 			else
 			{
@@ -675,6 +671,7 @@ OnSharedPreferenceChangeListener
 		}
 
 		registerForContextMenu(alarm.getWidget());
+		addListenerForName(alarm);
 		// add the itemView
 		alarm.updateState();
 
@@ -682,6 +679,30 @@ OnSharedPreferenceChangeListener
 
 		if (alarm.getElement() == null) throw new IllegalArgumentException();
 		return alarm.getElement();
+	}
+
+	private void addListenerForName(final AlarmClock alarm) {
+		final TextView childAt = (TextView) alarm.getElement().getChildAt(0);
+		// On long click on preset - show edit dialog
+		childAt.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				NameDialog nameDialog = null;
+				nameDialog = new NameDialog(MainActivity.this,alarm);
+				nameDialog
+						.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				nameDialog
+						.setDialogResult(new NameDialog.OnMyDialogResult() {
+							public void finish(AlarmClock newAlarm) {
+								childAt.setText(alarm.getName());
+								DBHelper dbHelper = new DBHelper(getApplicationContext());
+								dbHelper.updatePreset(alarm);
+							}
+						});
+				nameDialog.show();
+				return true;
+			}
+		});
 	}
 
 	private void updateAlarmSize(AlarmClock alarm)
@@ -693,6 +714,7 @@ OnSharedPreferenceChangeListener
 		paint.setTextSize(scaledPx);
 		final float size = paint.measureText("00:00:00");
 		int tsize = (int)(DEF_TEXT_SIZE * (width / size) - 10);
+		if (tsize > 1000) tsize = 1000;
 		alarm.getWidget().setTextSize(tsize);
 		((TextView) alarm.getElement().getChildAt(0)).setTextSize(tsize / 3);
 	}
@@ -841,7 +863,6 @@ OnSharedPreferenceChangeListener
 	private void addPreset(TextViewWithMenu text)
 	{
 		DBHelper dbHelper = new DBHelper(getApplicationContext());
-		dbHelper.open();
 		for (final AlarmClock alarm : alarmList)
 		{
 			if (alarm.getElement() != null && alarm.getElement().getChildAt(1) == (TextViewWithMenu) text)
@@ -850,7 +871,6 @@ OnSharedPreferenceChangeListener
 				alarm.setPreset(true);
 			}
 		}
-		dbHelper.close();
 	}
 
 	// ============================================================
@@ -863,8 +883,6 @@ OnSharedPreferenceChangeListener
 		dbHelper.open();
 		for (final AlarmClock alarm : alarmList)
 		{
-			if (alarm.getState().equals(AlarmClock.TimerState.ALARMING))
-				alarm.alarmSTOP();
 
 			if (alarm.getElement() != null) alarm.getElement().setVisibility(View.GONE);
 			if (alarm.getInitSeconds() > 0) dbHelper.insertHistory(alarm);
@@ -872,7 +890,7 @@ OnSharedPreferenceChangeListener
 			{
 				dbHelper.deleteAlarm(alarm.getId());
 			}
-			alarm.setState(AlarmClock.TimerState.STOPPED);
+			alarm.alarmSTOP();				
 			alarm.setElement(null); // TODO clean!
 			alarm.setTime(-1);//used for debug. ensure thay deleted
 		}
@@ -1227,7 +1245,9 @@ OnSharedPreferenceChangeListener
 							return;
 						}
 					}
-					//toast
+					Toast toast = Toast.makeText(this, getString(R.string.dcodenotfound), Toast.LENGTH_LONG);
+		            toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+		            toast.show();
 					return;
 				}
 				else
@@ -1238,6 +1258,12 @@ OnSharedPreferenceChangeListener
 					if (alarm != null){	
 						deleteAllAlarms(false);
 						addAlarm(alarm);
+						alarm.setState(AlarmClock.TimerState.PAUSED);
+						
+					} else {
+						Toast toast = Toast.makeText(this, getString(R.string.dcodenotfound), Toast.LENGTH_LONG);
+			            toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+			            toast.show();
 					}
 				} 
 				Log.d(TAG, "ct." + contents);

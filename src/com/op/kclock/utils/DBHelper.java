@@ -351,6 +351,7 @@ public class DBHelper {
 	
 	
 	public void insertPreset(AlarmClock record){
+		open();
 		ContentValues values = new ContentValues();
 		values.put(NAME,  record.getName()== null? "alarm":  record.getName());
 		values.put(STATE, record.getState().toString());
@@ -363,6 +364,7 @@ public class DBHelper {
 		values.put(SOUND, record.getSound());
 		values.put(SCODE, record.getSCode());
 		db.insert(PRESET_TABLE, null, values);
+		close();
 	}
 
 	public void updatePreset(AlarmClock record){

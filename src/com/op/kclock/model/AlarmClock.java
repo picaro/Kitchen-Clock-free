@@ -169,13 +169,9 @@ public class AlarmClock implements Parcelable {
 		element = _element;
 	}
 
-//	public Thread getThread() {
-//		return thread;
-//	}
-//
-//	public void setThread(Thread thread) {
-//		this.thread = thread;
-//	}
+	public void setText( String text) {
+		getWidget().setText(text);
+	}
 
 	public void setState( TimerState state) {
 
@@ -198,6 +194,8 @@ public class AlarmClock implements Parcelable {
 				getWidget().startAnimation(out);
 				getWidget().setTextColor(
 						context.getResources().getColor(R.color.gray));
+				setState(TimerState.PAUSED);
+				restart();
 			}
 		}
 	}
@@ -310,6 +308,8 @@ public class AlarmClock implements Parcelable {
 		parcel.writeString(state.name());
 		parcel.writeString(sCode);
 		parcel.writeInt(preset?1:0);
+		parcel.writeLong(initSeconds);
+		
 	}
 
 	private AlarmClock(Parcel parcel) {
@@ -320,6 +320,7 @@ public class AlarmClock implements Parcelable {
 		state = TimerState.valueOf( parcel.readString());
 		sCode = parcel.readString();
 		preset = (parcel.readInt()==1)? true : false;
+		initSeconds = parcel.readLong();
 	}
 
 	public TextView getWidget() {
@@ -419,7 +420,7 @@ public class AlarmClock implements Parcelable {
 			});
 
 		Log.d("op", "a" + element);
-		WakeUpLock.acquire(context);
+		//WakeUpLock.acquire(context);
 	}
 
 	public void alarmSTOP() {
@@ -427,7 +428,7 @@ public class AlarmClock implements Parcelable {
 
 		if (this.state == TimerState.ALARMING) {
 			element.clearAnimation();
-			WakeUpLock.release();
+			//WakeUpLock.release();
 		}
 		setState( AlarmClock.TimerState.STOPPED);
 	}

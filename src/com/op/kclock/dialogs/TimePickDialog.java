@@ -261,7 +261,6 @@ public class TimePickDialog extends Dialog {
 
 	View.OnClickListener cancelHandler = new View.OnClickListener() {
 		public void onClick(View v) {
-			//isDialogShowed = false;
 			dismiss();
 		}
 	};
@@ -275,13 +274,11 @@ public class TimePickDialog extends Dialog {
 	}
 
 	public void setAlarm(AlarmClock _alarm) {
-
 		alarm = _alarm;
 	}
 
 	@Override
 	public void cancel() {
-		//isDialogShowed = false;
 		super.cancel();
 	}
 	

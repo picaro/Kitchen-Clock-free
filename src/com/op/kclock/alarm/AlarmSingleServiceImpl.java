@@ -24,6 +24,7 @@ import java.util.List;
 import android.content.Context;
 import android.os.Handler;
 
+import com.op.kclock.MainActivity;
 import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
@@ -34,7 +35,6 @@ import com.op.kclock.model.AlarmClock.TimerState;
  */
 public class AlarmSingleServiceImpl implements Runnable {
 
-	private final String TAG = "Alarm Service";
 	private final Context context;
 	private static boolean running = false;
 	private List<AlarmClock> alarmList;
@@ -52,11 +52,13 @@ public class AlarmSingleServiceImpl implements Runnable {
 	@Override
 	public void run() {
 		do {
+			boolean isRunning = false;
 			if (alarmList != null) {
 				for (AlarmClock alarm : alarmList) {
 					if (alarm.getState() == AlarmClock.TimerState.RUNNING){
 						if (alarm.tick()){
 							alarm.updateElement();			
+							isRunning = true;
 						} else {
 							alarm.updateElement();
 							if (alarm.getState() == AlarmClock.TimerState.ALARMING)  alarm.alarmNOW(); 
@@ -69,7 +71,18 @@ public class AlarmSingleServiceImpl implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+			updateLock(isRunning);
 		} while (running);
+	}
+
+	private void updateLock(boolean isRunning) {
+		Log.v(MainActivity.TAG, "updateLock:" + isRunning);
+		if(isRunning) {
+			WakeUpLock.acquire(context);
+		} else {
+			WakeUpLock.release();
+		}
 	}
 
 }

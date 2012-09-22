@@ -180,6 +180,8 @@
     <string name="pref_advancedsettings_summary">show additional</string>	
     <string name="pref_hideadvsettings">hide advanced settings</string>	
     <string name="pref_hideadvsettings_summary">hide additional</string>
-	<string name="assigncode">Assign code</string>	
+	<string name="assigncode">Assign barcode</string>	
+	<string name="dcodenotfound">Barcode not found</string>	
+		
 	
 </resources>
