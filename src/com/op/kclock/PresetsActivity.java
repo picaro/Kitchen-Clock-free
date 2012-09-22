@@ -38,6 +38,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	// AlarmClock>();
 	private GestureDetector gestureDetector;
 	private ActionBar actionBar;
+	private DBHelper dbHelper = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		final LinearLayout presetsList = (LinearLayout) findViewById(R.id.presets_list);
 		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-		DBHelper dbHelper = new DBHelper(getApplicationContext());
+		dbHelper = new DBHelper(getApplicationContext());
 		dbHelper.open();
 
 		// Show presets list
@@ -73,10 +74,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 					presetsList.removeView(p1);
 					AlarmClock alarm = historyMap.get(p1);
 					presets.remove(alarm);
-					DBHelper dbHelper = new DBHelper(getApplicationContext());
-					dbHelper.open();
 					dbHelper.deletePreset(alarm.getId());
-					dbHelper.close();
 					historyMap.remove(p1);
 
 				}

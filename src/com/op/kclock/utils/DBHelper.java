@@ -383,7 +383,9 @@ public class DBHelper {
 	}
 
 	public void deletePreset(long examId){
+		open();
 		db.delete(PRESET_TABLE, ID+"=" + examId, null);
+		close();
 	}
 
 	public List<AlarmClock> getPresetsList() {
