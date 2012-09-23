@@ -57,4 +57,8 @@
     <string name="pref_hideadvsettings_key">pref_hideadvsettings_key</string>
     <string name="pref_disablelock_key">pref_disablelock_key</string>
     	
+    	
+    <string name="pref_bgfile_path_key">pref_bgfile_path_key</string>
+    <string name="pref_bgfile_key">pref_bgfile_key</string>
+    <string name="pref_bgsource_key">pref_bgsource_key</string>
 </resources>

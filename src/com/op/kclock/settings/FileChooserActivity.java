@@ -13,6 +13,9 @@ import java.util.*;
 
 public class FileChooserActivity extends ListActivity {
 
+	private static final String PARENT_FOLDER_NAME = "..";
+	File fParent = new File("..");
+
   /**
 	 * The file path
 	 */
@@ -104,6 +107,10 @@ public class FileChooserActivity extends ListActivity {
 				mFiles.add(f);
 			}
 
+			if(mDirectory.getParentFile() != null) {
+				mFiles.add(fParent);
+			}
+			
 			Collections.sort(mFiles, new FileComparator());
 		}
 		mAdapter.notifyDataSetChanged();
@@ -125,7 +132,11 @@ public class FileChooserActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		File newFile = (File)l.getItemAtPosition(position);
-
+		if (newFile.getPath().equals(PARENT_FOLDER_NAME)){
+			mDirectory = mDirectory.getParentFile();
+			refreshFilesList();
+			return;
+		}
 		if(newFile.isFile()) {
 			// Set result
 			Intent extra = new Intent();

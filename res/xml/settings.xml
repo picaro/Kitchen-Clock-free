@@ -108,6 +108,25 @@ limitations under the License.
             android:key="@string/pref_showdelall_key"
             android:summary="@string/pref_showdelall_summary"
             android:title="@string/pref_showdelall" />
+       
+         <ListPreference
+            android:defaultValue="system"
+            android:entries="@array/pref_bgsource_entries"
+            android:entryValues="@array/pref_bgsource_values"
+            android:key="@string/pref_bgsource_key"
+            android:summary="@string/pref_bgsource_summary"
+            android:dialogTitle="@string/pref_bgsource_dialogtitle"
+                  android:title="@string/pref_bgsource_dialogtitle" />
+        <EditTextPreference
+            android:key="@string/pref_bgfile_path_key"
+            android:title=""
+            android:enabled="false" />
+        <Preference
+            android:key="@string/pref_bgfile_key"
+            android:summary="@string/pref_bgfile_summary"
+            android:title="@string/pref_bgfile" >
+        </Preference>
+        
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/alarm_settings" >
         <ListPreference
@@ -136,11 +155,11 @@ limitations under the License.
             android:title="@string/pref_soundfile" >
         </Preference>
 
-        <VolumePreference
+        <!-- VolumePreference
             android:name="Volume Preference"
             android:key="@string/pref_volume_key"
             android:summary="@string/pref_volume_summary"
-            android:title="@string/pref_volume" />
+            android:title="@string/pref_volume" /> -->
 
    		<CheckBoxPreference
             android:defaultValue="false"

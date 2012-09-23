@@ -18,6 +18,11 @@
  */
 package com.op.kclock;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +38,11 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -75,6 +84,7 @@ import com.op.kclock.utils.DBHelper;
 public class MainActivity extends Activity implements OnClickListener,
 		OnSharedPreferenceChangeListener {
 
+	private static final int MAX_ALARM_TSIZE = 200;
 	private static final String SCANER_ACTIVITY = "com.google.zxing.client.android.SCAN";
 	private static final int ALPHA_CLOCK = 80;
 	private static final int DEF_TEXT_SIZE = 66;
@@ -115,28 +125,11 @@ public class MainActivity extends Activity implements OnClickListener,
 				.getApplicationContext());
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
 
+		
 		// Eula.show(this);
 		// Changelog.show(this);
 		initActionBar();
 
-		if (mPrefs.getBoolean(
-				getApplicationContext().getString(
-						R.string.pref_overridevolume_key), false)) {
-			AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-			am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-			// am.setMode(AudioManager.MODE_NORMAL);
-
-			int vol = mPrefs
-					.getInt(getApplicationContext().getString(
-							R.string.pref_volume_key), 1);
-			Log.e(TAG,
-					"vol-"
-							+ am.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
-			// Set the volume of played media to maximum.
-
-			// am.setStreamVolume(AudioManager.STREAM_NOTIFICATION ,
-			// am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION)*0+vol,0);
-		}
 
 		if (alarmList == null) {
 			alarmList = new ArrayList<AlarmClock>();
@@ -211,8 +204,31 @@ public class MainActivity extends Activity implements OnClickListener,
 				return false;
 			}
 		});
+		
+
+		updateBackGround();
+
 
 	}
+
+
+	private void updateBackGround() {
+		String bgSRC = mPrefs.getString(
+				getApplicationContext().getString(R.string.pref_bgsource_key),
+				SettingsActivity.SYSTEM_SOUND_VALUE);
+		View mainV = findViewById(R.id.mainScroll);
+		if (!bgSRC.equals("system")){
+			String customBG = mPrefs.getString(
+					getApplicationContext().getString(R.string.pref_bgfile_path_key), null);
+			if(customBG != null && customBG.length() > 2){
+				BitmapDrawable bitmap = new BitmapDrawable(getResources(), customBG);
+				mainV.setBackgroundDrawable(bitmap);
+			}
+		}  else {
+			mainV.setBackgroundResource(R.drawable.bg_wood);
+		}
+	}
+
 
 	private void initActionBar() {
 		actionBar = (ActionBar) findViewById(R.id.actionbar);
@@ -624,8 +640,8 @@ public class MainActivity extends Activity implements OnClickListener,
 		paint.setTextSize(scaledPx);
 		final float size = paint.measureText("00:00:00");
 		int tsize = (int) (DEF_TEXT_SIZE * (width / size) - 10);
-		if (tsize > 200)
-			tsize = 200;
+		if (tsize > MAX_ALARM_TSIZE)
+			tsize = (int) (tsize - tsize*0.3);
 		alarm.getWidget().setTextSize(tsize);
 		((TextView) alarm.getElement().getChildAt(0)).setTextSize(tsize / 3);
 	}
@@ -1002,6 +1018,8 @@ public class MainActivity extends Activity implements OnClickListener,
 			} else {
 				WakeUpLock.release();
 			}
+		} else if (key.equals("pref_bgfile_path_key") || key.equals("pref_bgsource_key")) {
+			updateBackGround();
 		}
 	}
 

@@ -4,9 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
@@ -25,6 +29,7 @@ import com.op.kclock.dialogs.TimePickDialog;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.utils.DBHelper;
 
+@TargetApi(5)
 public class PresetsActivity extends Activity implements OnClickListener {
 
 	/** Called when the activity is first created. */
@@ -32,7 +37,8 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	private List<AlarmClock> presets = null;
 	private final Map<View, AlarmClock> logsNpresetsMap = new HashMap<View, AlarmClock>();
 	private TimePickDialog timePickDialog = null;
-
+	private SharedPreferences mPrefs;
+	
 	private GestureDetector gestureDetector;
 	private ActionBar actionBar;
 	private DBHelper dbHelper = null;
@@ -48,6 +54,23 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		dbHelper = new DBHelper(getApplicationContext());
 		dbHelper.open();
 
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
+				.getApplicationContext());
+	
+		String bgSRC = mPrefs.getString(
+				getApplicationContext().getString(R.string.pref_bgsource_key),
+				SettingsActivity.SYSTEM_SOUND_VALUE);
+		if (!bgSRC.equals("system")){
+			View mainview = findViewById(R.id.presetsMain);
+			String customBG = mPrefs.getString(
+					getApplicationContext().getString(R.string.pref_bgfile_path_key), null);
+			if(customBG != null && customBG.length() > 2){
+				BitmapDrawable bitmap = new BitmapDrawable(getResources(), customBG);
+				mainview.setBackgroundDrawable(bitmap);
+			}
+		}
+
+		
 		// Show presets list
 		presets = dbHelper.getPresetsList();
 		for (final AlarmClock alarm : presets) {
@@ -103,6 +126,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 					return true;
 				}
 			});
+			
 
 		}
 
