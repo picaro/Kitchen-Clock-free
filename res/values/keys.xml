@@ -55,5 +55,6 @@
     <string name="pref_overridevolume_key">pref_overridevolume_key</string>
     <string name="pref_advancedsettings_key">pref_advancedsettings_key</string>
     <string name="pref_hideadvsettings_key">pref_hideadvsettings_key</string>
+    <string name="pref_disablelock_key">pref_disablelock_key</string>
     	
 </resources>

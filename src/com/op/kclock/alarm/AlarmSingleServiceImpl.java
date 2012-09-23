@@ -24,6 +24,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.op.kclock.MainActivity;
+import com.op.kclock.R;
 import com.op.kclock.misc.Log;
 import com.op.kclock.model.AlarmClock;
 
@@ -89,7 +90,10 @@ public class AlarmSingleServiceImpl implements Runnable {
 	}
 
 	private void updateLock(boolean isRunning) {
-		Log.d(MainActivity.TAG, "updateLock:" + isRunning + " - " + stateChanged);
+		//Log.v(MainActivity.TAG, "updateLock:" + isRunning + " - " + stateChanged);
+		if (mPrefs.getBoolean(
+				context.getString(
+					R.string.pref_savesession_key), true))
 		if (stateChanged){
 			Log.d(MainActivity.TAG, ":" + isRunning );
 			if(isRunning) {

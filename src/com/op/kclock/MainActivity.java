@@ -134,6 +134,7 @@ OnSharedPreferenceChangeListener
 			//	am.setStreamVolume(AudioManager.STREAM_NOTIFICATION ,
 			//		am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION)*0+vol,0);
 		}
+
 		if (alarmList == null)
 		{
 			alarmList = new ArrayList<AlarmClock>();
@@ -489,17 +490,6 @@ OnSharedPreferenceChangeListener
 		Log.d(TAG, "MainActivity: onPause()");
 	}
 
-	private boolean isTimerActive()
-	{
-		for (AlarmClock alarm : alarmList)
-		{
-			if (alarm.getState() != AlarmClock.TimerState.RUNNING)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
 
 	@Override
 	protected void onStop()

@@ -201,6 +201,13 @@ limitations under the License.
             android:summaryOff="@string/pref_stoponrotate_summary_off"
             android:summaryOn="@string/pref_stoponrotate_summary_on"
             android:title="@string/pref_stoponrotate" />
+
+         <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_disablelock_key"
+            android:summaryOff="@string/pref_disablelock_summary_off"
+            android:summaryOn="@string/pref_disablelock_summary_on"
+            android:title="@string/pref_disablelock" />
         
          <!-- Preference
             android:key="@string/pref_advancedsettings_key"
