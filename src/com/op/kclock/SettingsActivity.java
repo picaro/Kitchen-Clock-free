@@ -63,6 +63,12 @@ public class SettingsActivity extends PreferenceActivity implements
 			soundSource.setOnPreferenceChangeListener(this);
 			soundSourceChanged(((ListPreference) soundSource).getValue());
 		}
+		
+		Preference bgSource = findPreference(getString(R.string.pref_bgsource_key));
+		if (bgSource != null) {
+			bgSource.setOnPreferenceChangeListener(this);
+			bgSourceChanged(((ListPreference) bgSource).getValue());
+		}
 
 		Preference pickstyle = findPreference(getString(R.string.pref_pickstyle_key));
 		if (pickstyle != null) {
