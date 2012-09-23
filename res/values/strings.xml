@@ -186,5 +186,7 @@
 	<string name="pref_disablelock">Disable lock</string>
     <string name="pref_disablelock_summary_on">phone lock disabled</string>	
     <string name="pref_disablelock_summary_off">phone lock enabled</string>	
+	<string name="installzxingscan">Please install ZXing barcode scaner</string>	
+    
 		
 </resources>

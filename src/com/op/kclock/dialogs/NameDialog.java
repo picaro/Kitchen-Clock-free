@@ -18,31 +18,15 @@
  */
 package com.op.kclock.dialogs;
 
-import java.util.Calendar;
-
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.NumericWheelAdapter;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.format.DateFormat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.op.kclock.MainActivity;
 import com.op.kclock.R;
-import com.op.kclock.dialogs.TimePickDialog.OnMyDialogResult;
 import com.op.kclock.model.AlarmClock;
-import com.op.kclock.ui.INumberPicker;
-import com.op.kclock.ui.NumberPicker;
 
 public class NameDialog extends Dialog {
 

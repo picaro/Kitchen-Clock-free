@@ -21,7 +21,9 @@ package com.op.kclock.alarm;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 import com.op.kclock.MainActivity;
 import com.op.kclock.R;
@@ -38,6 +40,7 @@ public class AlarmSingleServiceImpl implements Runnable {
 	private static boolean running = false;
 	private static boolean stateChanged = true;
 	private List<AlarmClock> alarmList;
+	private SharedPreferences mPrefs;
 
 	Handler handler;
 
@@ -47,34 +50,40 @@ public class AlarmSingleServiceImpl implements Runnable {
 		handler = _handler;
 		running = true;
 		alarmList = _alarmList;
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
 	@Override
 	public void run() {
 		boolean isRunning = false;
 		do {
-			//if (isRunning) stateChanged = true; else stateChanged = false;
+			// if (isRunning) stateChanged = true; else stateChanged = false;
 			if (alarmList != null) {
 				boolean runned = false;
 				for (AlarmClock alarm : alarmList) {
-					if (alarm.getState() == AlarmClock.TimerState.RUNNING){
+					if (alarm.getState() == AlarmClock.TimerState.RUNNING) {
 						runned = true;
 						if (!isRunning) {
 							stateChanged = true;
-						} else {stateChanged = false;}
+						} else {
+							stateChanged = false;
+						}
 						isRunning = true;
-						if (alarm.tick()){
-							alarm.updateElement();			
+						if (alarm.tick()) {
+							alarm.updateElement();
 						} else {
 							alarm.updateElement();
-							if (alarm.getState() == AlarmClock.TimerState.ALARMING)  alarm.alarmNOW(); 
+							if (alarm.getState() == AlarmClock.TimerState.ALARMING)
+								alarm.alarmNOW();
 						}
 					}
 				}
-				if (!runned){
+				if (!runned) {
 					if (isRunning) {
 						stateChanged = true;
-					} else {stateChanged = false;}
+					} else {
+						stateChanged = false;
+					}
 
 					isRunning = false;
 				}
@@ -84,24 +93,25 @@ public class AlarmSingleServiceImpl implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			updateLock(isRunning);
 		} while (running);
 	}
 
 	private void updateLock(boolean isRunning) {
-		//Log.v(MainActivity.TAG, "updateLock:" + isRunning + " - " + stateChanged);
-		if (mPrefs.getBoolean(
-				context.getString(
-					R.string.pref_savesession_key), true))
-		if (stateChanged){
-			Log.d(MainActivity.TAG, ":" + isRunning );
-			if(isRunning) {
-				WakeUpLock.acquire(context);
-			} else {
-				WakeUpLock.release();
+		// Log.v(MainActivity.TAG, "updateLock:" + isRunning + " - " +
+		// stateChanged);
+		if (mPrefs.getBoolean(context.getString(R.string.pref_disablelock_key),
+				true)){
+			if (stateChanged) {
+				Log.d(MainActivity.TAG, ":" + isRunning);
+				if (isRunning) {
+					WakeUpLock.acquire(context);
+				} else {
+					WakeUpLock.release();
+				}
 			}
-		}
+		} ;
 	}
 
 }
