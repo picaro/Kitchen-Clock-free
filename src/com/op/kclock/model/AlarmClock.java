@@ -423,7 +423,9 @@ public class AlarmClock implements Parcelable {
 		mNotificationManager.cancel(SettingsConst.APP_NOTIF_ID + 1);
 
 		if (this.state == TimerState.ALARMING) {
+			element.setAnimation(null);
 			element.clearAnimation();
+			getWidget().clearAnimation();
 			//WakeUpLock.release();
 		}
 		setState( AlarmClock.TimerState.STOPPED);
