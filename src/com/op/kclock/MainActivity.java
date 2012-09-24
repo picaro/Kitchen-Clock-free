@@ -1250,8 +1250,13 @@ OnSharedPreferenceChangeListener
 			Intent intent = new Intent(MainActivity.this.getBaseContext(),
 									   PresetsActivity.class);
 
-			if (e1 == null || e2 == null || Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
-			{
+			try {
+				if (e1 == null || e2 == null || Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+				{
+					return false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 				return false;
 			}
 
