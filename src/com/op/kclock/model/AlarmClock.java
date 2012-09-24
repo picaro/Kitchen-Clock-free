@@ -196,6 +196,7 @@ public class AlarmClock implements Parcelable {
 						context.getResources().getColor(R.color.gray));
 				setState(TimerState.PAUSED);
 				restart();
+				this.updateElement();
 			}
 		}
 	}

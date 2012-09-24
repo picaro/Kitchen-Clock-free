@@ -165,7 +165,7 @@
 
 		
 	<string name="preset_list_empty">Список пресетов пуст</string>
-    <string name="presets_saved">Пресеты сохраненв</string>
+    <string name="presets_saved">Пресеты сохранены</string>
     <string name="presets">Пресет</string>
     <string name="delete_preset_title">Удалить все?</string>
     <string name="delete_preset_message">Are you sure want to delete all presets?</string>
@@ -179,6 +179,22 @@
     <string name="pref_hideadvsettings">hide advanced settings</string>	
     <string name="pref_hideadvsettings_summary">hide additional</string>
 	<string name="assigncode">Связать штрихкод</string>	
+	<string name="dcodenotfound">Штрихкод не найден</string>	
+
+	<string name="pref_disablelock">Выключить блокировку</string>
+    <string name="pref_disablelock_summary_on">блокировка выкл</string>	
+    <string name="pref_disablelock_summary_off">блокировка вкл</string>	
+	<string name="installzxingscan">Пожалуйста установите сканер штрихкодов ZXing</string>	
+
+    <string name="pref_bgfile">Выбрать фон</string>	
+    <string name="pref_bgfile_summary">выбор фона</string>
+	<string name="pref_bgsource_system">умолчания</string>
+    <string name="pref_bgsource_custom">свой</string>
+    <string name="pref_bgsource_summary">выберите источник фона</string>	
+    <string name="pref_bgsource_dialogtitle">Источник фона</string>
+
+	<string name="pref_overridesettbg">Фон для пресетов</string>
+    <string name="pref_overridesettbg_summary">тот же фон для пресетов</string>	
 	
 		
 		</resources>

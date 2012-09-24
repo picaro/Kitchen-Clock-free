@@ -28,6 +28,9 @@ import com.markupartist.android.widget.ActionBar;
 import com.op.kclock.dialogs.TimePickDialog;
 import com.op.kclock.model.AlarmClock;
 import com.op.kclock.utils.DBHelper;
+import com.op.kclock.cookconst.*;
+import android.widget.*;
+import android.view.*;
 
 @TargetApi(5)
 public class PresetsActivity extends Activity implements OnClickListener {
@@ -60,7 +63,10 @@ public class PresetsActivity extends Activity implements OnClickListener {
 		String bgSRC = mPrefs.getString(
 				getApplicationContext().getString(R.string.pref_bgsource_key),
 				SettingsActivity.SYSTEM_SOUND_VALUE);
-		if (!bgSRC.equals("system")){
+		if (mPrefs.getBoolean(
+					getApplicationContext().getString(
+							R.string.pref_overridesettbg_key), false)) {
+			if (!bgSRC.equals("system")){
 			View mainview = findViewById(R.id.presetsMain);
 			String customBG = mPrefs.getString(
 					getApplicationContext().getString(R.string.pref_bgfile_path_key), null);
@@ -68,6 +74,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 				BitmapDrawable bitmap = new BitmapDrawable(getResources(), customBG);
 				mainview.setBackgroundDrawable(bitmap);
 			}
+		}
 		}
 
 		
@@ -228,7 +235,8 @@ public class PresetsActivity extends Activity implements OnClickListener {
 
 
 	private void addPresetDialog() {
-		if (timePickDialog == null || (timePickDialog != null && !timePickDialog.isShowing()))
+		if (SettingsConst.APP_FULL  || presets.size() < SettingsConst.MAX_PRESETS)
+		{		if (timePickDialog == null || (timePickDialog != null && !timePickDialog.isShowing()))
 		{
 			timePickDialog = new TimePickDialog(PresetsActivity.this);
 			timePickDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -246,7 +254,15 @@ public class PresetsActivity extends Activity implements OnClickListener {
 				});
 			timePickDialog.show();
 		}
-
+	}
+	else
+	{
+		Toast toast = Toast.makeText(this,
+									 getString(R.string.liteallow),
+									 Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.show();
+	}
 	}
 
 	private void deleteAllPresets()

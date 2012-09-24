@@ -126,7 +126,13 @@ limitations under the License.
             android:summary="@string/pref_bgfile_summary"
             android:title="@string/pref_bgfile" >
         </Preference>
-        
+		
+  		<CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/pref_overridesettbg_key"
+            android:summary="@string/pref_overridesettbg_summary"
+             android:title="@string/pref_overridesettbg" />			
+		
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/alarm_settings" >
         <ListPreference

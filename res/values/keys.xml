@@ -61,4 +61,6 @@
     <string name="pref_bgfile_path_key">pref_bgfile_path_key</string>
     <string name="pref_bgfile_key">pref_bgfile_key</string>
     <string name="pref_bgsource_key">pref_bgsource_key</string>
+	<string name="pref_overridesettbg_key">pref_overridesettbg_key</string>
+ 	
 </resources>
