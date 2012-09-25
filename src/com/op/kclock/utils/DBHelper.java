@@ -33,6 +33,10 @@ import com.op.kclock.model.*;
 import com.op.kclock.misc.*;
 import com.op.kclock.cookconst.*;
 
+ /**
+    Work with DB. Without orm -
+	smaller size and we have only three tables
+ */
 public class DBHelper {
 	SQLiteDatabase db;
 	Context context;
@@ -208,8 +212,6 @@ public class DBHelper {
 				alarm.setDateAdd(cursor.getInt(dateadd));
 				alarm.setUsageCnt(cursor.getInt(usagecnt));
 				alarm.restart();
-				// alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
-				// .getString(state)));
 				alarm.setName(cursor.getString(nameColIndex));
 				alarm.setSound(cursor.getString(sound));
 				alarm.setSCode(cursor.getString(scode));
@@ -308,7 +310,6 @@ public class DBHelper {
 				int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
 				int sound = cursor.getColumnIndex(DBHelper.SOUND);
 				int scode = cursor.getColumnIndex(DBHelper.SCODE);
-				// int state = cursor.getColumnIndex(DbTool.STATE);
 				AlarmClock alarm = new AlarmClock(context);
 				alarm.setId(cursor.getInt(idColIndex));
 				alarm.setTime(cursor.getInt(seconds));
@@ -318,8 +319,6 @@ public class DBHelper {
 				alarm.setDateAdd(cursor.getInt(dateadd));
 				alarm.setUsageCnt(cursor.getInt(usagecnt));
 				alarm.restart();
-				// alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
-				// .getString(state)));
 				alarm.setName(cursor.getString(nameColIndex));
 				alarm.setSound(cursor.getString(sound));
 				alarm.setSCode(cursor.getString(scode));
@@ -408,7 +407,6 @@ public class DBHelper {
 				int usagecnt = cursor.getColumnIndex(DBHelper.USAGECNT);
 				int sound = cursor.getColumnIndex(DBHelper.SOUND);
 				int scode = cursor.getColumnIndex(DBHelper.SCODE);
-				//int state = cursor.getColumnIndex(DbTool.STATE);
 				AlarmClock alarm = new AlarmClock(context);
 				alarm.setId(cursor.getInt(idColIndex));
 				alarm.setTime(cursor.getInt(seconds));
@@ -418,8 +416,6 @@ public class DBHelper {
 				alarm.setDateAdd(cursor.getInt(dateadd));
 				alarm.setUsageCnt(cursor.getInt(usagecnt));
 				alarm.restart();
-//			alarm.setState(context, AlarmClock.TimerState.valueOf(cursor
-//					.getString(state)));
 				alarm.setName(cursor.getString(nameColIndex));
 				alarm.setSound(cursor.getString(sound));
 				alarm.setSCode(cursor.getString(scode));

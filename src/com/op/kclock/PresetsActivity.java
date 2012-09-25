@@ -31,6 +31,7 @@ import com.op.kclock.utils.DBHelper;
 import com.op.kclock.cookconst.*;
 import android.widget.*;
 import android.view.*;
+import com.op.kclock.dialogs.*;
 
 @TargetApi(5)
 public class PresetsActivity extends Activity implements OnClickListener {
@@ -211,6 +212,7 @@ public class PresetsActivity extends Activity implements OnClickListener {
 					return true;
 				}
 			case R.id.menu_delete_all: {
+					DialogUtils.createDialog(this,"totle","ttt","ok",true);
 					deleteAllPresets();
 					return true;
 				}

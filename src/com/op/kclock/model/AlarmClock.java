@@ -56,7 +56,7 @@ public class AlarmClock implements Parcelable {
 
 	private String name;
 	
-	private String ns = Context.NOTIFICATION_SERVICE;
+	private static String ns = Context.NOTIFICATION_SERVICE;
 
 	private long seconds;
 
@@ -79,6 +79,16 @@ public class AlarmClock implements Parcelable {
 	//this alarm loaded from presets?
 	private boolean preset = false;
 
+	private LinearLayout element;
+
+	private NotificationManager mNotificationManager;
+
+	public static enum TimerState {
+		STOPPED, PAUSED, RUNNING, ALARMING
+		};
+
+	private TimerState state = TimerState.STOPPED;
+	
 	public void setPreset(boolean preset)
 	{
 		this.preset = preset;
@@ -151,15 +161,6 @@ public class AlarmClock implements Parcelable {
 		this.initSeconds = initSeconds;
 	}
 
-	private LinearLayout element;
-
-	private NotificationManager mNotificationManager;
-
-	public static enum TimerState {
-		STOPPED, PAUSED, RUNNING, ALARMING
-	};
-
-	private TimerState state = TimerState.STOPPED;
 
 	public TimerState getState() {
 		return state;
@@ -374,7 +375,7 @@ public class AlarmClock implements Parcelable {
 
 	public void alarmNOW() {
 		// vibratePhone(context);
-		sendTimeIsOverNotification(0, context);
+		sendTimeIsOverNotification(0, context, null);
 
 		final Animation anim = AnimationUtils.loadAnimation(context,
 				R.anim.fade_bwb);
@@ -473,9 +474,9 @@ public class AlarmClock implements Parcelable {
 	 * @param contentTitle
 	 * @param contentText
 	 */
-	private void sendTimeIsOverNotification(int timer, Context context) {
-		int icon;
+	public static void sendTimeIsOverNotification(int timer, Context context, Long _when) {
 
+		int icon;
 		SharedPreferences mPrefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
@@ -483,7 +484,10 @@ public class AlarmClock implements Parcelable {
 		CharSequence mTickerText = " - "
 				+ context.getResources().getString(R.string.app_name);
 		long when = System.currentTimeMillis();
-
+        if(_when != null) {
+			when += _when;
+		}
+		
 		timer = (int) when + 4000;
 		Notification notification = new Notification(icon, mTickerText, when);
 		notification.number = timer + 1;
@@ -553,6 +557,9 @@ public class AlarmClock implements Parcelable {
 
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
+	    NotificationManager mNotificationManager;
+		mNotificationManager = (NotificationManager) context
+				.getSystemService(ns);
 		mNotificationManager.notify(SettingsConst.APP_NOTIF_ID + 1,
 				notification);
 	}

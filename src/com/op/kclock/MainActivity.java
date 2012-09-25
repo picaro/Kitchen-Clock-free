@@ -355,35 +355,10 @@ OnSharedPreferenceChangeListener
 
 	}
 
-	// public void appendAddButton()
-	// {
-	// LinearLayout mainL = (LinearLayout) findViewById(R.id.alarm_layout);
-	// LayoutInflater inflater = (LayoutInflater)
-	// getSystemService(LAYOUT_INFLATER_SERVICE);
-	// LinearLayout itemView = (LinearLayout) inflater.inflate(
-	// R.layout.alarm_incl, null);
-	// TextViewWithMenu txtView = (TextViewWithMenu) itemView.getChildAt(1);
-	// txtView.setText(R.string.add);
-	//
-	// if (!mPrefs.getBoolean(
-	// getApplicationContext()
-	// .getString(R.string.pref_showsettbtn_key), false))
-	// {
-	// itemView.setVisibility(View.GONE);
-	// }
-	//
-	// itemView.setOnClickListener(new OnClickListener() {
-	// @Override
-	// public void onClick(View arg0)
-	// {
-	// addAlarmDialog();
-	//
-	// }
-	// });
-	// mainL.addView(itemView, new TableLayout.LayoutParams(
-	// LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-	// }
 
+	/**
+	   Initial icon
+	*/
 	public void notification()
 	{
 		int icon = R.drawable.stat_notify_alarm;
@@ -488,8 +463,10 @@ OnSharedPreferenceChangeListener
 	protected void onResume()
 	{
 		super.onResume();
+	    if (isTimerActive()){
 
-		// WakeUpLock.acquire(this);
+		}
+		
 		if (alarmList.size() == 0)
 		{
 			if (mPrefs.getBoolean(
@@ -503,11 +480,34 @@ OnSharedPreferenceChangeListener
 		Log.d(TAG, "MainActivity: onResume()");
 	}
 
+	private boolean isTimerActive()
+	{
+		for (AlarmClock alarm : alarmList)
+		{
+			if (alarm.getState() != AlarmClock.TimerState.RUNNING
+				&& alarm.getTime() > 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
-		// if (isTimerActive())//WakeUpLock.release();
+	    if (isTimerActive()){
+			//sort
+			Log.e(TAG, "pause() active");
+			if (alarmList.get(0).getState() != AlarmClock.TimerState.RUNNING)
+			{
+					Log.e(TAG, "act status");
+	
+				AlarmClock.sendTimeIsOverNotification(0,this.getApplicationContext(),
+					alarmList.get(0).getTime());
+			}
+		}
 		Log.d(TAG, "MainActivity: onPause()");
 	}
 
@@ -516,7 +516,6 @@ OnSharedPreferenceChangeListener
 	{
 		super.onStop();
 		// save to db
-
 		Log.d(TAG, "MainActivity: onStop()");
 	}
 
@@ -538,7 +537,6 @@ OnSharedPreferenceChangeListener
 			dbHelper.open();
 			// select min alarm and make caller
 			dbHelper.truncateAlarms();
-			// HistoryDAO historyDAO = new HistoryDAO(getApplicationContext());
 			for (AlarmClock alarm : alarmList)
 			{
 				dbHelper.insertAlarm(alarm);
@@ -808,6 +806,10 @@ OnSharedPreferenceChangeListener
 					return true;
 
 				}
+			case R.id.menu_lookcode: {
+					lookForBarcode();
+					return true;
+				}
 			case R.id.menu_add: {
 					addAlarmDialog();
 					return true;
@@ -851,6 +853,10 @@ OnSharedPreferenceChangeListener
 				}
 			case R.id.addpreset: {
 					addPreset(text);
+					Toast toast = Toast.makeText(getApplicationContext(),
+												 getString(R.string.presets_saved), Toast.LENGTH_LONG);
+					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+					toast.show();				
 					return true;
 				}
 			case R.id.assigncode: {
@@ -1239,6 +1245,30 @@ OnSharedPreferenceChangeListener
 	{
 		Log.v(TAG, "finish");
 	}
+	
+	private void lookForBarcode()
+		{
+			if (!isIntentAvailable(getApplicationContext(), SCANER_ACTIVITY))
+			{
+				Toast toast = Toast.makeText(getApplicationContext(),
+											 getString(R.string.installzxingscan),
+											 Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+				toast.show();
+			}
+			else
+			{
+				Log.v(TAG, "fling 5");
+				Intent intent2 = new Intent(SCANER_ACTIVITY);
+				intent2.putExtra("SCAN_MODE", "ONE_D_MODE");
+				startActivityForResult(intent2, 0);
+
+				MainActivity.this.overridePendingTransition(
+					R.anim.slide_in_left, R.anim.slide_out_right);
+			}
+	}
+	
+	
 
 	class MyGestureDetector extends SimpleOnGestureListener
 	{
@@ -1275,28 +1305,12 @@ OnSharedPreferenceChangeListener
 					 && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
 			{
 				Log.v(TAG, "fling 4");
-				if (!isIntentAvailable(getApplicationContext(), SCANER_ACTIVITY))
-				{
-					Toast toast = Toast.makeText(getApplicationContext(),
-												 getString(R.string.installzxingscan),
-												 Toast.LENGTH_LONG);
-					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-					toast.show();
-				}
-				else
-				{
-					Log.v(TAG, "fling 5");
-					Intent intent2 = new Intent(SCANER_ACTIVITY);
-					intent2.putExtra("SCAN_MODE", "ONE_D_MODE");
-					startActivityForResult(intent2, 0);
-
-					MainActivity.this.overridePendingTransition(
-						R.anim.slide_in_left, R.anim.slide_out_right);
-				}
+				lookForBarcode();
 			}
 
 			return false;
 		}
+
 
 		// It is necessary to return true from onDown for the onFling event to
 		// register

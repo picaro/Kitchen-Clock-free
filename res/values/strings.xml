@@ -198,5 +198,6 @@
 	<string name="pref_overridesettbg">Background for presets</string>
     <string name="pref_overridesettbg_summary">used new bg for presets page</string>	
     <string name="liteallow">4 timers,6 presets in Lite ver.</string>	
+    <string name="lookcode">Scaner</string>	
 	
 </resources>

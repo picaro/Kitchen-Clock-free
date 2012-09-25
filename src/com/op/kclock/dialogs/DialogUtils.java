@@ -31,10 +31,12 @@ public class DialogUtils {
     /**
      * Creates an {@link AlertDialog} with given message and one button with given text, which when pressed finishes the {@link Activity}.
      */
-    public static void createActivityClosingDialog(final Activity activity, String message, String buttonText) {
+    public static void createDialog(final Activity activity,String title, String message, String buttonText, boolean cancelable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage(message);
-        builder.setCancelable(false);
+		builder.setTitle(title);
+        builder.setCancelable(cancelable);
+		//builder.
         builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 activity.finish();
