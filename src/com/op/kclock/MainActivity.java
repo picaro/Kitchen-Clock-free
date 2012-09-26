@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -493,19 +494,36 @@ OnSharedPreferenceChangeListener
 		return false;
 	}
 
+    public final static String ID = "alarm_id";
+    public final static String TIME = "alarm_time";
+    public final static String LABEL = "alarm_label";
+    
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
-	    if (isTimerActive()){
+	    if (isTimerActive() ){
 			//sort
 			Log.e(TAG, "pause() active");
-			if (alarmList.get(0).getState() != AlarmClock.TimerState.RUNNING)
+			if (alarmList.get(0).getState() == AlarmClock.TimerState.RUNNING)
 			{
-					Log.e(TAG, "act status");
-	
-				AlarmClock.sendTimeIsOverNotification(0,this.getApplicationContext(),
-					alarmList.get(0).getTime());
+//					Log.e(TAG, "act status");
+//
+//			        AlarmManager am = (AlarmManager)
+//			                getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+//
+//			        Intent intent = new Intent(SettingsConst.INTENT_TIMER_ENDED);
+//			        intent.putExtra(ID, 2);
+//			        intent.putExtra(LABEL, "sdsd");
+//			        Long atTimeInMillis = System.currentTimeMillis() + alarmList.get(0).getTime() * 1000;
+//			        intent.putExtra(TIME, atTimeInMillis);
+//			        PendingIntent sender = PendingIntent.getBroadcast(
+//			                getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+//
+//			            am.set(AlarmManager.RTC_WAKEUP, atTimeInMillis, sender);
+			        
+				//AlarmClock.sendTimeIsOverNotification(0,this.getApplicationContext(),
+				//	alarmList.get(0).getTime());
 			}
 		}
 		Log.d(TAG, "MainActivity: onPause()");

@@ -21,7 +21,8 @@ public class SettingsConst
 	public static final String PREF_EULA_ACCEPTED = "eula.accepted";
 
 	
-	public static final String INTENT_TIMER_ENDED = "kitchentimer.custom.intent.action.TIMER_ENDED";
+	
+	public static final String INTENT_TIMER_ENDED = "com.op.kclock.KC_ALERT";
 	public static final int APP_NOTIF_ID = 99;
 	public static final String TIMER = "timer";
 	public static final String TIMER_NAME = "timer_name";
