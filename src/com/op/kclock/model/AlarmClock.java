@@ -485,7 +485,7 @@ public class AlarmClock implements Parcelable {
 				+ context.getResources().getString(R.string.app_name);
 		long when = System.currentTimeMillis();
         if(_when != null) {
-			when += _when;
+			when += _when*1000;
 		}
 		
 		timer = (int) when + 4000;

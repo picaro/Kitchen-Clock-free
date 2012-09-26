@@ -484,7 +484,7 @@ OnSharedPreferenceChangeListener
 	{
 		for (AlarmClock alarm : alarmList)
 		{
-			if (alarm.getState() != AlarmClock.TimerState.RUNNING
+			if (alarm.getState() == AlarmClock.TimerState.RUNNING
 				&& alarm.getTime() > 0)
 			{
 				return true;
