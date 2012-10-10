@@ -81,6 +81,7 @@ import com.op.kclock.model.AlarmClock;
 import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DBHelper;
+import com.op.kclock.misc.*;
 
 public class MainActivity extends Activity implements OnClickListener,
 OnSharedPreferenceChangeListener
@@ -133,8 +134,6 @@ OnSharedPreferenceChangeListener
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
 
 
-		// Eula.show(this);
-		// Changelog.show(this);
 		initActionBar();
 
 
@@ -174,6 +173,10 @@ OnSharedPreferenceChangeListener
 			}
 		}
 
+		boolean openedDialogs = false;
+		openedDialogs = openedDialogs || !Eula.show(this);
+		openedDialogs = openedDialogs || !Changelog.show(this);
+
 		if (alarmList.size() > 0)
 		{
 			drawAlarms();
@@ -187,12 +190,12 @@ OnSharedPreferenceChangeListener
 				Log.d(TAG, "db read true!!");
 				DBHelper dbHelper = new DBHelper(getApplicationContext());
 				alarmList = dbHelper.getAlarmsList();
-				dbHelper.truncateAlarms();
+				//dbHelper.truncateAlarms();
 				drawAlarms();
 				dbHelper.close();
 			}
 
-			if (mPrefs.getBoolean(
+			if (!openedDialogs && alarmList.size() == 0 && mPrefs.getBoolean(
 					getApplicationContext().getString(
 						R.string.pref_addalarmonstart_key), true))
 			{
@@ -528,6 +531,25 @@ OnSharedPreferenceChangeListener
 				//	alarmList.get(0).getTime());
 			}
 		}
+		
+		
+		if (mPrefs.getBoolean(
+				getApplicationContext()
+				.getString(R.string.pref_savesession_key), false))
+		{
+			DBHelper dbHelper = new DBHelper(getApplicationContext());
+			dbHelper.open();
+			dbHelper.truncateAlarms();
+			for (AlarmClock alarm : alarmList)
+			{
+				dbHelper.insertAlarm(alarm);
+			}
+			dbHelper.close();
+		}
+		//alarmList.clear();
+		
+		
+		
 		Log.d(TAG, "MainActivity: onPause()");
 	}
 
@@ -549,21 +571,6 @@ OnSharedPreferenceChangeListener
 	protected void onDestroy()
 	{
 		super.onDestroy();
-		if (mPrefs.getBoolean(
-				getApplicationContext()
-				.getString(R.string.pref_savesession_key), true))
-		{
-			DBHelper dbHelper = new DBHelper(getApplicationContext());
-			dbHelper.open();
-			// select min alarm and make caller
-			//dbHelper.truncateAlarms();
-			for (AlarmClock alarm : alarmList)
-			{
-				dbHelper.insertAlarm(alarm);
-			}
-			dbHelper.close();
-		}
-		alarmList.clear();
 		Log.d(TAG, "MainActivity: onDestroy()");
 	}
 

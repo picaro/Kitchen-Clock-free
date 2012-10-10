@@ -25,7 +25,7 @@ limitations under the License.
             android:title="@string/pref_info_version" />
 
         <CheckBoxPreference
-            android:key="savesession"
+            android:key="@string/pref_savesession_key"
             android:summary="@string/pref_savesession_sum"
             android:title="@string/pref_savesession" />
     </PreferenceCategory>
