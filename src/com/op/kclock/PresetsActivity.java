@@ -213,10 +213,21 @@ public class PresetsActivity extends Activity implements OnClickListener {
 					return true;
 				}
 			case R.id.menu_delete_all: {
+				    final PresetsActivity act = this;
+					final LinearLayout presetsList = (LinearLayout) findViewById(R.id.presets_list);
+					final List presetsf = presets;
 					DialogUtils.createDialog(this,
 					getApplicationContext().getString(R.string.delete_preset_title),
 					getApplicationContext().getString(R.string.delete_preset_message),
-					getApplicationContext().getString(R.string.yes)
+					getApplicationContext().getString(R.string.yes),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							PresetsActivity.deleteAllPresets(getApplicationContext());
+							presetsf.clear();
+							presetsList.removeAllViews();
+							logsNpresetsMap.clear();
+						}
+					}	
 					,true);
 					return true;
 				}

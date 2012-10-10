@@ -32,7 +32,7 @@ public class DialogUtils {
     /**
      * Creates an {@link AlertDialog} with given message and one button with given text, which when pressed finishes the {@link Activity}.
      */
-    public static void createDialog(final Activity activity,String title, String message, String buttonText, boolean cancelable) {
+    public static void createDialog(final Activity activity,String title, String message, String buttonText, DialogInterface.OnClickListener lsn, boolean cancelable) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage(message);
 		builder.setTitle(title);
@@ -42,13 +42,7 @@ public class DialogUtils {
 		builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {}
 		});	
-        builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                PresetsActivity.deleteAllPresets(activity.getApplicationContext());
-				activity.recreate();// finish();	
-				
-            }
-        });
+        builder.setPositiveButton(buttonText,lsn );
         AlertDialog dialog = builder.create();
         dialog.show();
     }
