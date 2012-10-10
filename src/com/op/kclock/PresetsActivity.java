@@ -32,6 +32,7 @@ import com.op.kclock.cookconst.*;
 import android.widget.*;
 import android.view.*;
 import com.op.kclock.dialogs.*;
+import android.content.*;
 
 @TargetApi(5)
 public class PresetsActivity extends Activity implements OnClickListener {
@@ -212,8 +213,11 @@ public class PresetsActivity extends Activity implements OnClickListener {
 					return true;
 				}
 			case R.id.menu_delete_all: {
-					DialogUtils.createDialog(this,"totle","ttt","ok",true);
-					deleteAllPresets();
+					DialogUtils.createDialog(this,
+					getApplicationContext().getString(R.string.delete_preset_title),
+					getApplicationContext().getString(R.string.delete_preset_message),
+					getApplicationContext().getString(R.string.yes)
+					,true);
 					return true;
 				}
 			case R.id.menu_exit: {
@@ -267,15 +271,15 @@ public class PresetsActivity extends Activity implements OnClickListener {
 	}
 	}
 
-	private void deleteAllPresets()
+	public static void deleteAllPresets(Context context)
 	{
-		DBHelper dbHelper = new DBHelper(getApplicationContext());
+		DBHelper dbHelper = new DBHelper(context);
 		dbHelper.open();
 		dbHelper.truncatePresets();
 		dbHelper.close();
-		final LinearLayout presetsList = (LinearLayout) findViewById(R.id.presets_list);
-		presetsList.removeAllViews();
-		presets.clear();	
+		//final LinearLayout presetsList = (LinearLayout) findViewById(R.id.presets_list);
+		//presetsList.removeAllViews();
+		//presets.clear();	
 	}
 //=======
 	

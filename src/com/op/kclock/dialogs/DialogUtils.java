@@ -21,6 +21,7 @@ package com.op.kclock.dialogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import com.op.kclock.*;
 
 /**
  class for little dialogs. 
@@ -36,10 +37,16 @@ public class DialogUtils {
         builder.setMessage(message);
 		builder.setTitle(title);
         builder.setCancelable(cancelable);
-		//builder.
+		
+		
+		builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {}
+		});	
         builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                activity.finish();
+                PresetsActivity.deleteAllPresets(activity.getApplicationContext());
+				activity.recreate();// finish();	
+				
             }
         });
         AlertDialog dialog = builder.create();
