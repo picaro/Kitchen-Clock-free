@@ -214,8 +214,7 @@ OnSharedPreferenceChangeListener
 
 		gestureDetector = new GestureDetector(new MyGestureDetector());
 		View mainview = findViewById(R.id.mainScroll);
-		// Set the touch listener for the main view to be our custom gesture
-		// listener
+		// Set the touch listener for the main view to be our custom gesture listener
 		mainview.setOnTouchListener(new View.OnTouchListener() {
 				public boolean onTouch(View v, MotionEvent event)
 				{
@@ -681,6 +680,21 @@ OnSharedPreferenceChangeListener
 		alarm.updateElement();
 		alarm.getElement().setOnClickListener(this);
 		alarm.getWidget().getBackground().setAlpha(ALPHA_CLOCK);
+
+
+		alarm.getWidget().setOnTouchListener(new View.OnTouchListener() {
+				public boolean onTouch(View v, MotionEvent event)
+				{
+					Log.d(TAG, "touch");
+					if (gestureDetector.onTouchEvent(event))
+					{
+						return true;
+					}
+					Log.d(TAG, "no touch");
+					return false;
+				}
+		});
+
 
 		if (!mPrefs.getBoolean(
 				getApplicationContext().getString(R.string.pref_shownames_key),
