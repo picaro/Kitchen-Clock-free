@@ -100,6 +100,10 @@ OnSharedPreferenceChangeListener
 	private ActionBar actionBar;
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
 
+    	public final static String ID = "alarm_id";
+    	public final static String TIME = "alarm_time";
+	public final static String LABEL = "alarm_label";
+
 	// fling
 	public static final int SWIPE_MIN_DISTANCE = 120;
 	public static final int SWIPE_MAX_OFF_PATH = 250;
@@ -140,7 +144,6 @@ OnSharedPreferenceChangeListener
 		}
 
 		Log.d(TAG, "start");
-		// WakeUpLock.acquire(this);
 
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		notification();
@@ -182,10 +185,11 @@ OnSharedPreferenceChangeListener
 						R.string.pref_savesession_key), false))
 			{
 				Log.d(TAG, "db read true!!");
-				DBHelper alarmClockDAO = new DBHelper(getApplicationContext());
-				alarmList = alarmClockDAO.getAlarmsList();
+				DBHelper dbHelper = new DBHelper(getApplicationContext());
+				alarmList = dbHelper.getAlarmsList();
+				dbHelper.truncateAlarms();
 				drawAlarms();
-				alarmClockDAO.close();
+				dbHelper.close();
 			}
 
 			if (mPrefs.getBoolean(
@@ -494,9 +498,7 @@ OnSharedPreferenceChangeListener
 		return false;
 	}
 
-    public final static String ID = "alarm_id";
-    public final static String TIME = "alarm_time";
-    public final static String LABEL = "alarm_label";
+
     
 	@Override
 	protected void onPause()
@@ -554,7 +556,7 @@ OnSharedPreferenceChangeListener
 			DBHelper dbHelper = new DBHelper(getApplicationContext());
 			dbHelper.open();
 			// select min alarm and make caller
-			dbHelper.truncateAlarms();
+			//dbHelper.truncateAlarms();
 			for (AlarmClock alarm : alarmList)
 			{
 				dbHelper.insertAlarm(alarm);
