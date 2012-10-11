@@ -482,7 +482,9 @@ OnSharedPreferenceChangeListener
 		
 		if (alarmList.size() == 0)
 		{
-			if (mPrefs.getBoolean(
+			if (mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false) && 
+				mPrefs.getBoolean(SettingsConst.PREF_CHANGELOG, false) && 
+				mPrefs.getBoolean(
 					getApplicationContext().getString(
 						R.string.pref_addalarmonstart_key), true))
 			{
