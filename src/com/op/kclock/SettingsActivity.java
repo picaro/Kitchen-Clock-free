@@ -103,9 +103,14 @@ public class SettingsActivity extends PreferenceActivity implements
 					.setTitle(((EditTextPreference) bgFilePath).getText());
 		}
 		Preference bgPref = findPreference(CUSTOM_BGFILE_KEY);
-		onClickSelectFile(bgFilePath, bgPref,
-				new ArrayList<String>(Arrays.asList("png", "pix","bmp","jpg","jpeg")),
-				REQUEST_PICK_BG_FILE);
+		
+		Intent i = new Intent(Intent.ACTION_PICK,
+                		android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);                 
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+
+		//onClickSelectFile(bgFilePath, bgPref,
+		//		new ArrayList<String>(Arrays.asList("png", "pix","bmp","jpg","jpeg")),
+		//		REQUEST_PICK_BG_FILE);
 
 	}
 
