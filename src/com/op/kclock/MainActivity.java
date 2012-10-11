@@ -236,7 +236,7 @@ OnSharedPreferenceChangeListener
 
 
 		updateBackGround();
-
+Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 
 	}
 
@@ -483,7 +483,7 @@ OnSharedPreferenceChangeListener
 		if (alarmList.size() == 0)
 		{
 			if (mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false) && 
-				mPrefs.getBoolean(SettingsConst.PREF_CHANGELOG, false) && 
+ 
 				mPrefs.getBoolean(
 					getApplicationContext().getString(
 						R.string.pref_addalarmonstart_key), true))
@@ -676,7 +676,7 @@ OnSharedPreferenceChangeListener
 		alarm.getWidget().getBackground().setAlpha(ALPHA_CLOCK);
 
 
-		alarm.alarm.getElement()
+		alarm.getElement()
 				.getChildAt(0).setOnTouchListener(new View.OnTouchListener() {
 				public boolean onTouch(View v, MotionEvent event)
 				{
