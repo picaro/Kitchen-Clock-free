@@ -174,8 +174,8 @@ OnSharedPreferenceChangeListener
 		}
 
 		boolean openedDialogs = false;
-		openedDialogs = openedDialogs || !Eula.show(this);
-		openedDialogs = openedDialogs || !Changelog.show(this);
+		openedDialogs = openedDialogs | Eula.show(this);
+		openedDialogs = openedDialogs | Changelog.show(this);
 
 		if (alarmList.size() > 0)
 		{
@@ -545,10 +545,7 @@ OnSharedPreferenceChangeListener
 			}
 			dbHelper.close();
 		}
-		//alarmList.clear();
-		
-		
-		
+
 		Log.d(TAG, "MainActivity: onPause()");
 	}
 
@@ -560,18 +557,7 @@ OnSharedPreferenceChangeListener
 		Log.d(TAG, "MainActivity: onStop()");
 	}
 
-	/**
-	 * this method sets alarm manager to try wake up on given time
-	 * 
-	 * @param time
-	 *            when to try wake up next time
-	 */
-	@Override
-	protected void onDestroy()
-	{
-		super.onDestroy();
-		Log.d(TAG, "MainActivity: onDestroy()");
-	}
+
 
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
@@ -681,19 +667,19 @@ OnSharedPreferenceChangeListener
 		alarm.getElement().setOnClickListener(this);
 		alarm.getWidget().getBackground().setAlpha(ALPHA_CLOCK);
 
-
-		alarm.getWidget().setOnTouchListener(new View.OnTouchListener() {
-				public boolean onTouch(View v, MotionEvent event)
-				{
-					Log.d(TAG, "touch");
-					if (gestureDetector.onTouchEvent(event))
-					{
-						return true;
-					}
-					Log.d(TAG, "no touch");
-					return false;
-				}
-		});
+//
+//		alarm.getWidget().setOnTouchListener(new View.OnTouchListener() {
+//				public boolean onTouch(View v, MotionEvent event)
+//				{
+//					Log.d(TAG, "touch");
+//					if (gestureDetector.onTouchEvent(event))
+//					{
+//						return true;
+//					}
+//					Log.d(TAG, "no touch");
+//					return false;
+//				}
+//		});
 
 
 		if (!mPrefs.getBoolean(
