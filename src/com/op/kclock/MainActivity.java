@@ -174,11 +174,11 @@ OnSharedPreferenceChangeListener
 		}
 
 		boolean openedDialogs = false;
-		if (!preferences.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false)) {
+		if (!mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false)) {
 			Eula.show(this);
 			openedDialogs = true;
 		}
-		if (!preferences.getBoolean(SettingsConst.PREF_CHANGELOG, false)) {
+		if (!mPrefs.getBoolean(SettingsConst.PREF_CHANGELOG, false)) {
 			Changelog.show(this);
 			openedDialogs = true;
 		}
