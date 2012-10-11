@@ -56,7 +56,7 @@
         <receiver android:name="com.op.kclock.alarm.AlarmReceiver" >
             <intent-filter>
                <action android:name="com.op.kclock.KC_ALERT" />
-            </intent-filter>
+             </intent-filter>
         </receiver>
     </application>
 
