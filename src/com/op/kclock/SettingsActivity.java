@@ -35,6 +35,8 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final int REQUEST_PICK_BG_FILE = 5;
 	public static final String v = "soundfile";
 
+	private static final int RESULT_LOAD_IMAGE = 9;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

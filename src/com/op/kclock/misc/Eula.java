@@ -27,6 +27,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import com.op.kclock.utils.*;
+import android.content.*;
+import android.preference.*;
 
 /**
  * Displays an EULA ("End User License Agreement") that the user has to accept
@@ -57,7 +59,7 @@ public class Eula {
 	 * @return Whether the user has agreed already.
 	 */
 	public static boolean show(final Activity activity) {
-		Context context = getApplicationContext();
+		Context context = activity.getApplicationContext();
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		if (!preferences.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false)) {
 			final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
