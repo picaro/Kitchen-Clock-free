@@ -174,9 +174,15 @@ OnSharedPreferenceChangeListener
 		}
 
 		boolean openedDialogs = false;
-		openedDialogs = openedDialogs | Eula.show(this);
-		openedDialogs = openedDialogs | Changelog.show(this);
-
+		if (!preferences.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false)) {
+			Eula.show(this);
+			openedDialogs = true;
+		}
+		if (!preferences.getBoolean(SettingsConst.PREF_CHANGELOG, false)) {
+			Changelog.show(this);
+			openedDialogs = true;
+		}
+	
 		if (alarmList.size() > 0)
 		{
 			drawAlarms();
@@ -667,19 +673,20 @@ OnSharedPreferenceChangeListener
 		alarm.getElement().setOnClickListener(this);
 		alarm.getWidget().getBackground().setAlpha(ALPHA_CLOCK);
 
-//
-//		alarm.getWidget().setOnTouchListener(new View.OnTouchListener() {
-//				public boolean onTouch(View v, MotionEvent event)
-//				{
-//					Log.d(TAG, "touch");
-//					if (gestureDetector.onTouchEvent(event))
-//					{
-//						return true;
-//					}
-//					Log.d(TAG, "no touch");
-//					return false;
-//				}
-//		});
+
+		alarm.alarm.getElement()
+				.getChildAt(0).setOnTouchListener(new View.OnTouchListener() {
+				public boolean onTouch(View v, MotionEvent event)
+				{
+					Log.d(TAG, "touch2");
+					if (gestureDetector.onTouchEvent(event))
+					{
+						return true;
+					}
+					Log.d(TAG, "no touch2");
+					return false;
+				}
+		});
 
 
 		if (!mPrefs.getBoolean(
