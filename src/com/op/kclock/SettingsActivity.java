@@ -22,6 +22,7 @@ import android.preference.PreferenceActivity;
 
 import com.op.kclock.misc.Log;
 import com.op.kclock.settings.FileChooserActivity;
+import java.io.*;
 
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener {
@@ -35,7 +36,6 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final int REQUEST_PICK_BG_FILE = 5;
 	public static final String v = "soundfile";
 
-	private static final int RESULT_LOAD_IMAGE = 9;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -106,9 +106,18 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 		Preference bgPref = findPreference(CUSTOM_BGFILE_KEY);
 		
-		Intent i = new Intent(Intent.ACTION_PICK,
+		bgPref.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				public boolean onPreferenceClick(Preference p1)
+				{
+					Intent i = new Intent(Intent.ACTION_PICK,
                 		android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);                 
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+					startActivityForResult(i, REQUEST_PICK_BG_FILE);
+					return true;
+				}
+
+			
+		});
 
 		//onClickSelectFile(bgFilePath, bgPref,
 		//		new ArrayList<String>(Arrays.asList("png", "pix","bmp","jpg","jpeg")),
@@ -175,10 +184,11 @@ public class SettingsActivity extends PreferenceActivity implements
 					break;
 				}
 				case REQUEST_PICK_BG_FILE: {
-					if (data.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
+					if (data != null){//}.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
 						findViewById(R.string.pref_bgfile_key);
-						String filePath = data
-								.getStringExtra(FileChooserActivity.EXTRA_FILE_PATH);
+						String filePath =new File( data
+								.getData().getPath()).getAbsolutePath();// getab.getPath();// StringExtra(FileChooserActivity.EXTRA_FILE_PATH);
+						Log.e(MainActivity.TAG,""+filePath);
 						EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_bgfile_path_key));
 						customPref2.setText(filePath);
 						customPref2.setTitle(filePath);
