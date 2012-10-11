@@ -188,9 +188,9 @@ public class SettingsActivity extends PreferenceActivity implements
 						findViewById(R.string.pref_soundfile_key);
 						String filePath = data
 								.getStringExtra(FileChooserActivity.EXTRA_FILE_PATH);
-						EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
-						customPref2.setText(filePath);
-						customPref2.setTitle(filePath);
+						//EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
+						//customPref2.setText(filePath);
+						//customPref2.setTitle(filePath);
 					}
 					break;
 				}
@@ -199,9 +199,9 @@ public class SettingsActivity extends PreferenceActivity implements
 						findViewById(R.string.pref_bgfile_key);
 						String filePath = getRealPathFromURI(data.getData());
 						Log.e(MainActivity.TAG,""+filePath);
-						EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_bgfile_path_key));
-						customPref2.setText(filePath);
-						customPref2.setTitle(filePath);
+						//EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_bgfile_path_key));
+						//customPref2.setText(filePath);
+						//customPref2.setTitle(filePath);
 					}
 					break;
 				}
@@ -241,13 +241,13 @@ public class SettingsActivity extends PreferenceActivity implements
 	}
 
 	public void soundSourceChanged(Object value) {
-		Preference customPref = findPreference(getString(R.string.pref_soundfile_path_key));
+		//Preference customPref = findPreference(getString(R.string.pref_soundfile_path_key));
 		Preference customPrefBtn = findPreference(getString(R.string.pref_soundfile_key));
 		Preference syssoundPref = findPreference(getString(R.string.pref_notification_ringtone_key));
-		customPref.setEnabled(false);
+		//customPref.setEnabled(false);
 		if (((String) value).equals(SYSTEM_SOUND_VALUE)) {
 			customPrefBtn.setEnabled(false);
-			syssoundPref.setEnabled(true);
+			//syssoundPref.setEnabled(true);
 		} else {
 			// customPref.setEnabled(true);
 			customPrefBtn.setEnabled(true);
@@ -256,9 +256,9 @@ public class SettingsActivity extends PreferenceActivity implements
 	}
 	
 	public void bgSourceChanged(Object value) {
-		Preference customPref = findPreference(getString(R.string.pref_bgfile_path_key));
+		//Preference customPref = findPreference(getString(R.string.pref_bgfile_path_key));
 		Preference customPrefBtn = findPreference(getString(R.string.pref_bgfile_key));
-		customPref.setEnabled(false);
+		//customPref.setEnabled(false);
 		if (((String) value).equals(SYSTEM_SOUND_VALUE)) {
 			customPrefBtn.setEnabled(false);
 		} else {

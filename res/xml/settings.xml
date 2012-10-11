@@ -117,10 +117,10 @@ limitations under the License.
             android:summary="@string/pref_bgsource_summary"
             android:dialogTitle="@string/pref_bgsource_dialogtitle"
                   android:title="@string/pref_bgsource_dialogtitle" />
-        <EditTextPreference
+        <!-- EditTextPreference
             android:key="@string/pref_bgfile_path_key"
             android:title=""
-            android:enabled="false" />
+            android:enabled="false" /-->
         <Preference
             android:key="@string/pref_bgfile_key"
             android:summary="@string/pref_bgfile_summary"
@@ -151,9 +151,9 @@ limitations under the License.
             android:summary="@string/pref_notification_ringtone_summary"
             android:title="@string/pref_notification_ringtone" />
 
-        <EditTextPreference
+        <!--  EditTextPreference
             android:key="@string/pref_soundfile_path_key"
-            android:title="" />
+            android:title="" /-->
 
         <Preference
             android:key="@string/pref_soundfile_key"
