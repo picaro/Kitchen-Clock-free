@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 //import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -19,9 +21,11 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.provider.MediaStore;
 
 import com.op.kclock.misc.Log;
 import com.op.kclock.settings.FileChooserActivity;
+import java.io.*;
 
 public class SettingsActivity extends PreferenceActivity implements
 		OnPreferenceChangeListener {
@@ -35,7 +39,6 @@ public class SettingsActivity extends PreferenceActivity implements
 	private static final int REQUEST_PICK_BG_FILE = 5;
 	public static final String v = "soundfile";
 
-	private static final int RESULT_LOAD_IMAGE = 9;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -106,15 +109,32 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 		Preference bgPref = findPreference(CUSTOM_BGFILE_KEY);
 		
-		Intent i = new Intent(Intent.ACTION_PICK,
+		bgPref.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				public boolean onPreferenceClick(Preference p1)
+				{
+					Intent i = new Intent(Intent.ACTION_PICK,
                 		android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);                 
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+					startActivityForResult(i, REQUEST_PICK_BG_FILE);
+					return true;
+				}
+
+			
+		});
 
 		//onClickSelectFile(bgFilePath, bgPref,
 		//		new ArrayList<String>(Arrays.asList("png", "pix","bmp","jpg","jpeg")),
 		//		REQUEST_PICK_BG_FILE);
 
 	}
+	
+	public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
 
 	private void onClickSelectFile(final Preference soundFilePath,
 			Preference customPref, final ArrayList<String> extensions,
@@ -175,10 +195,10 @@ public class SettingsActivity extends PreferenceActivity implements
 					break;
 				}
 				case REQUEST_PICK_BG_FILE: {
-					if (data.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
+					if (data != null){//}.hasExtra(FileChooserActivity.EXTRA_FILE_PATH)) {
 						findViewById(R.string.pref_bgfile_key);
-						String filePath = data
-								.getStringExtra(FileChooserActivity.EXTRA_FILE_PATH);
+						String filePath = getRealPathFromURI(data.getData());
+						Log.e(MainActivity.TAG,""+filePath);
 						EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_bgfile_path_key));
 						customPref2.setText(filePath);
 						customPref2.setTitle(filePath);

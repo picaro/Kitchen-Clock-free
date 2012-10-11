@@ -5,7 +5,7 @@ package com.op.kclock.cookconst;
 */
 public class SettingsConst
 {
-	public static final boolean APP_FULL = false;
+	public static final boolean APP_FULL = true;
 	public static final int MAX_TIMERS = 4;
 	public static final int MAX_PRESETS = 6;
 	
