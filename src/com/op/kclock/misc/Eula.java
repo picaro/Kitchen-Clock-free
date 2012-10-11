@@ -57,7 +57,8 @@ public class Eula {
 	 * @return Whether the user has agreed already.
 	 */
 	public static boolean show(final Activity activity) {
-		final SharedPreferences preferences = activity.getSharedPreferences(SettingsConst.PREF_EULA, Activity.MODE_PRIVATE);
+		Context context = getApplicationContext();
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		if (!preferences.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false)) {
 			final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 			builder.setTitle(R.string.eula_title);
