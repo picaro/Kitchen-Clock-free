@@ -247,7 +247,7 @@ Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 			getApplicationContext().getString(R.string.pref_bgsource_key),
 			SettingsActivity.SYSTEM_SOUND_VALUE);
 		View mainV = findViewById(R.id.mainScroll);
-		if (!bgSRC.equals("system"))
+		if (bgSRC.equals("custom"))
 		{
 			String customBG = mPrefs.getString(
 				getApplicationContext().getString(R.string.pref_bgfile_path_key), null);
@@ -257,8 +257,7 @@ Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 				BitmapDrawable bitmap = new BitmapDrawable(getResources(), customBG);
 				mainV.setBackgroundDrawable(bitmap);
 			}
-		} else
-		if (!bgSRC.equals("system")){
+		} else if (bgSRC.equals("system")){
 			mainV.setBackgroundResource(R.drawable.bg_wood);			
 		}
 		else
