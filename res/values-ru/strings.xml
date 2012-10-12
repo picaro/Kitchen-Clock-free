@@ -198,11 +198,11 @@
 	
    <string name="lookcode">Сканер</string>	
 		
-   <string name="pref_soundsource_wood">дерево</string>	
-   <string name="pref_soundsource_strawberry">клубничка</string>	
-    <string name="pref_soundsource_coffee">кофеёк</string>	
-    <string name="pref_soundsource_garlic">чесночек</string>	
-    <string name="pref_soundsource_greenpeas">горошек</string>	
-    <string name="pref_soundsource_spaghetti">спагетти</string>	
+   <string name="pref_bg_wood">дерево</string>	
+   <string name="pref_bg_strawberry">клубничка</string>	
+    <string name="pref_bg_coffee">кофеёк</string>	
+    <string name="pref_bg_garlic">чесночек</string>	
+    <string name="pref_bg_greenpeas">горошек</string>	
+    <string name="pref_bg_spaghetti">спагетти</string>	
 
 		</resources>
