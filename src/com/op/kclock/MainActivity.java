@@ -257,10 +257,13 @@ Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 				BitmapDrawable bitmap = new BitmapDrawable(getResources(), customBG);
 				mainV.setBackgroundDrawable(bitmap);
 			}
+		} else
+		if (!bgSRC.equals("system")){
+			mainV.setBackgroundResource(R.drawable.bg_wood);			
 		}
 		else
 		{
-			mainV.setBackgroundResource(R.drawable.bg_wood);
+			mainV.setBackgroundResource(R.drawable.bg_strawberry_v);
 		}
 	}
 
