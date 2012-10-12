@@ -134,7 +134,7 @@ OnSharedPreferenceChangeListener
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
 															   .getApplicationContext());
 		if (Utils.isSdPresent()){
-			Utils.loadSharedPreferencesFromFile(prefFile, this.
+			Utils.loadSharedPreferencesFromFile(prefFile, this.getApplicationContext());
 		};
 		
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
