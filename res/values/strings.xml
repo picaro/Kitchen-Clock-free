@@ -199,5 +199,11 @@
     <string name="pref_overridesettbg_summary">used new bg for presets page</string>	
     <string name="liteallow">4 timers,6 presets in Lite ver.</string>	
     <string name="lookcode">Scaner</string>	
+    
+    <string name="pref_soundsource_strawberry">strawberry</string>	
+    <string name="pref_soundsource_coffee">coffee</string>	
+    <string name="pref_soundsource_garlic">garlic</string>	
+    <string name="pref_soundsource_greenpeas">green peas</string>	
+    <string name="pref_soundsource_spaghetti">spaghetti</string>	
 	
 </resources>
