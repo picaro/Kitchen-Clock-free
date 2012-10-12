@@ -23,6 +23,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.provider.MediaStore;
 
+import com.op.kclock.cookconst.SettingsConst;
 import com.op.kclock.misc.Log;
 import com.op.kclock.settings.FileChooserActivity;
 import java.io.*;
@@ -86,27 +87,22 @@ public class SettingsActivity extends PreferenceActivity implements
 			syssoundPref.setOnPreferenceChangeListener(this);
 		}
 
-		final Preference soundFilePath = findPreference(getString(R.string.pref_soundfile_path_key));
-		if (soundFilePath != null
-				&& ((EditTextPreference) soundFilePath).getText() != null
-				&& ((EditTextPreference) soundFilePath).getText().length() > 0
-				&& ((EditTextPreference) soundFilePath).getText().toCharArray()[0] == '/') {
-			((EditTextPreference) soundFilePath)
-					.setTitle(((EditTextPreference) soundFilePath).getText());
-		}
+		final String soundFilePath = mPrefs.getString(
+					getApplicationContext().getString(
+						R.string.pref_soundfile_path_key), null);//findPreference(getString(R.string.pref_soundfile_path_key));
 		// add onclick for select shader
 		Preference customPref = findPreference(CUSTOM_SOUNDFILE_KEY);
 		onClickSelectFile(soundFilePath, customPref, new ArrayList<String>(
 				Arrays.asList("mp3", "wav", "ogg")), REQUEST_PICK_SOUND_FILE);
 
-		final Preference bgFilePath = findPreference(getString(R.string.pref_bgfile_path_key));
-		if (bgFilePath != null
+		//final Preference bgFilePath = findPreference(getString(R.string.pref_bgfile_path_key));
+		/*if (bgFilePath != null
 				&& ((EditTextPreference) bgFilePath).getText() != null
 				&& ((EditTextPreference) bgFilePath).getText().length() > 0
 				&& ((EditTextPreference) bgFilePath).getText().toCharArray()[0] == '/') {
 			((EditTextPreference) bgFilePath)
 					.setTitle(((EditTextPreference) bgFilePath).getText());
-		}
+		}*/
 		Preference bgPref = findPreference(CUSTOM_BGFILE_KEY);
 		
 		bgPref.setOnPreferenceClickListener(new OnPreferenceClickListener(){
@@ -136,7 +132,7 @@ public class SettingsActivity extends PreferenceActivity implements
         return cursor.getString(column_index);
     }
 
-	private void onClickSelectFile(final Preference soundFilePath,
+	private void onClickSelectFile(final String soundFilePath,
 			Preference customPref, final ArrayList<String> extensions,
 			final int type) {
 		if (customPref != null) {
@@ -149,21 +145,19 @@ public class SettingsActivity extends PreferenceActivity implements
 									SettingsActivity.this,
 									FileChooserActivity.class);
 							if (soundFilePath != null
-									&& ((EditTextPreference) soundFilePath)
-											.getText() != null
-									&& ((EditTextPreference) soundFilePath)
-											.getText().length() > 0
-									&& ((EditTextPreference) soundFilePath)
-											.getText().toCharArray()[0] == '/') {
+									&& (soundFilePath)
+											 != null
+									&& (soundFilePath)
+											.length() > 0
+									&& (soundFilePath)
+											.toCharArray()[0] == '/') {
 								fileChooserI
 										.putExtra(
 												FileChooserActivity.EXTRA_FILE_PATH,
-												((EditTextPreference) soundFilePath)
-														.getText()
+												soundFilePath
 														.substring(
 																0,
-																((EditTextPreference) soundFilePath)
-																		.getText()
+																soundFilePath
 																		.lastIndexOf(
 																				"/")));
 							}
@@ -191,6 +185,7 @@ public class SettingsActivity extends PreferenceActivity implements
 						//EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_soundfile_path_key));
 						//customPref2.setText(filePath);
 						//customPref2.setTitle(filePath);
+						mPrefs.edit().putString(getString(R.string.pref_soundfile_path_key), filePath).commit();
 					}
 					break;
 				}
@@ -202,6 +197,7 @@ public class SettingsActivity extends PreferenceActivity implements
 						//EditTextPreference customPref2 = (EditTextPreference) findPreference(getString(R.string.pref_bgfile_path_key));
 						//customPref2.setText(filePath);
 						//customPref2.setTitle(filePath);
+						mPrefs.edit().putString(getString(R.string.pref_bgfile_path_key), filePath).commit();
 					}
 					break;
 				}
@@ -247,7 +243,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		//customPref.setEnabled(false);
 		if (((String) value).equals(SYSTEM_SOUND_VALUE)) {
 			customPrefBtn.setEnabled(false);
-			//syssoundPref.setEnabled(true);
+			syssoundPref.setEnabled(true);
 		} else {
 			// customPref.setEnabled(true);
 			customPrefBtn.setEnabled(true);

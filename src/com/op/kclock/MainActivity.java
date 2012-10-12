@@ -251,6 +251,7 @@ Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 		{
 			String customBG = mPrefs.getString(
 				getApplicationContext().getString(R.string.pref_bgfile_path_key), null);
+			
 			if (customBG != null && customBG.length() > 2)
 			{
 				BitmapDrawable bitmap = new BitmapDrawable(getResources(), customBG);
