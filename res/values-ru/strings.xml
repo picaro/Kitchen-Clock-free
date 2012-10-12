@@ -198,6 +198,7 @@
 	
    <string name="lookcode">Сканер</string>	
 		
+   <string name="pref_soundsource_wood">дерево</string>	
    <string name="pref_soundsource_strawberry">клубничка</string>	
     <string name="pref_soundsource_coffee">кофеёк</string>	
     <string name="pref_soundsource_garlic">чесночек</string>	
