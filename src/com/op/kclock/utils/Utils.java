@@ -84,4 +84,77 @@ public class Utils {
 		return Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 	}
 
+
+private boolean saveSharedPreferencesToFile(File dst) {
+    boolean res = false;
+    ObjectOutputStream output = null;
+    try {
+        output = new ObjectOutputStream(new FileOutputStream(dst));
+        SharedPreferences pref = 
+                            getSharedPreferences(prefName, MODE_PRIVATE);
+        output.writeObject(pref.getAll());
+
+        res = true;
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }finally {
+        try {
+            if (output != null) {
+                output.flush();
+                output.close();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    return res;
+}
+
+@SuppressWarnings({ "unchecked" })
+private boolean loadSharedPreferencesFromFile(File src) {
+    boolean res = false;
+    ObjectInputStream input = null;
+    try {
+        input = new ObjectInputStream(new FileInputStream(src));
+            Editor prefEdit = getSharedPreferences(prefName, MODE_PRIVATE).edit();
+            prefEdit.clear();
+            Map<String, ?> entries = (Map<String, ?>) input.readObject();
+            for (Entry<String, ?> entry : entries.entrySet()) {
+                Object v = entry.getValue();
+                String key = entry.getKey();
+
+                if (v instanceof Boolean)
+                    prefEdit.putBoolean(key, ((Boolean) v).booleanValue());
+                else if (v instanceof Float)
+                    prefEdit.putFloat(key, ((Float) v).floatValue());
+                else if (v instanceof Integer)
+                    prefEdit.putInt(key, ((Integer) v).intValue());
+                else if (v instanceof Long)
+                    prefEdit.putLong(key, ((Long) v).longValue());
+                else if (v instanceof String)
+                    prefEdit.putString(key, ((String) v));
+            }
+            prefEdit.commit();
+        res = true;         
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }finally {
+        try {
+            if (input != null) {
+                input.close();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    return res;
+}
+
+
 }
