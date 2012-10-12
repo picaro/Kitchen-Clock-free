@@ -200,11 +200,11 @@
     <string name="liteallow">4 timers,6 presets in Lite ver.</string>	
     <string name="lookcode">Scaner</string>	
     
-    <string name="pref_soundsource_wood">wood</string>	
-   <string name="pref_soundsource_strawberry">strawberry</string>	
-    <string name="pref_soundsource_coffee">coffee</string>	
-    <string name="pref_soundsource_garlic">garlic</string>	
-    <string name="pref_soundsource_greenpeas">green peas</string>	
-    <string name="pref_soundsource_spaghetti">spaghetti</string>	
+    <string name="pref_bg_wood">wood</string>	
+   <string name="pref_bg_strawberry">strawberry</string>	
+    <string name="pref_bg_coffee">coffee</string>	
+    <string name="pref_bg_garlic">garlic</string>	
+    <string name="pref_bg_greenpeas">green peas</string>	
+    <string name="pref_bg_spaghetti">spaghetti</string>	
 	
 </resources>
