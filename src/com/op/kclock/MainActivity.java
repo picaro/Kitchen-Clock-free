@@ -927,15 +927,6 @@ OnSharedPreferenceChangeListener
 
 	private void assignCode(TextViewWithMenu text)
 	{
-		if (!isIntentAvailable(getApplicationContext(), SCANER_ACTIVITY))
-		{
-			Toast toast = Toast.makeText(getApplicationContext(),
-										 getString(R.string.installzxingscan), Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-			toast.show();
-		}
-		else
-		{
 			Intent intent2 = new Intent(SCANER_ACTIVITY);
 			intent2.putExtra("SCAN_MODE", "ONE_D_MODE");
 			for (final AlarmClock alarm : alarmList)
@@ -943,10 +934,17 @@ OnSharedPreferenceChangeListener
 				if (alarm.getElement() != null
 					&& alarm.getElement().getChildAt(1) == (TextViewWithMenu) text)
 				{
-					startActivityForResult(intent2, alarm.hashCode());
+					try{
+						startActivityForResult(intent2, alarm.hashCode());
+					} catch (Exception e) {
+						Toast toast = Toast.makeText(getApplicationContext(),
+										 getString(R.string.installzxingscan), Toast.LENGTH_LONG);
+						toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+						toast.show();
+					}
+					break;
 				}
 			}
-		}
 	}
 
 	private void addPreset(TextViewWithMenu text)
@@ -1301,25 +1299,21 @@ OnSharedPreferenceChangeListener
 	}
 	
 	private void lookForBarcode()
-		{
-			if (!isIntentAvailable(getApplicationContext(), SCANER_ACTIVITY))
-			{
-				Toast toast = Toast.makeText(getApplicationContext(),
-											 getString(R.string.installzxingscan),
-											 Toast.LENGTH_LONG);
-				toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
-				toast.show();
-			}
-			else
-			{
+	{
 				Log.v(TAG, "fling 5");
 				Intent intent2 = new Intent(SCANER_ACTIVITY);
 				intent2.putExtra("SCAN_MODE", "ONE_D_MODE");
-				startActivityForResult(intent2, 0);
-
-				MainActivity.this.overridePendingTransition(
+				try{
+					startActivityForResult(intent2, 0);
+				} catch (Exception e) {
+					Toast toast = Toast.makeText(getApplicationContext(),
+											 getString(R.string.installzxingscan),
+											 Toast.LENGTH_LONG);
+					toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);
+					toast.show();
+				}
+					MainActivity.this.overridePendingTransition(
 					R.anim.slide_in_left, R.anim.slide_out_right);
-			}
 	}
 	
 	
