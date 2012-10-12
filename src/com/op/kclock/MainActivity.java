@@ -236,13 +236,16 @@ OnSharedPreferenceChangeListener
 
 
 		updateBackGround();
-Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
+		Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 
 	}
 
 
 	private void updateBackGround()
 	{
+		boolean vLay = getWindowManager().getDefaultDisplay().getHeight() >
+				getWindowManager().getDefaultDisplay().getWidth();
+		
 		String bgSRC = mPrefs.getString(
 			getApplicationContext().getString(R.string.pref_bgsource_key),
 			SettingsActivity.SYSTEM_SOUND_VALUE);
@@ -259,10 +262,21 @@ Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 			}
 		} else if (bgSRC.equals("system")){
 			mainV.setBackgroundResource(R.drawable.bg_wood);			
-		}
-		else
-		{
-			mainV.setBackgroundResource(R.drawable.bg_strawberry_v);
+		} else if (bgSRC.equals("strawberry")){
+			if (vLay) {mainV.setBackgroundResource(R.drawable.bg_strawberry_v);
+			} else {mainV.setBackgroundResource(R.drawable.bg_strawberry_h);}
+		} else if (bgSRC.equals("coffee")){
+			if (vLay) {mainV.setBackgroundResource(R.drawable.bg_coffee_v);
+			} else {mainV.setBackgroundResource(R.drawable.bg_coffee_h);}
+		} else if (bgSRC.equals("garlic")){
+			if (vLay) {mainV.setBackgroundResource(R.drawable.bg_garlic_v);
+			} else {mainV.setBackgroundResource(R.drawable.bg_garlic_h);}
+		} else if (bgSRC.equals("greenpeas")){
+			if (vLay) {mainV.setBackgroundResource(R.drawable.bg_greenpeas_v);
+			} else {mainV.setBackgroundResource(R.drawable.bg_greenpeas_h);}
+		} else if (bgSRC.equals("spaghetti")){
+			if (vLay) {mainV.setBackgroundResource(R.drawable.bg_spaghetti_v);
+			} else {mainV.setBackgroundResource(R.drawable.bg_spaghetti_h);}
 		}
 	}
 
@@ -405,6 +419,7 @@ Log.e(TAG, "--"+mPrefs.getBoolean(SettingsConst.PREF_EULA_ACCEPTED, false));
 	public void onConfigurationChanged(Configuration newConfig)
 	{
 		super.onConfigurationChanged(newConfig);
+		updateBackGround();
 		int height = getWindowManager().getDefaultDisplay().getHeight();
 		for (AlarmClock alarm : alarmList)
 		{
