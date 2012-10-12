@@ -82,6 +82,7 @@ import com.op.kclock.model.AlarmClock.TimerState;
 import com.op.kclock.ui.TextViewWithMenu;
 import com.op.kclock.utils.DBHelper;
 import com.op.kclock.misc.*;
+import com.op.kclock.utils.*;
 
 public class MainActivity extends Activity implements OnClickListener,
 OnSharedPreferenceChangeListener
@@ -101,10 +102,11 @@ OnSharedPreferenceChangeListener
 	private ActionBar actionBar;
 	private List<AlarmClock> alarmList = new ArrayList<AlarmClock>();
 
-    	public final static String ID = "alarm_id";
-    	public final static String TIME = "alarm_time";
+    public final static String ID = "alarm_id";
+    public final static String TIME = "alarm_time";
 	public final static String LABEL = "alarm_label";
-
+	private static String prefName = "com.op.kclock";
+	
 	// fling
 	public static final int SWIPE_MIN_DISTANCE = 120;
 	public static final int SWIPE_MAX_OFF_PATH = 250;
@@ -131,6 +133,10 @@ OnSharedPreferenceChangeListener
 
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this
 															   .getApplicationContext());
+		if (Utils.isSdPresent()){
+			Utils.loadSharedPreferencesFromFile(prefFile, this.
+		};
+		
 		mPrefs.registerOnSharedPreferenceChangeListener(this);
 
 

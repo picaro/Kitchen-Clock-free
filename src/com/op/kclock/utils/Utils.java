@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
+import java.util.Map.Entry;
 import com.op.kclock.R;
 import com.op.kclock.misc.Log;
 
@@ -15,6 +15,11 @@ import android.content.Context;
 import android.os.Environment;
 import android.view.View;
 import android.webkit.WebView;
+import java.io.*;
+import android.content.*;
+import android.content.SharedPreferences.*;
+import java.util.*;
+import android.preference.*;
 
 
 public class Utils {
@@ -84,14 +89,15 @@ public class Utils {
 		return Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 	}
 
+	private static String prefName = "com.op.kclock";
 
-private boolean saveSharedPreferencesToFile(File dst) {
+public static boolean saveSharedPreferencesToFile(File dst, Context context) {
     boolean res = false;
     ObjectOutputStream output = null;
     try {
         output = new ObjectOutputStream(new FileOutputStream(dst));
         SharedPreferences pref = 
-                            getSharedPreferences(prefName, MODE_PRIVATE);
+			PreferenceManager.getDefaultSharedPreferences(context);//(prefName, context.MODE_PRIVATE);
         output.writeObject(pref.getAll());
 
         res = true;
@@ -113,12 +119,13 @@ private boolean saveSharedPreferencesToFile(File dst) {
 }
 
 @SuppressWarnings({ "unchecked" })
-private boolean loadSharedPreferencesFromFile(File src) {
+public static boolean loadSharedPreferencesFromFile(File src, Context context) {
     boolean res = false;
     ObjectInputStream input = null;
     try {
         input = new ObjectInputStream(new FileInputStream(src));
-            Editor prefEdit = getSharedPreferences(prefName, MODE_PRIVATE).edit();
+		Editor prefEdit =	PreferenceManager.getDefaultSharedPreferences(context) //context.getSharedPreferences(prefName,context.MODE_PRIVATE)
+			.edit();
             prefEdit.clear();
             Map<String, ?> entries = (Map<String, ?>) input.readObject();
             for (Entry<String, ?> entry : entries.entrySet()) {

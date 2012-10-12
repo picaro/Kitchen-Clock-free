@@ -33,6 +33,8 @@ import android.widget.*;
 import android.view.*;
 import com.op.kclock.dialogs.*;
 import android.content.*;
+import com.op.kclock.utils.*;
+import java.io.*;
 
 @TargetApi(5)
 public class PresetsActivity extends Activity implements OnClickListener {
@@ -334,6 +336,10 @@ public class PresetsActivity extends Activity implements OnClickListener {
 
 	}
 
-	
-	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		File prefFile = new File("/mnt/sdcard/tmp.txt");
+		Utils.saveSharedPreferencesToFile(prefFile,this.getApplicationContext());
+	}
 }
