@@ -18,7 +18,7 @@
     <string name="edit">Редактировать</string>
     <string name="delete">Удалить</string>
     <string name="ok">OK</string>
-    <string name="cancel">Отмена</string>
+    <string name="cancel">отмена</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="back">Назад</string>
@@ -30,7 +30,7 @@
     <string name="min">мин</string>
     <string name="hour">час</string>
     <string name="sec">сек</string>
-    <string name="set">Установить</string>
+    <string name="set">ок</string>
 
     <!-- Notifications -->
     <string name="timer_started">Таймер запущен</string>
