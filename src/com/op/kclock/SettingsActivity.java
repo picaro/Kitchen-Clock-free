@@ -26,6 +26,8 @@ import android.provider.MediaStore;
 import com.op.kclock.cookconst.SettingsConst;
 import com.op.kclock.misc.Log;
 import com.op.kclock.settings.FileChooserActivity;
+import com.op.kclock.utils.Utils;
+
 import java.io.*;
 
 public class SettingsActivity extends PreferenceActivity implements
@@ -266,4 +268,11 @@ public class SettingsActivity extends PreferenceActivity implements
 		// Preference volumePref =
 		// (Preference)findPreference(getString(R.string.pref_volume_key));
 	}
+	
+//	@Override
+//	protected void onPause(){
+//		super.onPause();
+//		File prefFile = new File("/mnt/sdcard/tmp.txt");
+//		Utils.saveSharedPreferencesToFile(prefFile,this.getApplicationContext());
+//	}
 }

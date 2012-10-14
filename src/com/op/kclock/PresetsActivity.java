@@ -336,10 +336,5 @@ public class PresetsActivity extends Activity implements OnClickListener {
 
 	}
 
-	@Override
-	protected void onPause(){
-		super.onPause();
-		File prefFile = new File("/mnt/sdcard/tmp.txt");
-		Utils.saveSharedPreferencesToFile(prefFile,this.getApplicationContext());
-	}
+
 }
